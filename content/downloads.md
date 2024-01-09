@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址：[https://protobuf.dev/downloads/](https://protobuf.dev/downloads/)
+
 ## Downloads 下载
 
 The downloads page for protocol buffers.

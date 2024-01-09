@@ -2,9 +2,10 @@
 title = "Language Guide (proto 2)"
 weight = 30
 description = "Covers how to use the version 2 of Protocol Buffers in your project."
-aliases = "/programming-guides/proto/"
 type = "docs"
 +++
+
+> 原文网址： https://protobuf.dev/programming-guides/proto2/
 
 This guide describes how to use the protocol buffer language to structure your
 protocol buffer data, including `.proto` file syntax and how to generate data

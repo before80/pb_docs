@@ -5,3 +5,5 @@ linkTitle = "Go"
 description = "Reference documentation for working with protocol buffer classes in Go"
 type = "docs"
 +++
+
+> 原文网址： 

@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/overview/
+
 ## Overview 概述
 
 Protocol Buffers are a language-neutral, platform-neutral extensible mechanism for serializing structured data.

@@ -6,6 +6,8 @@ description = "Describes exactly what C++ code the protocol buffer compiler gene
 type = "docs"
 +++
 
+> 原文网址：https://protobuf.dev/reference/cpp/cpp-generated/
+
 # C++ Generated Code Guide C++ 生成代码指南
 
 Describes exactly what C++ code the protocol buffer compiler generates for any given protocol definition.

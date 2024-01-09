@@ -1,11 +1,13 @@
 
 
 +++
-title = "Tutorials"
+title = "教程"
 weight = 200
 description = "本部分中的每个教程都向您展示如何使用您喜欢的语言在协议缓冲区中实现一个简单的应用程序，向您介绍该语言的协议缓冲区 API，并向您展示创建和使用 .proto 文件的基础知识。"
 type = "docs"
 +++
+
+> 原文网址： https://protobuf.dev/getting-started/
 
 ## Tutorials 教程
 

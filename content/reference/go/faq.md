@@ -2,14 +2,17 @@
 title = "Go FAQ"
 weight = 620
 linkTitle = "FAQ"
-description = "A list of frequently asked questions about implementing protocol buffers in Go, with answer for each."
+description = "关于在 Go 中实现协议缓冲区的一系列常见问题，并附有每个问题的答案。"
 type = "docs"
 +++
 
-# Go FAQ Go 常见问题解答
+> 原文网址： 
+
+## Go FAQ Go 常见问题解答
 
 A list of frequently asked questions about implementing protocol buffers in Go, with answer for each.
-关于在 Go 中实现协议缓冲区的一系列常见问题，并附有每个问题的答案。
+
+​	关于在 Go 中实现协议缓冲区的一系列常见问题，并附有每个问题的答案。
 
 
 

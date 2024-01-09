@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址：  https://protobuf.dev/support/cross-version-runtime-guarantee/
+
 ## Cross-Version Runtime Guarantee 跨版本运行时保证
 
 The guarantees that the language has for cross-version runtime compatibility.

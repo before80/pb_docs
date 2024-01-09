@@ -6,7 +6,9 @@ description = "Describes exactly what Java code the protocol buffer compiler gen
 type = "docs"
 +++
 
-# Java Generated Code Guide Java 生成代码指南
+> 原文网址：  https://protobuf.dev/reference/java/java-generated/
+
+## Java Generated Code Guide Java 生成代码指南
 
 Describes exactly what Java code the protocol buffer compiler generates for any given protocol definition.
 准确描述协议缓冲区编译器为任何给定协议定义生成的 Java 代码。

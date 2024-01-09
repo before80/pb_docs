@@ -7,6 +7,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/gotutorial/
+
 ## Protocol Buffer Basics: Go 协议缓冲区基础知识：Go
 
 A basic Go programmers introduction to working with protocol buffers.

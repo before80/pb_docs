@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/style/
+
 ## Style Guide 风格指南
 
 Provides direction for how best to structure your proto definitions.

@@ -6,6 +6,8 @@ description = "A basic Python programmers introduction to working with protocol 
 type = "docs"
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/pythontutorial/
+
 # Protocol Buffer Basics: Python 协议缓冲区基础知识：Python
 
 A basic Python programmers introduction to working with protocol buffers.

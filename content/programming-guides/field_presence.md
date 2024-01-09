@@ -1,11 +1,12 @@
 +++
 title = "应用说明：字段存在"
 weight = 85
-linkTitle = "Field Presence"
 description = "解释了 protobuf 字段的各种存在跟踪规则。它还解释了具有基本类型的奇数 proto3 字段的显式存在跟踪的行为。"
 type = "docs"
 
 +++
+
+> 原文网址： https://protobuf.dev/programming-guides/field_presence/
 
 ## Application Note: Field Presence 应用说明：字段存在
 
@@ -98,7 +99,7 @@ JSON is a much stricter format, however, and cannot validly represent some seman
 - JSON may include fields that are “not present,” unlike the no presence discipline for other formats:
 
 - 
-JSON 可以包含“不存在”的字段，这与其他格式的无存在原则不同：
+  JSON 可以包含“不存在”的字段，这与其他格式的无存在原则不同：
   
 - JSON defines a `null` value, which may be used to represent a *defined but not-present field*.
   - JSON 定义了一个 `null` 值，该值可用于表示已定义但不存在的字段。

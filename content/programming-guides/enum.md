@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/enum/
+
 ## Enum Behavior 枚举行为
 
 Explains how enums currently work in Protocol Buffers vs. how they should work.

@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/techniques/
+
 ## Techniques 技术
 
 Describes some commonly-used design patterns for dealing with Protocol Buffers.

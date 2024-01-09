@@ -6,6 +6,8 @@ description = "A basic Java programmers introduction to working with protocol bu
 type = "docs"
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/javatutorial/
+
 # Protocol Buffer Basics: Java 协议缓冲区基础知识：Java
 
 A basic Java programmers introduction to working with protocol buffers.

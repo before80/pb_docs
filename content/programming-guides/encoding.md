@@ -1,10 +1,12 @@
 +++
-title = "Encoding"
+title = "编码"
 weight = 60
 description = "说明 Protocol Buffers 如何将数据编码到文件或网络中。"
 type = "docs"
 
 +++
+
+> 原文网址： https://protobuf.dev/programming-guides/encoding/
 
 ## Encoding 编码
 
@@ -503,7 +505,7 @@ When a message is serialized, there is no guaranteed order for how its known or 
 - The following checks may fail for a protocol buffer message instance `foo`:
 
 - 
-以下检查可能会对协议缓冲区消息实例 `foo` 失败：
+  以下检查可能会对协议缓冲区消息实例 `foo` 失败：
   
 - `foo.SerializeAsString() == foo.SerializeAsString()`
   - `Hash(foo.SerializeAsString()) == Hash(foo.SerializeAsString())`

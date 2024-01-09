@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/api/
+
 ## API Best Practices - API 最佳实践
 
 A future-proof API is surprisingly hard to get right. The suggestions in this document make trade-offs to favor long-term, bug-free evolution.

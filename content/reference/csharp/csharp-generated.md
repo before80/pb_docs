@@ -6,6 +6,8 @@ description = "Describes exactly what C# code the protocol buffer compiler gener
 type = "docs"
 +++
 
+> 原文网址： 
+
 You should
 read the
 [proto3 language guide](/programming-guides/proto3)

@@ -7,6 +7,8 @@ type = "docs"
 no_list = "true"
 +++
 
+> 原文网址：  
+
 # Protocol Buffers
 
 Protocol Buffers are language-neutral, platform-neutral extensible mechanisms for serializing structured data.

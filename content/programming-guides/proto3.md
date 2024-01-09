@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/proto3/
+
 ## Language Guide (proto 3) 语言指南 (proto 3)
 
 Covers how to use the version 3 of Protocol Buffers in your project.

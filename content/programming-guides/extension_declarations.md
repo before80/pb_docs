@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/extension_declarations/
+
 ## Extension Declarations 扩展声明
 
 Describes in detail what extension declarations are, why we need them, and how we use them.

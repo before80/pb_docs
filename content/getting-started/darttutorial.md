@@ -6,6 +6,8 @@ description = "A basic Dart programmers introduction to working with protocol bu
 type = "docs"
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/darttutorial/
+
 # Protocol Buffer Basics: Dart Protocol Buffer 基础知识：Dart
 
 A basic Dart programmers introduction to working with protocol buffers.

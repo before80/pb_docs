@@ -1,9 +1,11 @@
 +++
-title = "History"
+title = "历史"
 weight = 1020
 description = "A brief history behind the creation of protocol buffers."
 type = "docs"
 +++
+
+> 原文网址： https://protobuf.dev/history/
 
 ## History 历史
 

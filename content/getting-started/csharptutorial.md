@@ -6,6 +6,8 @@ description = "A basic C# programmers introduction to working with protocol buff
 type = "docs"
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/csharptutorial/
+
 # Protocol Buffer Basics: C# 协议缓冲区基础知识：C#
 
 A basic C# programmers introduction to working with protocol buffers.

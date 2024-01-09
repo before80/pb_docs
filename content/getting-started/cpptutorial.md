@@ -7,6 +7,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/cpptutorial/
+
 ## Protocol Buffer Basics: C++ Protocol Buffer 基础知识：C++
 
 A basic C++ programmers introduction to working with protocol buffers.

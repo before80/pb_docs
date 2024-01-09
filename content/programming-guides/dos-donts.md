@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址： https://protobuf.dev/programming-guides/dos-donts/
+
 ## Proto Best Practices - Proto 最佳实践
 
 Shares vetted best practices for authoring Protocol Buffers.

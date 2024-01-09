@@ -6,6 +6,8 @@ description = "A basic Kotlin programmers introduction to working with protocol 
 type = "docs"
 +++
 
+> 原文网址： https://protobuf.dev/getting-started/kotlintutorial/
+
 # Protocol Buffer Basics: Kotlin 协议缓冲区基础知识：Kotlin
 
 A basic Kotlin programmers introduction to working with protocol buffers.

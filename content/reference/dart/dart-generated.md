@@ -6,7 +6,9 @@ description = "Describes what Dart code the protocol buffer compiler generates f
 type = "docs"
 +++
 
-# Dart Generated Code Dart 生成代码
+> 原文网址： 
+
+## Dart Generated Code Dart 生成代码
 
 Describes what Dart code the protocol buffer compiler generates for any given protocol definition.
 描述协议缓冲区编译器为任何给定协议定义生成的 Dart 代码。

@@ -7,6 +7,8 @@ type = "docs"
 
 +++
 
+> 原文网址：  https://protobuf.dev/support/migration/
+
 ## Migration Guide 迁移指南
 
 A list of the breaking changes made to versions of the libraries, and how to update your code to accommodate the changes.

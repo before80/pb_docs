@@ -1,11 +1,12 @@
 +++
 title = "第三方附加组件"
 weight = 80
-linkTitle = "Add-ons"
 description = "链接到许多开源项目，这些项目旨在在 Protocol Buffers 之上添加有用的功能。"
 type = "docs"
 
 +++
+
+> 原文网址： https://protobuf.dev/programming-guides/addons/
 
 ## Third-Party Add-ons 第三方附加组件
 

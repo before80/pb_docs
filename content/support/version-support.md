@@ -6,6 +6,8 @@ type = "docs"
 
 +++
 
+> 原文网址：  https://protobuf.dev/support/version-support/
+
 ## Version Support 版本支持
 
 A list of the support windows provided for language implementations.
