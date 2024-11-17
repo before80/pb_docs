@@ -1,6 +1,6 @@
 +++
 title = "PHP"
-date = 2024-11-17T09:35:36+08:00
+date = 2024-11-17T12:07:24+08:00
 weight = 70
 type = "docs"
 description = ""
@@ -10,4 +10,8 @@ draft = false
 
 > 原文：[https://protobuf.dev/reference/php/](https://protobuf.dev/reference/php/)
 >
-> 收录该文档的时间：`2024-11-17T09:35:36+08:00`
+> 收录该文档的时间：`2024-11-17T12:07:24+08:00`
+
+# PHP Reference
+
+Reference documentation for working with protocol buffer classes in PHP.
