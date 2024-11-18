@@ -16,8 +16,5 @@ draft = false
 
 Topics related to the Protobuf Editions functionality.
 
+​	与 Protobuf Editions功能相关的主题。
 
-
-- [Protocol Buffers Overview](https://protobuf.dev/editions/overview)
-- [Feature Settings for Editions](https://protobuf.dev/editions/features)
-- [Implementing Editions Support](https://protobuf.dev/editions/implementation)

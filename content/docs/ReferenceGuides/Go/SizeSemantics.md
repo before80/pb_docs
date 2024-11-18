@@ -1,18 +1,19 @@
 +++
-title = "Size Semantics"
+title = "Size 语义"
 date = 2024-11-17T12:07:24+08:00
 weight = 20
 type = "docs"
 description = ""
 isCJKLanguage = true
 draft = false
+
 +++
 
 > 原文：[https://protobuf.dev/reference/go/size/](https://protobuf.dev/reference/go/size/)
 >
 > 收录该文档的时间：`2024-11-17T12:07:24+08:00`
 
-# Go Size Semantics
+# Go Size Semantics - Go Size 语义
 
 Explains how (not) to use proto.Size
 
