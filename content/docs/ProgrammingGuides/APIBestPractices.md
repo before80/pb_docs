@@ -485,12 +485,18 @@ message Foo {
 
 The problem with a nested message is that while `CurrencyAmount` might be a popular candidate for reuse in other places of your API, `Foo.CurrencyAmount` might not. In the worst case, `Foo.CurrencyAmount` *is* reused, but `Foo`-specific fields leak into it.
 
+​	嵌套消息的问题在于，虽然 `CurrencyAmount` 可能是你的 API 中其他地方重用的热门候选项，但 `Foo.CurrencyAmount` 可能不会。在最坏的情况下，`Foo.CurrencyAmount` *被*重用，但 `Foo`-特定的字段泄漏到了其中。
+
 While [loose coupling](https://en.wikipedia.org/wiki/Loose_coupling) is generally accepted as a best practice when developing systems, that practice may not always apply when designing `.proto` files. There may be cases in which tightly coupling two units of information (by nesting one unit inside of the other) may make sense. For example, if you are creating a set of fields that appear fairly generic right now but which you anticipate adding specialized fields into at a later time, nesting the message would dissuade others from referencing that message from elsewhere in this or other `.proto` files.
+
+​	尽管[松耦合](https://en.wikipedia.org/wiki/Loose_coupling)通常被认为是开发系统时的最佳实践，但在设计 `.proto` 文件时，这一实践可能并不总是适用。在某些情况下，将两个信息单元紧密耦合（通过将一个单元嵌套在另一个单元中）可能是合理的。例如，如果你现在创建了一组看起来相当通用的字段，但你预计以后会向其中添加专用字段，那么嵌套消息可以劝阻其他人在此 `.proto` 文件或其他文件中引用该消息。
 
 ```proto
 message Photo {
   // Bad: It's likely PhotoMetadata will be reused outside the scope of Photo,
   // so it's probably a good idea not to nest it and make it easier to access.
+  // 错误：PhotoMetadata 可能在 Photo 的范围之外重用，
+  // 因此最好不要嵌套它以便更容易访问。
   message PhotoMetadata {
     optional int32 width = 1;
     optional int32 height = 2;
@@ -502,6 +508,8 @@ message FooConfiguration {
   // Good: Reusing FooConfiguration.Rule outside the scope of FooConfiguration
   // tightly-couples it with likely unrelated components, nesting it dissuades
   // from doing that.
+  // 正确：在 FooConfiguration 范围外重用 FooConfiguration.Rule
+  // 会将其与可能无关的组件紧密耦合，而嵌套它可以避免这种情况。
   message Rule {
     optional float multiplier = 1;
   }
@@ -509,58 +517,88 @@ message FooConfiguration {
 }
 ```
 
-## Include a Field Read Mask in Read Requests
+## 在读取请求中包含字段读取掩码 Include a Field Read Mask in Read Requests
 
 ```proto
 // Recommended: use google.protobuf.FieldMask
+// 推荐：使用 google.protobuf.FieldMask
 
 // Alternative one:
+// 备选方案 1：
 message FooReadMask {
   optional bool return_field1;
   optional bool return_field2;
 }
 
 // Alternative two:
+// 备选方案 2：
 message BarReadMask {
   // Tag numbers of the fields in Bar to return.
+  // 要返回的 Bar 中字段的标记号。
   repeated int32 fields_to_return;
 }
 ```
 
 If you use the recommended `google.protobuf.FieldMask`, you can use the `FieldMaskUtil` ([Java](https://protobuf.dev/reference/java/api-docs/com/google/protobuf/util/FieldMaskUtil.html)/[C++](https://protobuf.dev/reference/cpp/api-docs/google.protobuf.util.field_mask_util.md)) libraries to automatically filter a proto.
 
+​	如果你使用推荐的 `google.protobuf.FieldMask`，可以使用 `FieldMaskUtil` 库（[Java](https://protobuf.dev/reference/java/api-docs/com/google/protobuf/util/FieldMaskUtil.html)/[C++](https://protobuf.dev/reference/cpp/api-docs/google.protobuf.util.field_mask_util.md)）来自动过滤 proto。
+
 Read masks set clear expectations on the client side, give them control of how much data they want back and allow the backend to only fetch data the client needs.
+
+​	字段读取掩码在客户端明确设置期望值，给予它们控制返回数据量的能力，同时允许后端只获取客户端需要的数据。
 
 The acceptable alternative is to always populate every field; that is, treat the request as if there were an implicit read mask with all fields set to true. This can get costly as your proto grows.
 
+​	可接受的替代方案是始终填充所有字段，即将请求视为隐含的读取掩码，其中所有字段均设置为 true。但随着 proto 的增长，这可能会变得昂贵。
+
 The worst failure mode is to have an implicit (undeclared) read mask that varies depending on which method populated the message. This anti-pattern leads to apparent data loss on clients that build a local cache from response protos.
 
-## Include a Version Field to Allow for Consistent Reads
+​	最糟糕的失败模式是具有隐式（未声明）的读取掩码，这取决于哪个方法填充了消息。这种反模式会导致客户端在构建本地缓存时出现明显的数据丢失问题。
+
+## 包含一个版本字段以实现一致性读取 Include a Version Field to Allow for Consistent Reads
 
 When a client does a write followed by a read of the same object, they expect to get back what they wrote–even when the expectation isn’t reasonable for the underlying storage system.
 
+​	当客户端执行写操作后紧接着进行读取操作时，他们期望返回的数据与写入的数据一致——即使这一期望对于底层存储系统来说不合理。
+
 Your server will read the local value and if the local version_info is less than the expected version_info, it will read from remote replicas to find the latest value. Typically version_info is a [proto encoded as a string](https://protobuf.dev/programming-guides/api/#encode-opaque-data-in-strings) that includes the datacenter the mutation went to and the timestamp at which it was committed.
+
+​	你的服务器将读取本地值，并且如果本地的 `version_info` 小于预期的 `version_info`，则它将从远程副本中读取以找到最新值。通常，`version_info` 是一个[编码为字符串的 proto](https://protobuf.dev/programming-guides/api/#encode-opaque-data-in-strings)，其中包括变更提交的时间戳和数据中心。
 
 Even systems backed by consistent storage often want a token to trigger the more expensive read-consistent path rather than incurring the cost on every read.
 
-## Use Consistent Request Options for RPCs that Return the Same Data Type
+​	即使是由一致性存储支持的系统，也经常需要一个标记来触发更昂贵的读取一致性路径，而不是在每次读取时承担这种开销。
+
+## 为返回相同数据类型的 RPC 使用一致的请求选项 Use Consistent Request Options for RPCs that Return the Same Data Type
 
 An example failure pattern is the request options for a service in which each RPC returns the same data type, but has separate request options for specifying things like maximum comments, embeds supported types list, and so on.
 
+​	一个典型的失败模式是服务中每个 RPC 返回相同的数据类型，但有单独的请求选项来指定例如最大评论数、支持的嵌入类型列表等内容。
+
 The cost of approaching this ad hoc is increased complexity on the client from figuring out how to fill out each request and increased complexity on the server transforming the N request options into a common internal one. A not-small number of real-life bugs are traceable to this example.
 
+​	这种临时的方式会导致客户端在填写每个请求时的复杂性增加，也会增加服务器将 N 个请求选项转换为一个通用内部选项的复杂性。许多真实场景中的 bug 都可以追溯到这一点。
+
 Instead, create a single, separate message to hold request options and include that in each of the top-level request messages. Here’s a better-practices example:
+
+​	相反，为请求选项创建一个单独的消息，并在每个顶级请求消息中包含它。这是一个更好的实践示例：
 
 ```proto
 message FooRequestOptions {
   // Field-level read mask of which fields to return. Only fields that
   // were requested will be returned in the response. Clients should only
   // ask for fields they need to help the backend optimize requests.
+  // 字段级别的读取掩码，指定要返回的字段。
+  // 只有请求的字段会在响应中返回。
+  // 客户端应只请求它们需要的字段以帮助后端优化请求。
   optional FooReadMask read_mask;
 
   // Up to this many comments will be returned on each Foo in the response.
   // Comments that are marked as spam don't count towards the maximum
   // comments. By default, no comments are returned.
+  // 每个 Foo 中返回的最大评论数。
+  // 被标记为垃圾的评论不计入最大评论数。
+  // 默认情况下，不返回评论。
   optional int max_comments_to_return;
 
   // Foos that include embeds that are not on this supported types list will
@@ -569,62 +607,98 @@ message FooRequestOptions {
   // can't be down-converted to one of the supplied supported types, no embed
   // will be returned. Clients are strongly encouraged to always include at
   // least the THING_V2 embed type from EmbedTypes.proto.
+  // 包含嵌入的 Foos 如果嵌入类型不在支持的类型列表中，
+  // 将降级为此列表中指定的嵌入。
+  // 如果未指定支持的类型列表，则不返回嵌入。
+  // 如果无法将嵌入降级为提供的支持类型之一，则不返回嵌入。
+  // 强烈建议客户端始终包括 EmbedTypes.proto 中的 THING_V2 类型。
   repeated EmbedType embed_supported_types_list;
 }
 
 message GetFooRequest {
   // What Foo to read. If the viewer doesn't have access to the Foo or the
   // Foo has been deleted, the response will be empty but will succeed.
+  // 要读取的 Foo。如果查看者没有权限访问 Foo，或 Foo 已被删除，
+  // 响应将为空但成功。
   optional string foo_id;
 
   // Clients are required to include this field. Server returns
   // INVALID_ARGUMENT if FooRequestOptions is left empty.
+  // 客户端必须包含此字段。如果 FooRequestOptions 为空，
+  // 服务器将返回 INVALID_ARGUMENT。
   optional FooRequestOptions params;
 }
 
 message ListFooRequest {
   // Which Foos to return. Searches have 100% recall, but more clauses
   // impact performance.
+  // 要返回的 Foos。搜索具有 100% 的召回率，
+  // 但更多的子句会影响性能。
   optional FooQuery query;
 
   // Clients are required to include this field. The server returns
   // INVALID_ARGUMENT if FooRequestOptions is left empty.
+  // 客户端必须包含此字段。如果 FooRequestOptions 为空，
+  // 服务器将返回 INVALID_ARGUMENT。
   optional FooRequestOptions params;
 }
 ```
 
-## Batch/multi-phase Requests
+## 批量/多阶段请求 Batch/multi-phase Requests
 
 Where possible, make mutations atomic. Even more important, make [mutations idempotent](https://protobuf.dev/programming-guides/api/#prefer-idempotency). A full retry of a partial failure shouldn’t corrupt/duplicate data.
 
+​	在可能的情况下，使变更操作（mutations）原子化。更重要的是，使变更操作[幂等](https://protobuf.dev/programming-guides/api/#prefer-idempotency)。部分失败的完整重试不应导致数据损坏或重复。
+
 Occasionally, you’ll need a single RPC that encapsulates multiple operations for performance reasons. What to do on a partial failure? If some succeeded and some failed, it’s best to let clients know.
+
+​	有时，为了性能原因，你可能需要一个单独的 RPC 来封装多个操作。发生部分失败时该怎么办？如果某些操作成功了，而某些失败了，最好让客户端知道。
 
 Consider setting the RPC as failed and return details of both the successes and failures in an RPC status proto.
 
+​	可以将 RPC 标记为失败，并在 RPC 状态 proto 中返回成功和失败的详细信息。
+
 In general, you want clients who are unaware of your handling of partial failures to still behave correctly and clients who are aware to get extra value.
 
-## Create Methods that Return or Manipulate Small Bits of Data and Expect Clients to Compose UIs from Batching Multiple Such Requests
+​	一般来说，对于不了解部分失败处理的客户端，它们应该仍然表现正常；对于了解这一点的客户端，它们会获得额外的价值。
+
+## 创建返回或操作小数据块的方法，并期望客户端通过批量组合这些请求来构建 UI - Create Methods that Return or Manipulate Small Bits of Data and Expect Clients to Compose UIs from Batching Multiple Such Requests
 
 The ability to query many narrowly specified bits of data in a single round-trip allows a wider range of UX options without server changes by letting the client compose what they need.
 
+​	在单次往返中查询许多范围较窄的数据块的能力允许更广泛的 UX 选项，而无需对服务器进行更改，因为客户端可以组合它们所需的内容。
+
 This is most relevant for front-end and middle-tier servers.
+
+​	这对于前端和中间层服务器尤其重要。
 
 Many services expose their own batching API.
 
-## Make a One-off RPC when the Alternative is Serial Round-trips on Mobile or Web
+​	许多服务公开自己的批量 API。
+
+## 当替代方案是移动或 Web 上的串行往返时，创建一次性 RPC - Make a One-off RPC when the Alternative is Serial Round-trips on Mobile or Web
 
 In cases where a *web or mobile* client needs to make two queries with a data dependency between them, the current best practice is to create a new RPC that protects the client from the round trip.
 
+​	在 *Web 或移动* 客户端需要执行两个数据之间有依赖关系的查询时，当前的最佳实践是创建一个新的 RPC，以保护客户端免受往返的影响。
+
 In the case of mobile, it’s almost always worth saving your client the cost of an extra round-trip by bundling the two service methods together in one new one. For server-to-server calls, the case may not be as clear; it depends on how performance-sensitive your service is and how much cognitive overhead the new method introduces.
 
-## Make Repeated Fields Messages, Not Scalars or Enums
+​	在移动场景中，通过将两个服务方法捆绑在一个新的方法中，几乎总是值得为客户端节省一次额外的往返成本。对于服务器间调用，情况可能不太明确；这取决于服务的性能敏感性以及新方法引入的认知负担。
+
+## 将重复字段设为消息类型，而非标量或枚举类型 Make Repeated Fields Messages, Not Scalars or Enums
 
 A common evolution is that a single repeated field needs to become multiple related repeated fields. If you start with a repeated primitive your options are limited–you either create parallel repeated fields, or define a new repeated field with a new message that holds the values and migrate clients to it.
 
+​	一个常见的演化是，单个重复字段需要变成多个相关的重复字段。如果一开始你选择了一个重复的基本类型（primitive），你的选择就受限了——你要么创建并行的重复字段，要么定义一个新的重复字段，使用包含这些值的新消息类型，然后让客户端迁移到它。
+
 If you start with a repeated message, evolution becomes trivial.
+
+​	如果从重复消息开始，演化就会变得简单。
 
 ```proto
 // Describes a type of enhancement applied to a photo
+// 描述应用于照片的一种增强类型
 enum EnhancementType {
   ENHANCEMENT_TYPE_UNSPECIFIED;
   RED_EYE_REDUCTION;
@@ -638,91 +712,162 @@ message PhotoEnhancement {
 message PhotoEnhancementReply {
   // Good: PhotoEnhancement can grow to describe enhancements that require
   // more fields than just an enum.
+  // 正确：PhotoEnhancement 可以扩展以描述需要
+  // 更多字段的增强。
   repeated PhotoEnhancement enhancements;
 
   // Bad: If we ever want to return parameters associated with the
   // enhancement, we'd have to introduce a parallel array (terrible) or
   // deprecate this field and introduce a repeated message.
+  // 错误：如果我们需要返回与增强相关的参数，
+  // 我们必须引入一个并行数组（非常糟糕），
+  // 或者废弃该字段并引入一个重复消息。
   repeated EnhancementType enhancement_types;
 }
 ```
 
 Imagine the following feature request: “We need to know which enhancements were performed by the user and which enhancements were automatically applied by the system.”
 
+​	假设以下功能请求：“我们需要知道哪些增强是由用户执行的，以及哪些增强是系统自动应用的。”
+
 If the enhancement field in `PhotoEnhancementReply` were a scalar or enum, this would be much harder to support.
+
+​	如果 `PhotoEnhancementReply` 中的增强字段是标量或枚举，这将很难支持。
 
 This applies equally to maps. It is much easier to add additional fields to a map value if it’s already a message rather than having to migrate from `map<string, string>` to `map<string, MyProto>`.
 
+​	这同样适用于映射（maps）。如果映射的值已经是一个消息类型，添加额外的字段就容易得多，而不需要从 `map<string, string>` 迁移到 `map<string, MyProto>`。
+
 One exception:
 
+​	一个例外：
+
 Latency-critical applications will find parallel arrays of primitive types are faster to construct and delete than a single array of messages; they can also be smaller over the wire if you use [[packed=true\]](https://protobuf.dev/programming-guides/encoding#packed) (eliding field tags). Allocating a fixed number of arrays is less work than allocating N messages. Bonus: in [Proto3](https://protobuf.dev/programming-guides/proto3), packing is automatic; you don’t need to explicitly specify it.
+
+​	对于延迟敏感的应用程序，并行的基本类型数组比单个消息数组构造和删除更快；如果使用 [[packed=true\]](https://protobuf.dev/programming-guides/encoding#packed)（省略字段标签），它们在线传输时也可以更小。分配固定数量的数组比分配 N 个消息更省事。额外的好处是，在 [Proto3](https://protobuf.dev/programming-guides/proto3) 中，打包是自动的；你不需要显式指定它。
 
 ## Use Proto Maps
 
 Prior to the introduction in [Proto3](https://protobuf.dev/programming-guides/proto3) of [Proto3 maps](https://protobuf.dev/programming-guides/proto3#maps), services would sometimes expose data as pairs using an ad-hoc KVPair message with scalar fields. Eventually clients would need a deeper structure and would end up devising keys or values that need to be parsed in some way. See [Don’t encode data in a string](https://protobuf.dev/programming-guides/api/#dont-encode-data-in-a-string).
 
+​	在 [Proto3](https://protobuf.dev/programming-guides/proto3) 引入 [Proto3 maps](https://protobuf.dev/programming-guides/proto3#maps) 之前，服务有时会以键值对（KVPair）消息的形式暴露数据，消息的字段是标量。最终，客户端需要更深的结构，并最终设计出需要某种方式解析的键或值。参见 [不要在字符串中编码数据](https://protobuf.dev/programming-guides/api/#dont-encode-data-in-a-string)。
+
 So, using a (extensible) message type for the value is an immediate improvement over the naive design.
+
+​	因此，使用一种（可扩展的）消息类型作为值，比简单设计要立即改进。
 
 Maps were back-ported to proto2 in all languages, so using `map<scalar, **message**>` is better than inventing your own KVPair for the same purpose[1](https://protobuf.dev/programming-guides/api/#fn:1).
 
+​	Maps 被回移植到了 proto2 中的所有语言，因此使用 `map<scalar, **message**>` 比发明自己的 KVPair 用于相同目的要好 [1](https://protobuf.dev/programming-guides/api/#fn:1)。
+
 If you want to represent *arbitrary* data whose structure you don’t know ahead of time, use [`google.protobuf.Any`](https://protobuf.dev/reference/protobuf/textformat-spec#any).
 
-## Prefer Idempotency
+​	如果需要表示结构未知的*任意*数据，请使用 [`google.protobuf.Any`](https://protobuf.dev/reference/protobuf/textformat-spec#any)。
+
+## 优先保证幂等性 Prefer Idempotency
 
 Somewhere in the stack above you, a client may have retry logic. If the retry is a mutation, the user could be in for a surprise. Duplicate comments, build requests, edits, and so on aren’t good for anyone.
 
+​	在你的栈层之上可能有客户端的重试逻辑。如果重试涉及到变更操作（mutation），用户可能会遇到问题，比如重复的评论、构建请求、编辑等。
+
 A simple way to avoid duplicate writes is to allow clients to specify a client-created request ID that your server dedupes on (for example, hash of content or UUID).
 
-## Be Mindful of Your Service Name, and Make it Globally Unique
+​	避免重复写入的一个简单方法是允许客户端指定一个客户端创建的请求 ID，服务器通过此 ID 去重（例如，内容的哈希值或 UUID）。
+
+## 注意你的服务名称，并使其全局唯一 Be Mindful of Your Service Name, and Make it Globally Unique
 
 A service name (that is, the part after the `service` keyword in your `.proto` file) is used in surprisingly many places, not just to generate the service class name. This makes this name more important than one might think.
 
+​	服务名称（即 `.proto` 文件中 `service` 关键字之后的部分）被用在意想不到的许多地方，不仅仅是生成服务类名称。这使得服务名称比看起来更重要。
+
 What’s tricky is that these tools make the implicit assumption that your service name is unique across a network . Worse, the service name they use is the *unqualified* service name (for example, `MyService`), not the qualified service name (for example, `my_package.MyService`).
+
+​	棘手的是，这些工具隐含地假设你的服务名称在网络中是唯一的。更糟糕的是，它们使用的是*未限定*服务名称（例如，`MyService`），而不是限定名称（例如，`my_package.MyService`）。
 
 For this reason, it makes sense to take steps to prevent naming conflicts on your service name, even if it is defined inside a specific package. For example, a service named `Watcher` is likely to cause problems; something like `MyProjectWatcher` would be better.
 
-## Ensure Every RPC Specifies and Enforces a (Permissive) Deadline
+​	因此，即使服务名称定义在特定包内，也建议采取措施防止命名冲突。例如，服务名称 `Watcher` 很可能会引发问题；像 `MyProjectWatcher` 这样的名称会更好。
+
+## 确保每个 RPC 都指定并强制执行一个（宽松的）截止时间 Ensure Every RPC Specifies and Enforces a (Permissive) Deadline
 
 By default, an RPC does not have a timeout. Since a request may tie up backend resources that are only released on completion, setting a default deadline that allows all well-behaving requests to finish is a good defensive practice. Not enforcing one has in the past caused severe problems for major services . RPC clients should still set a deadline on outgoing RPCs and will typically do so by default when they use standard frameworks. A deadline may and typically will be overwritten by a shorter deadline attached to a request.
 
+​	默认情况下，RPC 没有超时时间。由于请求可能占用后端资源，直到完成才释放，设置一个允许所有正常请求完成的默认截止时间是一个很好的防御性实践。不设置截止时间在过去曾导致一些主要服务的严重问题。RPC 客户端仍应为发出的 RPC 设置截止时间，并且在使用标准框架时通常会默认这样做。请求附加的较短截止时间通常会覆盖原始设置。
+
 Setting the `deadline` option clearly communicates the RPC deadline to your clients, and is respected and enforced by standard frameworks:
+
+​	通过设置 `deadline` 选项，可以清晰地向客户端传达 RPC 截止时间，并由标准框架尊重和强制执行：
 
 ```proto
 rpc Foo(FooRequest) returns (FooResponse) {
-  option deadline = x; // there is no globally good default
+  option deadline = x; // there is no globally good default 没有全局适用的默认值
 }
 ```
 
 Choosing a deadline value will especially impact how your system acts under load. For existing services, it is critical to evaluate existing client behavior before enforcing new deadlines to avoid breaking clients (consult SRE). In some cases, it may not be possible to enforce a shorter deadline after the fact.
 
-## Bound Request and Response Sizes
+​	选择截止时间的值会特别影响系统在负载下的行为。对于现有服务，在强制执行新的截止时间之前，评估现有客户端行为至关重要，以避免破坏客户端（请咨询 SRE）。在某些情况下，在事后强制执行较短的截止时间可能不可行。
+
+## 限制请求和响应的大小 Bound Request and Response Sizes
 
 Request and response sizes should be bounded. We recommend a bound in the ballpark of 8 MiB, and 2 GiB is a hard limit at which many proto implementations break . Many storage systems have a limit on message sizes .
 
+​	请求和响应的大小应有界。推荐的限制大约在 8 MiB 左右，而 2 GiB 是许多 proto 实现的硬限制，超过这个大小可能会导致崩溃。许多存储系统也对消息大小有上限。
+
 Also, unbounded messages
 
+​	此外，无界的消息可能会导致以下问题：
+
 - bloat both client and server,
+  - 增加客户端和服务器的负担；
+
 - cause high and unpredictable latency,
+  - 导致高且不可预测的延迟；
+
 - decrease resiliency by relying on a long-lived connection between a single client and a single server.
+  - 降低服务的弹性，因为它依赖于单个客户端和单个服务器之间的长时间连接。
+
 
 Here are a few ways to bound all messages in an API:
 
+​	以下是为 API 中所有消息设置边界的几种方法：
+
 - Define RPCs that return bounded messages, where each RPC call is logically independent from the others.
+  - 定义返回有界消息的 RPC，其中每次 RPC 调用在逻辑上是独立的。
+
 - Define RPCs that operate on a single object, instead of on an unbounded, client-specified list of objects.
+  - 定义操作单个对象的 RPC，而不是针对无界、由客户端指定的对象列表。
+
 - Avoid encoding unbounded data in string, byte, or repeated fields.
+  - 避免在字符串、字节或重复字段中编码无界数据。
+
 - Define a long-running operation . Store the result in a storage system designed for scalable, concurrent reads .
+  - 定义一个长时间运行的操作，将结果存储在支持可扩展并发读取的存储系统中。
+
 - Use a pagination API (see [Rarely define a pagination API without a continuation token](https://protobuf.dev/programming-guides/api/#define-pagination-api)).
+  - 使用分页 API（参见 [很少定义没有续页令牌的分页 API](https://protobuf.dev/programming-guides/api/#define-pagination-api)）。
+
 - Use streaming RPCs.
+  - 使用流式 RPC。
+
 
 If you are working on a UI, see also [Create methods that return or manipulate small bits of data](https://protobuf.dev/programming-guides/api/#create-methods-manipulate-small-bits).
 
-## Propagate Status Codes Carefully
+​	如果您正在处理用户界面，还可以参见 [创建返回或操作小块数据的方法](https://protobuf.dev/programming-guides/api/#create-methods-manipulate-small-bits)。
+
+## 谨慎传播状态码 Propagate Status Codes Carefully
 
 RPC services should take care at RPC boundaries to interrogate errors, and return meaningful status errors to their callers.
 
+​	RPC 服务在 RPC 边界上应仔细检查错误，并返回有意义的状态错误给调用者。
+
 Let’s examine a toy example to illustrate the point:
 
+​	让我们通过一个简单的例子来说明这个问题：
+
 Consider a client that calls `ProductService.GetProducts`, which takes no arguments. As part of `GetProducts`, `ProductService` might get all the products, and call `LocaleService.LocaliseNutritionFacts` for each product.
+
+​	假设客户端调用了 `ProductService.GetProducts`，它不需要参数。在 `GetProducts` 的执行过程中，`ProductService` 可能会获取所有产品，并调用 `LocaleService.LocaliseNutritionFacts` 为每个产品本地化营养信息。
 
 ```fallback
 digraph toy_example {
@@ -737,31 +882,51 @@ digraph toy_example {
 
 If `ProductService` is incorrectly implemented, it might send the wrong arguments to `LocaleService`, resulting in an `INVALID_ARGUMENT`.
 
+​	如果 `ProductService` 的实现有误，它可能会向 `LocaleService` 发送错误的参数，导致返回 `INVALID_ARGUMENT` 错误。
+
 If `ProductService` carelessly returns errors to its callers, the client will receive `INVALID_ARGUMENT`, since status codes propagate across RPC boundaries. But, the client didn’t pass any arguments to `ProductService.GetProducts`. So, the error is worse than useless: it will cause a great deal of confusion!
+
+​	如果 `ProductService` 不负责任地将错误传递给调用者，客户端将收到 `INVALID_ARGUMENT` 错误，因为状态码会跨 RPC 边界传播。然而，客户端并没有向 `ProductService.GetProducts` 传递任何参数。因此，这个错误不仅没有用，反而会引起极大的困惑！
 
 Instead, `ProductService` should interrogate errors it receives at the RPC boundary; that is, the `ProductService` RPC handler it implements. It should return meaningful errors to users: if *it received* invalid arguments from the caller, it should return `INVALID_ARGUMENT`. If *something downstream* received invalid arguments, it should convert the `INVALID_ARGUMENT` to `INTERNAL` before returning the error to the caller.
 
+​	相反，`ProductService` 应该在 RPC 边界检查接收到的错误。例如，如果 *它* 收到来自调用方的无效参数，它应该返回 `INVALID_ARGUMENT`。如果 *下游* 的某些服务接收到无效参数，则应将 `INVALID_ARGUMENT` 转换为 `INTERNAL`，然后将错误返回给调用方。
+
 Carelessly propagating status errors leads to confusion, which can be very expensive to debug. Worse, it can lead to an invisible outage where every service forwards a client error without causing any alerts to happen .
+
+​	不加思索地传播状态错误会导致混乱，调试成本非常高。更糟糕的是，这可能导致隐形宕机——每个服务都将客户端错误传递出去，却没有触发任何警报。
 
 The general rule is: at RPC boundaries, take care to interrogate errors, and return meaningful status errors to callers, with appropriate status codes. To convey meaning, each RPC method should document what error codes it returns in which circumstances. The implementation of each method should conform to the documented API contract.
 
-## Create Unique Protos per Method
+​	一般规则：在 RPC 边界上，仔细检查错误，并向调用者返回有意义的状态错误，使用适当的状态码。为了传达意义，每个 RPC 方法应记录它在何种情况下返回哪些错误代码。每个方法的实现应符合文档中的 API 合约。
+
+## 为每个方法创建唯一的 Protos - Create Unique Protos per Method
 
 Create a unique request and response proto for each RPC method. Discovering later that you need to diverge the top-level request or response can be expensive. This includes “empty” responses; create a unique empty response proto rather than reusing the [well-known Empty message type](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/empty.proto).
 
-### Reusing Messages
+​	为每个 RPC 方法创建唯一的请求和响应 proto。如果在后期发现需要分离顶级请求或响应，成本会非常高。这包括“空”响应；创建一个独特的空响应 proto，而不是重复使用 [众所周知的 Empty 消息类型](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/empty.proto)。
+
+### 重用消息 Reusing Messages
 
 To reuse messages, create shared “domain” message types to include in multiple Request and Response protos. Write your application logic in terms of those types rather than the request and response types.
 
+​	为了重用消息，可以创建共享的“领域”消息类型，并将其包含在多个请求和响应 protos 中。在应用程序逻辑中基于这些类型进行开发，而不是直接使用请求和响应类型。
+
 This gives you the flexibility to evolve your method request/response types independently, but share code for logical sub-units.
 
-## Appendix
+​	这样可以让你的方法请求/响应类型独立演化，同时为逻辑子单元共享代码。
 
-### Returning Repeated Fields
+## 附录 Appendix
+
+### 返回重复字段 Returning Repeated Fields
 
 When a repeated field is empty, the client can’t tell if the field just wasn’t populated by the server or if the backing data for the field is genuinely empty. In other words, there’s no `hasFoo` method for repeated fields.
 
+​	当一个重复字段为空时，客户端无法判断该字段是服务器未填充还是底层数据确实为空。换句话说，重复字段没有 `hasFoo` 方法。
+
 Wrapping a repeated field in a message is an easy way to get a hasFoo method.
+
+​	将重复字段包装在一个消息中是获取 `hasFoo` 方法的简单方法。
 
 ```proto
 message FooList {
@@ -771,72 +936,112 @@ message FooList {
 
 The more holistic way to solve it is with a field [read mask](https://protobuf.dev/programming-guides/api/#include-field-read-mask). If the field was requested, an empty list means there’s no data. If the field wasn’t requested the client should ignore the field in the response.
 
-### Updating Repeated Fields
+​	更全面的解决方案是使用字段 [读取掩码](https://protobuf.dev/programming-guides/api/#include-field-read-mask)。如果请求了该字段，空列表意味着没有数据。如果未请求该字段，客户端应忽略响应中的该字段。
+
+### 更新重复字段 Updating Repeated Fields
 
 The worst way to update a repeated field is to force the client to supply a replacement list. The dangers with forcing the client to supply the entire array are manyfold. Clients that don’t preserve unknown fields cause data loss. Concurrent writes cause data loss. Even if those problems don’t apply, your clients will need to carefully read your documentation to know how the field is interpreted on the server side. Does an empty field mean the server won’t update it, or that the server will clear it?
 
+​	更新重复字段的最糟糕方式是强制客户端提供一个替换列表。强制客户端提供整个数组会带来许多风险。无法保留未知字段的客户端会导致数据丢失，并发写入会导致数据丢失。即使这些问题不存在，客户端仍需要仔细阅读文档以了解服务器端如何解释字段：空字段是否表示服务器不会更新它，还是表示服务器会清除它？
+
 **Fix #1**: Use a repeated update mask that permits the client to replace, delete, or insert elements into the array without supplying the entire array on a write.
+
+​	使用一个重复更新掩码，允许客户端在写入时替换、删除或插入数组中的元素，而无需提供整个数组。
 
 **Fix #2**: Create separate append, replace, delete arrays in the request proto.
 
+​	在请求 proto 中创建独立的追加、替换、删除数组。
+
 **Fix #3**: Allow only appending or clearing. You can do this by wrapping the repeated field in a message. A present, but empty, message means clear, otherwise, any repeated elements mean append.
 
-### Order Independence in Repeated Fields
+​	仅允许追加或清除。可以通过将重复字段包装在消息中来实现。存在但为空的消息表示清除，否则，任何重复元素表示追加。
+
+### 重复字段的顺序独立性 Order Independence in Repeated Fields
 
 *Try* to avoid order dependence in general. It’s an extra layer of fragility. An especially bad type of order dependence is parallel arrays. Parallel arrays make it more difficult for clients to interpret the results and make it unnatural to pass the two related fields around inside your own service.
+
+​	*尽量*避免顺序依赖。顺序依赖增加了额外的脆弱性层。尤其糟糕的一种顺序依赖是并行数组。并行数组让客户端难以解释结果，也让在服务内部传递两个相关字段变得不自然。
 
 ```proto
 message BatchEquationSolverResponse {
   // Bad: Solved values are returned in the order of the equations given in
   // the request.
+  // 错误：解决值以请求中提供的方程顺序返回。
   repeated double solved_values;
   // (Usually) Bad: Parallel array for solved_values.
+  // （通常）错误：与 solved_values 对应的并行数组。
   repeated double solved_complex_values;
 }
 
 // Good: A separate message that can grow to include more fields and be
 // shared among other methods. No order dependence between request and
 // response, no order dependence between multiple repeated fields.
+// 正确：一个独立的消息可以扩展以包含更多字段，并可被其他方法共享。
+// 请求和响应之间没有顺序依赖，多个重复字段之间也没有顺序依赖。
 message BatchEquationSolverResponse {
   // Deprecated, this will continue to be populated in responses until Q2
   // 2014, after which clients must move to using the solutions field below.
+  // 废弃字段：此字段将在 2014 年 Q2 之前继续在响应中填充，之后客户端必须转向使用 solutions 字段。
   repeated double solved_values [deprecated = true];
 
   // Good: Each equation in the request has a unique identifier that's
   // included in the EquationSolution below so that the solutions can be
   // correlated with the equations themselves. Equations are solved in
   // parallel and as the solutions are made they are added to this array.
+  // 正确：请求中的每个方程都有唯一标识符，该标识符包含在下面的 EquationSolution 中，
+  // 这样解决方案就可以与方程本身相关联。方程并行求解，解决方案在生成时被添加到此数组中。
   repeated EquationSolution solutions;
 }
 ```
 
-### Leaking Features Because Your Proto is in a Mobile Build
+### 因为 Proto 出现在移动构建中而导致的功能泄漏 Leaking Features Because Your Proto is in a Mobile Build
 
 Android and iOS runtimes both support reflection. To do that, the unfiltered names of fields and messages are embedded in the application binary (APK, IPA) as strings.
+
+​	Android 和 iOS 的运行时均支持反射。为此，字段和消息的未过滤名称会作为字符串嵌入到应用程序二进制文件（APK，IPA）中。
 
 ```proto
 message Foo {
   // This will leak existence of Google Teleport project on Android and iOS
+  // 在 Android 和 iOS 上泄露 Google Teleport 项目的存在。
   optional FeatureStatus google_teleport_enabled;
 }
 ```
 
 Several mitigation strategies:
 
+​	多种缓解策略：
+
 - ProGuard obfuscation on Android. As of Q3 2014. iOS has no obfuscation option: once you have the IPA on a desktop, piping it through `strings` will reveal field names of included protos. [iOS Chrome tear-down](https://github.com/Bensge/Chrome-for-iOS-Headers)
+  - 在 Android 上使用 ProGuard 混淆。截至 2014 年 Q3，iOS 没有混淆选项：一旦在桌面上获得 IPA，通过 `strings` 命令即可揭示包含的 proto 的字段名称。[iOS Chrome 逆向分析](https://github.com/Bensge/Chrome-for-iOS-Headers)
+
 - Curate precisely which fields are sent to mobile clients .
+  - 精确策划发送给移动客户端的字段。
+
 - If plugging the leak isn’t feasible on an acceptable timescale, get buy-in from the feature owner to risk it.
+  - 如果在可接受的时间范围内无法堵住泄漏，请获得功能所有者的支持，以承担风险。
+
 
 *Never* use this as an excuse to obfuscate the meaning of a field with a code-name. Either plug the leak or get buy-in to risk it.
 
-### Performance Optimizations
+​	*绝不要*以字段使用代码名称为借口来掩盖其含义。要么堵住泄漏，要么获得风险承担的支持。
+
+### 性能优化 Performance Optimizations
 
 You can trade type safety or clarity for performance wins in some cases. For example, a proto with hundreds of fields–particularly message-type fields–is going to be slower to parse than one with fewer fields. A very deeply-nested message can be slow to deserialize just from the memory management. A handful of techniques teams have used to speed deserialization:
 
+​	在某些情况下，可以以牺牲类型安全性或清晰性来换取性能提升。例如，具有数百个字段的 proto（尤其是消息类型字段）解析速度会比具有较少字段的 proto 更慢。非常深层嵌套的消息仅因内存管理也会导致反序列化变慢。以下是一些团队用来加速反序列化的技术：
+
 - Create a parallel, trimmed proto that mirrors the larger proto but has only some of the tags declared. Use this for parsing when you don’t need all the fields. Add tests to enforce that tag numbers continue to match as the trimmed proto accumulates numbering “holes.”
+  - 创建一个与较大 proto 平行的精简 proto，仅声明其中的部分标签。仅在不需要所有字段时用于解析。添加测试以确保在精简 proto 累积编号“空洞”时标签号继续匹配。
+
 - Annotate the fields as “lazily parsed” with [[lazy=true\]](https://github.com/protocolbuffers/protobuf/blob/cacb096002994000f8ccc6d9b8e1b5b0783ee561/src/google/protobuf/descriptor.proto#L609).
+  - 使用 [[lazy=true\]](https://github.com/protocolbuffers/protobuf/blob/cacb096002994000f8ccc6d9b8e1b5b0783ee561/src/google/protobuf/descriptor.proto#L609) 注解将字段标记为“延迟解析”。
+
 - Declare a field as bytes and document its type. Clients who care to parse the field can do so manually. The danger with this approach is there’s nothing preventing someone from putting a message of the wrong type in the bytes field. You should never do this with a proto that’s written to any logs, as it prevents the proto from being vetted for PII or scrubbed for policy or privacy reasons.
+  - 将字段声明为字节类型并记录其类型。关心字段解析的客户端可以手动解析。此方法的风险在于，没有任何机制防止错误类型的消息被放入字节字段。不要在任何写入日志的 proto 中使用此方法，因为这会阻止 proto 被审核隐私信息或根据策略或隐私原因进行清理。
+
 
 ------
 
-1. A gotcha with protos that contain `map<k,v>` fields. Don’t use them as reduce keys in a MapReduce. The wire format and iteration order of proto3 map items are *unspecified* which leads to inconsistent map shards. [↩︎](https://protobuf.dev/programming-guides/api/#fnref:1)
+1. A gotcha with protos that contain `map<k,v>` fields. Don’t use them as reduce keys in a MapReduce. The wire format and iteration order of proto3 map items are *unspecified* which leads to inconsistent map shards. 使用包含 `map<k,v>` 字段的 protos 时的陷阱。不要在 MapReduce 中将它们用作 reduce 键。proto3 映射项的线格式和迭代顺序*未指定*，这会导致不一致的映射分片。
