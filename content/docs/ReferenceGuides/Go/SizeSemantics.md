@@ -19,9 +19,9 @@ Explains how (not) to use proto.Size
 
 ​	解释如何（以及如何不）使用 `proto.Size`。
 
-The [`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) function returns the size in bytes of the wire-format encoding of a proto.Message by traversing all its fields (including submessages).
+The [`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) function returns the size in bytes of the wire-format encoding of a proto.Message by traversing all its fields (including submessages).
 
-​	[`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) 函数通过遍历所有字段（包括子消息）返回 `proto.Message` 的线格式编码的字节大小。
+​	[`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) 函数通过遍历所有字段（包括子消息）返回 `proto.Message` 的线格式编码的字节大小。
 
 In particular, it returns the size of **how Go Protobuf will encode the message**.
 
@@ -31,9 +31,9 @@ In particular, it returns the size of **how Go Protobuf will encode the message*
 
 ### 判断消息是否为空 Identifying empty messages
 
-Checking if [`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) returns 0 is an easy way to recognize empty messages:
+Checking if [`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) returns 0 is an easy way to recognize empty messages:
 
-​	检查 [`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) 是否返回 0 是识别空消息的一种简单方法：
+​	检查 [`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) 是否返回 0 是识别空消息的一种简单方法：
 
 ```go
 if proto.Size(m) == 0 {
@@ -69,9 +69,9 @@ func (*beamFn) ProcessElement(key string, value []byte, emit func(proto.Message)
 
 ## 错误用法：与 Unmarshal 无关 Incorrect usage: no relation to Unmarshal
 
-Because [`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) returns the number of bytes for how Go Protobuf will encode the message, it is not safe to use `proto.Size` when unmarshaling (decoding) a stream of incoming Protobuf messages:
+Because [`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) returns the number of bytes for how Go Protobuf will encode the message, it is not safe to use `proto.Size` when unmarshaling (decoding) a stream of incoming Protobuf messages:
 
-​	由于 [`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) 返回的是 Go Protobuf 如何编码消息的字节数，因此在反序列化（解码）传入的 Protobuf 消息流时使用 `proto.Size` 是不安全的：
+​	由于 [`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) 返回的是 Go Protobuf 如何编码消息的字节数，因此在反序列化（解码）传入的 Protobuf 消息流时使用 `proto.Size` 是不安全的：
 
 ```go
 func bytesToSubscriptionList(data []byte) ([]*vpb.EventSubscription, error) {
@@ -102,9 +102,9 @@ Hence, this example only works reliably as long as all input messages are genera
 
 ## 高级用法：预分配缓冲区 Advanced usage: pre-sizing buffers
 
-An advanced usage of [`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) is to determine the required size for a buffer before marshaling:
+An advanced usage of [`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) is to determine the required size for a buffer before marshaling:
 
-​	[`proto.Size`](https://pkg.go.dev/google.golang.org/protobuf/proto#Size) 的高级用法是确定序列化前缓冲区的所需大小：
+​	[`proto.Size`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Size" >}}) 的高级用法是确定序列化前缓冲区的所需大小：
 
 ```go
 opts := proto.MarshalOptions{

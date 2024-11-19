@@ -31,9 +31,9 @@ It is fairly common to write messages to files in several different formats. We 
 
 | Content                                                      | Extension |
 | ------------------------------------------------------------ | --------- |
-| [Text Format](https://protobuf.dev/reference/protobuf/textformat-spec) | `.txtpb`  |
-| [Wire Format](https://protobuf.dev/programming-guides/encoding) | `.binpb`  |
-| [JSON Format](https://protobuf.dev/programming-guides/proto3#json) | `.json`   |
+| [Text Format]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification" >}}) | `.txtpb`  |
+| [Wire Format]({{< ref "/docs/ProgrammingGuides/Encoding" >}}) | `.binpb`  |
+| [JSON Format]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#json" >}}) | `.json`   |
 
 For Text Format specifically, `.textproto` is also fairly common, but we recommend `.txtpb` for its brevity.
 

@@ -83,9 +83,9 @@ Similarly, we do not provide nullable setters as the behavior would be unintuiti
 
 ​	类似地，我们不提供可空的 Setter，因为这种行为会不直观。执行一次 set 操作后再调用 get 操作，不一定会返回相同的值；调用 set 操作仅在某些情况下会影响字段的存在位（has-bit）。
 
-Note that message-typed fields are always explicit presence fields (with hazzers). Proto3 defaults to scalar fields having implicit presence (without hazzers) unless they are explicitly marked `optional`, while Proto2 does not support implicit presence. With [Editions](https://protobuf.dev/editions/features#field_presence), explicit presence is the default behavior unless an implicit presence feature is used. With the forward expectation that almost all fields will have explicit presence, the ergonomic concerns that come with nullable getters are expected to be more of a concern than they may have been for Proto3 users.
+Note that message-typed fields are always explicit presence fields (with hazzers). Proto3 defaults to scalar fields having implicit presence (without hazzers) unless they are explicitly marked `optional`, while Proto2 does not support implicit presence. With [Editions]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions#field_presence" >}}), explicit presence is the default behavior unless an implicit presence feature is used. With the forward expectation that almost all fields will have explicit presence, the ergonomic concerns that come with nullable getters are expected to be more of a concern than they may have been for Proto3 users.
 
-​	需要注意的是，消息类型的字段始终是显式存在字段（具有 hazzers）。Proto3 默认标量字段为隐式存在（无 hazzers），除非明确标记为 `optional`，而 Proto2 不支持隐式存在。通过 [版本](https://protobuf.dev/editions/features#field_presence) 支持的功能，显式存在成为默认行为，除非使用隐式存在特性。考虑到未来几乎所有字段都会具有显式存在，可空 Getter 带来的使用问题预计会比 Proto3 用户所面临的更严重。
+​	需要注意的是，消息类型的字段始终是显式存在字段（具有 hazzers）。Proto3 默认标量字段为隐式存在（无 hazzers），除非明确标记为 `optional`，而 Proto2 不支持隐式存在。通过 [版本]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions#field_presence" >}}) 支持的功能，显式存在成为默认行为，除非使用隐式存在特性。考虑到未来几乎所有字段都会具有显式存在，可空 Getter 带来的使用问题预计会比 Proto3 用户所面临的更严重。
 
 Due to these issues, nullable setters/getters would radically change the way default values can be used. While we understand the possible utility, we have decided it’s not worth the inconsistencies and difficulty it introduces.
 

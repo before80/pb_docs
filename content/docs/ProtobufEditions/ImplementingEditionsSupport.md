@@ -1,5 +1,5 @@
 +++
-title = "实现版本支持"
+title = "实现editions支持"
 date = 2024-11-17T09:35:36+08:00
 weight = 20
 type = "docs"
@@ -13,23 +13,23 @@ draft = false
 >
 > 收录该文档的时间：`2024-11-17T09:35:36+08:00`
 
-# Implementing Editions Support - 实现版本支持
+# Implementing Editions Support - 实现editions支持
 
 Instructions for implementing Editions support in runtimes and plugins.
 
-​	为运行时和插件实现版本支持的指导。
+​	为运行时和插件实现editions支持的指导。
 
 This topic explains how to implement editions in new runtimes and generators.
 
-​	本文解释了如何在新的运行时和代码生成器中实现版本支持。
+​	本文解释了如何在新的运行时和代码生成器中实现editions支持。
 
 ## 概述 Overview
 
 ### Edition 2023
 
-The first edition released is Edition 2023, which is designed to unify proto2 and proto3 syntax. The features we’ve added to cover the difference in behaviors are detailed in [Feature Settings for Editions](https://protobuf.dev/editions/features).
+The first edition released is Edition 2023, which is designed to unify proto2 and proto3 syntax. The features we’ve added to cover the difference in behaviors are detailed in [Feature Settings for Editions]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions" >}}).
 
-​	发布的第一个版本是 **Edition 2023**，旨在统一 proto2 和 proto3 语法。我们添加了新特性以覆盖行为差异，详情请参阅 [版本特性设置](https://protobuf.dev/editions/features)。
+​	发布的第一个版本是 **Edition 2023**，旨在统一 proto2 和 proto3 语法。我们添加了新特性以覆盖行为差异，详情请参阅 [Editions特性设置]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions" >}})。
 
 ### 特性定义 Feature Definition
 
@@ -85,7 +85,7 @@ Here we’ve defined a new enum feature `foo.feature_value` (currently only bool
   - **特性支持（Feature support）：** 指定特性相对于版本的生命周期。必须声明特性引入的版本，并且在此版本之前不允许使用。可以选择在后续版本中弃用或移除特性。
 
 - **Edition defaults** - specifies any changes to the default value of the feature. This must cover every supported edition, but you can leave out any edition where the default didn’t change. Note that `EDITION_PROTO2` and `EDITION_PROTO3` can be specified here to provide defaults for the “legacy” editions (see [Legacy Editions](https://protobuf.dev/editions/implementation/#legacy_editions)).
-  - **版本默认值（Edition defaults）：** 指定特性的默认值变化。必须覆盖每个支持的版本，但可以省略未发生默认值变化的版本。`EDITION_PROTO2` 和 `EDITION_PROTO3` 可在此处指定，为“旧版”提供默认值（参见 [旧版支持](https://protobuf.dev/editions/implementation/#legacy_editions)）。
+  - **Edition默认值（Edition defaults）：** 指定特性的默认值变化。必须覆盖每个支持的版本，但可以省略未发生默认值变化的版本。`EDITION_PROTO2` 和 `EDITION_PROTO3` 可在此处指定，为“旧版”提供默认值（参见 [旧版支持](https://protobuf.dev/editions/implementation/#legacy_editions)）。
 
 
 #### 什么是特性？ What is a Feature?

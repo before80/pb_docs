@@ -127,13 +127,13 @@ All protocol buffers declarations linked into a Go binary are inserted into a gl
 
 ​	所有链接到 Go 二进制文件中的 Protocol Buffers 声明都会插入全局注册表中。
 
-Every protobuf declaration (for example, enums, enum values, or messages) has an absolute name, which is the concatenation of the [package name](https://protobuf.dev/programming-guides/proto2#packages) with the relative name of the declaration in the `.proto` source file (for example, `my.proto.package.MyMessage.NestedMessage`). The protobuf language assumes that all declarations are universally unique.
+Every protobuf declaration (for example, enums, enum values, or messages) has an absolute name, which is the concatenation of the [package name]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#packages" >}}) with the relative name of the declaration in the `.proto` source file (for example, `my.proto.package.MyMessage.NestedMessage`). The protobuf language assumes that all declarations are universally unique.
 
-​	每个 Protobuf 声明（例如枚举、枚举值或消息）都有一个绝对名称，它是 [包名](https://protobuf.dev/programming-guides/proto2#packages) 和 `.proto` 源文件中声明的相对名称的连接（例如 `my.proto.package.MyMessage.NestedMessage`）。Protobuf 语言假定所有声明都是全局唯一的。
+​	每个 Protobuf 声明（例如枚举、枚举值或消息）都有一个绝对名称，它是 [包名]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#packages" >}}) 和 `.proto` 源文件中声明的相对名称的连接（例如 `my.proto.package.MyMessage.NestedMessage`）。Protobuf 语言假定所有声明都是全局唯一的。
 
 If two protobuf declarations linked into a Go binary have the same name, then this leads to a namespace conflict, and it is impossible for the registry to properly resolve that declaration by name. Depending on which version of Go protobufs is being used, this will either panic at init-time or silently drop the conflict and lead to a potential bug later during runtime.
 
-​	如果两个 Protobuf 声明在 Go 二进制文件中具有相同的名称，则会导致命名空间冲突，注册表无法正确解析该名称。根据使用的 Go Protobuf 版本，这种情况可能会在初始化时引发恐慌或静默丢弃冲突，从而在运行时导致潜在错误。
+​	如果两个 Protobuf 声明在 Go 二进制文件中具有相同的名称，则会导致命名空间冲突，注册表无法正确解析该名称。根据使用的 Go Protobuf Editions，这种情况可能会在初始化时引发恐慌或静默丢弃冲突，从而在运行时导致潜在错误。
 
 ### 如何解决 Protocol Buffers 命名空间冲突？ How do I fix a protocol buffer namespace conflict?
 
@@ -172,9 +172,9 @@ In addition, the `reflect.DeepEqual` function is not aware of the semantics of p
 
 ​	此外，`reflect.DeepEqual` 函数不了解 Protobuf 消息的语义，可能报告不存在的差异。例如，包含 `nil` 映射的 map 字段和包含零长度非 `nil` 映射的 map 字段在语义上是等价的，但 `reflect.DeepEqual` 会将它们视为不相等。
 
-Use the [`proto.Equal`](https://pkg.go.dev/google.golang.org/protobuf/proto#Equal) function to compare message values.
+Use the [`proto.Equal`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Equal" >}}) function to compare message values.
 
-​	**解决方法：** 使用 [`proto.Equal`](https://pkg.go.dev/google.golang.org/protobuf/proto#Equal) 函数比较消息值。
+​	**解决方法：** 使用 [`proto.Equal`]({{< ref "/docs/ReferenceGuides/Go/GoAPI#Equal" >}}) 函数比较消息值。
 
 In tests, you can also use the [`"github.com/google/go-cmp/cmp"`](https://pkg.go.dev/github.com/google/go-cmp/cmp?tab=doc) package with the [`protocmp.Transform()`](https://pkg.go.dev/google.golang.org/protobuf/testing/protocmp#Transform) option. The `cmp` package can compare arbitrary data structures, and [`cmp.Diff`](https://pkg.go.dev/github.com/google/go-cmp/cmp#Diff) produces human-readable reports of the differences between values.
 
@@ -214,9 +214,9 @@ If you need to identify whether an error is produced by the [`protobuf`](https:/
 
 ### 为什么 [`protojson`](https://pkg.go.dev/google.golang.org/protobuf/encoding/protojson) 的输出不断变化？ Why does the output of [`protojson`](https://pkg.go.dev/google.golang.org/protobuf/encoding/protojson) keep changing?
 
-We make no promises about the long-term stability of Go’s implementation of the [JSON format for protocol buffers](https://protobuf.dev/programming-guides/proto3#json). The specification only specifies what is valid JSON, but provides no specification for a *canonical* format for how a marshaler ought to *exactly* format a given message. To avoid giving the illusion that the output is stable, we deliberately introduce minor differences so that byte-for-byte comparisons are likely to fail.
+We make no promises about the long-term stability of Go’s implementation of the [JSON format for protocol buffers]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#json" >}}). The specification only specifies what is valid JSON, but provides no specification for a *canonical* format for how a marshaler ought to *exactly* format a given message. To avoid giving the illusion that the output is stable, we deliberately introduce minor differences so that byte-for-byte comparisons are likely to fail.
 
-​	我们对 Go 对 Protobuf [JSON 格式](https://protobuf.dev/programming-guides/proto3#json) 的实现不做长期稳定性的承诺。规范仅规定了有效 JSON 的要求，但未规定一个 *规范格式*。为避免输出看似稳定的假象，我们故意引入微小差异，使字节对字节的比较可能失败。
+​	我们对 Go 对 Protobuf [JSON 格式]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#json" >}}) 的实现不做长期稳定性的承诺。规范仅规定了有效 JSON 的要求，但未规定一个 *规范格式*。为避免输出看似稳定的假象，我们故意引入微小差异，使字节对字节的比较可能失败。
 
 To gain some degree of output stability, we recommend running the output through a JSON formatter.
 

@@ -31,9 +31,9 @@ The encoding is described on a type-by-type basis in the table later in this top
 
 ​	编码在本主题后面的表格中按类型逐一描述。
 
-When parsing JSON-encoded data into a protocol buffer, if a value is missing or if its value is `null`, it will be interpreted as the corresponding [default value](https://protobuf.dev/programming-guides/editions#default).
+When parsing JSON-encoded data into a protocol buffer, if a value is missing or if its value is `null`, it will be interpreted as the corresponding [default value]({{< ref "/docs/ProgrammingGuides/LanguageGuideeditions#default" >}}).
 
-​	在将 JSON 编码数据解析为协议缓冲区时，如果缺少值或其值为 `null`，它将被解释为对应的[默认值](https://protobuf.dev/programming-guides/editions#default)。
+​	在将 JSON 编码数据解析为协议缓冲区时，如果缺少值或其值为 `null`，它将被解释为对应的[默认值]({{< ref "/docs/ProgrammingGuides/LanguageGuideeditions#default" >}})。
 
 When generating JSON-encoded output from a protocol buffer, if a protobuf field has the default value and if the field doesn’t support field presence, it will be omitted from the output by default. An implementation may provide options to include fields with default values in the output.
 
@@ -62,7 +62,7 @@ Fields that have a value set and that support field presence always include the 
 | Wrapper types          | various types | `2, "2", "foo", true, "true", null, 0, ...` | Wrappers use the same representation in JSON as the wrapped primitive type, except that `null` is allowed and preserved during data conversion and transfer. Wrapper 使用与包装的基本类型相同的 JSON 表现形式，除了允许和保留 `null` 以用于数据转换和传输。 |
 | FieldMask              | string        | `"f.fooBar,h"`                              | See `field_mask.proto`. 请参阅 `field_mask.proto`。          |
 | ListValue              | array         | `[foo, bar, ...]`                           |                                                              |
-| Value                  | value         |                                             | Any JSON value. Check [google.protobuf.Value](https://protobuf.dev/reference/protobuf/google.protobuf#value) for details. 任意 JSON 值。请查看 [google.protobuf.Value](https://protobuf.dev/reference/protobuf/google.protobuf#value) 的详细信息。 |
+| Value                  | value         |                                             | Any JSON value. Check [google.protobuf.Value]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes#value" >}}) for details. 任意 JSON 值。请查看 [google.protobuf.Value]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes#value" >}}) 的详细信息。 |
 | NullValue              | null          |                                             | JSON null                                                    |
 | Empty                  | object        | `{}`                                        | An empty JSON object 一个空的 JSON 对象                      |
 

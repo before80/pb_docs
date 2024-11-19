@@ -126,9 +126,9 @@ Each enum value should end with a semicolon, not a comma. Prefer prefixing enum 
 
 ​	每个枚举值应以分号结尾，而不是逗号。优先为枚举值添加前缀，而不是将其包裹在封闭消息中。因为某些语言不支持在“结构”类型中定义枚举，这确保了跨绑定语言的一致性。
 
-The zero value enum should have the suffix `UNSPECIFIED`, because a server or application that gets an unexpected enum value will mark the field as unset in the proto instance. The field accessor will then return the default value, which for enum fields is the first enum value. For more information on the unspecified enum value, see [the Proto Best Practices page](https://protobuf.dev/programming-guides/dos-donts#unspecified-enum).
+The zero value enum should have the suffix `UNSPECIFIED`, because a server or application that gets an unexpected enum value will mark the field as unset in the proto instance. The field accessor will then return the default value, which for enum fields is the first enum value. For more information on the unspecified enum value, see [the Proto Best Practices page]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices#unspecified-enum" >}}).
 
-​	零值枚举应以 `UNSPECIFIED` 为后缀，因为服务器或应用程序获取到意外的枚举值时，会将该字段标记为 proto 实例中的未设置状态。字段访问器随后将返回默认值，对于枚举字段，默认值是第一个枚举值。有关未指定枚举值的更多信息，请参见 [Proto Best Practices 页面](https://protobuf.dev/programming-guides/dos-donts#unspecified-enum)。
+​	零值枚举应以 `UNSPECIFIED` 为后缀，因为服务器或应用程序获取到意外的枚举值时，会将该字段标记为 proto 实例中的未设置状态。字段访问器随后将返回默认值，对于枚举字段，默认值是第一个枚举值。有关未指定枚举值的更多信息，请参见 [Proto Best Practices 页面]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices#unspecified-enum" >}})。
 
 ## 服务 Services
 
@@ -143,9 +143,9 @@ service FooService {
 }
 ```
 
-For more service-related guidance, see [Create Unique Protos per Method](https://protobuf.dev/programming-guides/api#unique-protos) and [Don’t Include Primitive Types in a Top-level Request or Response Proto](https://protobuf.dev/programming-guides/api#dont-include-primitive-types) in the API Best Practices topic, and [Define Messages in Separate Files](https://protobuf.dev/programming-guides/dos-donts.md#separate-files) in Proto Best Practices.
+For more service-related guidance, see [Create Unique Protos per Method]({{< ref "/docs/ProgrammingGuides/APIBestPractices#unique-protos" >}}) and [Don’t Include Primitive Types in a Top-level Request or Response Proto]({{< ref "/docs/ProgrammingGuides/APIBestPractices#dont-include-primitive-types" >}}) in the API Best Practices topic, and [Define Messages in Separate Files](https://protobuf.dev/programming-guides/dos-donts.md#separate-files) in Proto Best Practices.
 
-​	有关更多与服务相关的指导，请参见 [Create Unique Protos per Method](https://protobuf.dev/programming-guides/api#unique-protos) 和 [Don’t Include Primitive Types in a Top-level Request or Response Proto](https://protobuf.dev/programming-guides/api#dont-include-primitive-types) 中的 API 最佳实践主题，以及 [Define Messages in Separate Files](https://protobuf.dev/programming-guides/dos-donts.md#separate-files) 中的 Proto 最佳实践。
+​	有关更多与服务相关的指导，请参见 [Create Unique Protos per Method]({{< ref "/docs/ProgrammingGuides/APIBestPractices#unique-protos" >}}) 和 [Don’t Include Primitive Types in a Top-level Request or Response Proto]({{< ref "/docs/ProgrammingGuides/APIBestPractices#dont-include-primitive-types" >}}) 中的 API 最佳实践主题，以及 [Define Messages in Separate Files](https://protobuf.dev/programming-guides/dos-donts.md#separate-files) 中的 Proto 最佳实践。
 
 ## 应避免的事项 Things to Avoid
 

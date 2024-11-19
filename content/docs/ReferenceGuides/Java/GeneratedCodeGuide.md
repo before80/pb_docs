@@ -18,7 +18,7 @@ Describes exactly what Java code the protocol buffer compiler generates for any 
 
 
 
-Any differences between proto2 and proto3 generated code are highlighted—note that these differences are in the generated code as described in this document, not the base message classes/interfaces, which are the same in both versions. You should read the [proto2 language guide](https://protobuf.dev/programming-guides/proto2) and/or [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document.
+Any differences between proto2 and proto3 generated code are highlighted—note that these differences are in the generated code as described in this document, not the base message classes/interfaces, which are the same in both versions. You should read the [proto2 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and/or [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
 Note that no Java protocol buffer methods accept or return nulls unless otherwise specified.
 
@@ -189,7 +189,7 @@ In this case, the compiler simply generates `Bar` as an inner class nested insid
 
 In addition to the methods described in the previous section, the protocol buffer compiler generates a set of accessor methods for each field defined within the message in the `.proto` file. The methods that read the field value are defined both in the message class and its corresponding builder; the methods that modify the value are defined in the builder only.
 
-Note that method names always use camel-case naming, even if the field name in the `.proto` file uses lower-case with underscores ([as it should](https://protobuf.dev/programming-guides/style)). The case-conversion works as follows:
+Note that method names always use camel-case naming, even if the field name in the `.proto` file uses lower-case with underscores ([as it should]({{< ref "/docs/ProgrammingGuides/StyleGuide" >}})). The case-conversion works as follows:
 
 - For each underscore in the name, the underscore is removed, and the following letter is capitalized.
 - If the name will have a prefix attached (e.g. “get”), the first letter is capitalized. Otherwise, it is lower-cased.
@@ -218,7 +218,7 @@ The compiler will generate the following methods only in the message’s builder
 - `Builder setFoo(int value)`: Sets the value of the field. After calling this, `hasFoo()` will return `true` and `getFoo()` will return `value`.
 - `Builder clearFoo()`: Clears the value of the field. After calling this, `hasFoo()` will return `false` and `getFoo()` will return the default value.
 
-For other simple field types, the corresponding Java type is chosen according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar). For message and enum types, the value type is replaced with the message or enum class.
+For other simple field types, the corresponding Java type is chosen according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}). For message and enum types, the value type is replaced with the message or enum class.
 
 #### Embedded Message Fields
 
@@ -251,7 +251,7 @@ The compiler will generate the following methods only in the message’s builder
 - `Builder setFoo(int value)`: Sets the value of the field. After calling this, `getFoo()` will return `value`.
 - `Builder clearFoo()`: Clears the value of the field. After calling this, `getFoo()` will return the default value for the field’s type.
 
-For other simple field types, the corresponding Java type is chosen according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar). For message and enum types, the value type is replaced with the message or enum class.
+For other simple field types, the corresponding Java type is chosen according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}). For message and enum types, the value type is replaced with the message or enum class.
 
 #### Embedded Message Fields
 
@@ -304,7 +304,7 @@ The compiler will generate the following methods only in the message’s builder
 - `Builder addAllFoos(Iterable<? extends String> value)`: Appends all elements in the given `Iterable` to the field.
 - `Builder clearFoos()`: Removes all elements from the field. After calling this, `getFoosCount()` will return zero.
 
-For other simple field types, the corresponding Java type is chosen according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar). For message and enum types, the type is the message or enum class.
+For other simple field types, the corresponding Java type is chosen according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}). For message and enum types, the type is the message or enum class.
 
 #### Repeated Embedded Message Fields
 
@@ -409,7 +409,7 @@ The compiler will generate the following methods only in the message’s builder
 
 - `Builder.clearChoice()`: Resets the value for `choice`, returning the builder.
 
-For other simple field types, the corresponding Java type is chosen according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar). For message and enum types, the value type is replaced with the message or enum class.
+For other simple field types, the corresponding Java type is chosen according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}). For message and enum types, the value type is replaced with the message or enum class.
 
 ### Map Fields
 
@@ -443,7 +443,7 @@ For maps with message types as values, the compiler will generate an additional 
 
 ## Any
 
-Given an [`Any`](https://protobuf.dev/programming-guides/proto3#any) field like this:
+Given an [`Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) field like this:
 
 ```proto
 import "google/protobuf/any.proto";
@@ -694,4 +694,4 @@ Do not generate code which relies on private class members declared by the stand
 
 ## Utility Classes
 
-Protocol buffer provides [utility classes](https://protobuf.dev/reference/java/api-docs/com/google/protobuf/util/package-summary.html) for message comparison, JSON conversion and working with [well-known types (predefined protocol buffer messages for common use-cases).](https://protobuf.dev/reference/protobuf/google.protobuf)
+Protocol buffer provides [utility classes](https://protobuf.dev/reference/java/api-docs/com/google/protobuf/util/package-summary.html) for message comparison, JSON conversion and working with [well-known types (predefined protocol buffer messages for common use-cases).]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes" >}})

@@ -18,7 +18,7 @@ Describes what Dart code the protocol buffer compiler generates for any given pr
 
 
 
-Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base API, which are the same in both versions. You should read the [proto2 language guide](https://protobuf.dev/programming-guides/proto2) and/or the [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document.
+Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base API, which are the same in both versions. You should read the [proto2 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and/or the [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
 ## Compiler Invocation
 
@@ -75,7 +75,7 @@ In this case, the compiler generates two classes: `Foo` and `Foo_Bar`.
 
 In addition to the methods described in the previous section, the protocol buffer compiler generates accessor methods for each field defined within the message in the `.proto` file.
 
-Note that the generated names always use camel-case naming, even if the field name in the `.proto` file uses lower-case with underscores ([as it should](https://protobuf.dev/programming-guides/style)). The case-conversion works as follows:
+Note that the generated names always use camel-case naming, even if the field name in the `.proto` file uses lower-case with underscores ([as it should]({{< ref "/docs/ProgrammingGuides/StyleGuide" >}})). The case-conversion works as follows:
 
 1. For each underscore in the name, the underscore is removed, and the following letter is capitalized.
 2. If the name will have a prefix attached (e.g. "has"), the first letter is capitalized. Otherwise, it is lower-cased.
@@ -98,7 +98,7 @@ The compiler will generate the following accessor methods in the message class:
 - `set foo(int value)`: Sets the value of the field. After calling this, `hasFoo()` will return `true` and `get foo` will return `value`.
 - `void clearFoo()`: Clears the value of the field. After calling this, `hasFoo()` will return `false` and `get foo` will return the default value.
 
-For other simple field types, the corresponding Dart type is chosen according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar). For message and enum types, the value type is replaced with the message or enum class.
+For other simple field types, the corresponding Dart type is chosen according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}). For message and enum types, the value type is replaced with the message or enum class.
 
 ### Singular Primitive Fields (proto3)
 
@@ -114,7 +114,7 @@ The compiler will generate the following accessor methods in the message class:
 - `set foo(int value)`: Sets the value of the field. After calling this, `get foo` will return `value`.
 - `void clearFoo()`: Clears the value of the field. After calling this,`get foo` will return the default value.
 
-**NOTE:** Due to a quirk in the Dart proto3 implementation, the following methods are generated even if the `optional` modifier, used to request [presence semantics](https://protobuf.dev/programming-guides/field_presence#presence-in-proto3-apis), isn’t in the proto definition.
+**NOTE:** Due to a quirk in the Dart proto3 implementation, the following methods are generated even if the `optional` modifier, used to request [presence semantics]({{< ref "/docs/ProgrammingGuides/FieldPresence#presence-in-proto3-apis" >}}), isn’t in the proto definition.
 
 - `bool hasFoo()`: Returns `true` if the field is set.
 - `void clearFoo()`: Clears the value of the field. After calling this, `hasFoo()` will return `false` and `get foo` will return the default value.
@@ -186,7 +186,7 @@ import 'package:fixnum/fixnum.dart';
 
 ### Map Fields
 
-Given a [`map`](https://protobuf.dev/programming-guides/proto3#maps) field definition like this:
+Given a [`map`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#maps" >}}) field definition like this:
 
 ```proto
 map<int32, int32> map_field = 1;
@@ -198,7 +198,7 @@ The compiler will generate the following getter:
 
 ## Any
 
-Given an [`Any`](https://protobuf.dev/programming-guides/proto3#any) field like this:
+Given an [`Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) field like this:
 
 ```proto
 import "google/protobuf/any.proto";
@@ -239,7 +239,7 @@ In our generated code, the getter for the `details` field returns an instance of
 
 ## Oneof
 
-Given a [`oneof`](https://protobuf.dev/programming-guides/proto3#oneof) definition like this:
+Given a [`oneof`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#oneof" >}}) definition like this:
 
 ```proto
 message Foo {
@@ -332,7 +332,7 @@ The protocol buffer compiler will generate a class called `Bar`, which extends `
 
 ## Extensions (proto2 only)
 
-Given a file `foo_test.proto` including a message with an [extension range](https://protobuf.dev/programming-guides/proto2#extensions) and a top-level extension definition:
+Given a file `foo_test.proto` including a message with an [extension range]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#extensions" >}}) and a top-level extension definition:
 
 ```proto
 message Foo {

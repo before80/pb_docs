@@ -18,11 +18,11 @@ Describes exactly what C# code the protocol buffer compiler generates for protoc
 
 
 
-You should read the [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document.
+You should read the [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
 #### Note
 
-The protobuf compiler can generate C# interfaces for definitions using `proto2` syntax starting from release 3.10. Refer to the [proto2 language guide](https://protobuf.dev/programming-guides/proto2) for details of the semantics of `proto2` definitions, and see `docs/csharp/proto2.md` ([view on GitHub](https://github.com/protocolbuffers/protobuf/blob/master/docs/csharp/proto2.md)) for details on the generated C# code for proto2.
+The protobuf compiler can generate C# interfaces for definitions using `proto2` syntax starting from release 3.10. Refer to the [proto2 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) for details of the semantics of `proto2` definitions, and see `docs/csharp/proto2.md` ([view on GitHub](https://github.com/protocolbuffers/protobuf/blob/master/docs/csharp/proto2.md)) for details on the generated C# code for proto2.
 
 ## Compiler Invocation
 
@@ -77,7 +77,7 @@ namespace [...]
 }
 ```
 
-The `namespace` is inferred from the proto’s `package`, using the same conversion rules as the file name. For example, a proto package of `example.high_score` would result in a namespace of `Example.HighScore`. You can override the default generated namespace for a particular .proto using the `csharp_namespace` [file option](https://protobuf.dev/programming-guides/proto3#options).
+The `namespace` is inferred from the proto’s `package`, using the same conversion rules as the file name. For example, a proto package of `example.high_score` would result in a namespace of `Example.HighScore`. You can override the default generated namespace for a particular .proto using the `csharp_namespace` [file option]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#options" >}}).
 
 Each top-level enum and message results in an enum or class being declared as members of the namespace. Additionally, a single static partial class is always generated for the file descriptor. This is used for reflection-based operations. The descriptor class is given the same name as the file, without the extension. However, if there is a message with the same name (as is quite common), the descriptor class is placed in a nested `Proto` namespace to avoid colliding with the message.
 

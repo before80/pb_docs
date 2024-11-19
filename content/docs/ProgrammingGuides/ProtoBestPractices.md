@@ -45,9 +45,9 @@ When you delete an enum value that’s no longer used, reserve its number so tha
 
 ## **不要**更改字段类型 **Don’t** Change the Type of a Field
 
-Almost never change the type of a field; it’ll mess up deserialization, same as re-using a tag number. The [protobuf docs](https://protobuf.dev/programming-guides/proto2#updating) outline a small number of cases that are okay (for example, going between `int32`, `uint32`, `int64` and `bool`). However, changing a field’s message type **will break** unless the new message is a superset of the old one.
+Almost never change the type of a field; it’ll mess up deserialization, same as re-using a tag number. The [protobuf docs]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#updating" >}}) outline a small number of cases that are okay (for example, going between `int32`, `uint32`, `int64` and `bool`). However, changing a field’s message type **will break** unless the new message is a superset of the old one.
 
-​	几乎永远不要更改字段的类型；这会像重用标签号一样破坏反序列化。[Protobuf 文档](https://protobuf.dev/programming-guides/proto2#updating) 概述了少数允许的情况（例如 `int32`、`uint32`、`int64` 和 `bool` 之间的转换）。但是，更改字段的消息类型 **会导致破坏**，除非新消息是旧消息的超集。
+​	几乎永远不要更改字段的类型；这会像重用标签号一样破坏反序列化。[Protobuf 文档]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#updating" >}}) 概述了少数允许的情况（例如 `int32`、`uint32`、`int64` 和 `bool` 之间的转换）。但是，更改字段的消息类型 **会导致破坏**，除非新消息是旧消息的超集。
 
 ## **不要**添加必填字段 **Don’t** Add a Required Field
 
@@ -67,9 +67,9 @@ Don’t make a message with “lots” (think: hundreds) of fields. In C++ every
 
 ## **务必**在枚举中包含未指定值 **Do** Include an Unspecified Value in an Enum
 
-Enums should include a default `FOO_UNSPECIFIED` value as the first value in the declaration . When new values are added to a proto2 enum, old clients will see the field as unset and the getter will return the default value or the first-declared value if no default exists . For consistent behavior with [proto enums](https://protobuf.dev/programming-guides/proto2#enum), the first declared enum value should be a default `FOO_UNSPECIFIED` value and should use tag 0. It may be tempting to declare this default as a semantically meaningful value but as a general rule, do not, to aid in the evolution of your protocol as new enum values are added over time. All enum values declared under a container message are in the same C++ namespace, so prefix the unspecified value with the enum’s name to avoid compilation errors. If you’ll never need cross-language constants, an `int32` will preserve unknown values and generates less code. Note that [proto enums](https://protobuf.dev/programming-guides/proto2#enum) require the first value to be zero and can round-trip (deserialize, serialize) an unknown enum value.
+Enums should include a default `FOO_UNSPECIFIED` value as the first value in the declaration . When new values are added to a proto2 enum, old clients will see the field as unset and the getter will return the default value or the first-declared value if no default exists . For consistent behavior with [proto enums]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum" >}}), the first declared enum value should be a default `FOO_UNSPECIFIED` value and should use tag 0. It may be tempting to declare this default as a semantically meaningful value but as a general rule, do not, to aid in the evolution of your protocol as new enum values are added over time. All enum values declared under a container message are in the same C++ namespace, so prefix the unspecified value with the enum’s name to avoid compilation errors. If you’ll never need cross-language constants, an `int32` will preserve unknown values and generates less code. Note that [proto enums]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum" >}}) require the first value to be zero and can round-trip (deserialize, serialize) an unknown enum value.
 
-​	枚举应在声明中包含一个默认的 `FOO_UNSPECIFIED` 值作为第一个值。当向 proto2 枚举添加新值时，旧客户端会将字段视为未设置，并且 Getter 将返回默认值或第一个声明的值（如果没有默认值）。为了与 [proto 枚举](https://protobuf.dev/programming-guides/proto2#enum) 保持一致，第一个声明的枚举值应为默认的 `FOO_UNSPECIFIED` 值，并使用标签 0。尽管将默认值声明为一个有语义意义的值可能很诱人，但通常不建议这样做，因为这有助于在随着时间推移添加新枚举值时更容易演进协议。所有声明在容器消息中的枚举值都位于同一个 C++ 命名空间中，因此需要为未指定的值加上枚举名称的前缀以避免编译错误。如果您永远不需要跨语言的常量，可以使用 `int32` 保存未知值，同时生成的代码更少。需要注意的是 [proto 枚举](https://protobuf.dev/programming-guides/proto2#enum) 要求第一个值为零，并且能够对未知枚举值进行完整的序列化和反序列化（即回路处理）。
+​	枚举应在声明中包含一个默认的 `FOO_UNSPECIFIED` 值作为第一个值。当向 proto2 枚举添加新值时，旧客户端会将字段视为未设置，并且 Getter 将返回默认值或第一个声明的值（如果没有默认值）。为了与 [proto 枚举]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum" >}}) 保持一致，第一个声明的枚举值应为默认的 `FOO_UNSPECIFIED` 值，并使用标签 0。尽管将默认值声明为一个有语义意义的值可能很诱人，但通常不建议这样做，因为这有助于在随着时间推移添加新枚举值时更容易演进协议。所有声明在容器消息中的枚举值都位于同一个 C++ 命名空间中，因此需要为未指定的值加上枚举名称的前缀以避免编译错误。如果您永远不需要跨语言的常量，可以使用 `int32` 保存未知值，同时生成的代码更少。需要注意的是 [proto 枚举]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum" >}}) 要求第一个值为零，并且能够对未知枚举值进行完整的序列化和反序列化（即回路处理）。
 
 ## **不要**为枚举值使用 C/C++ 宏常量 **Don’t** Use C/C++ Macro Constants for Enum Values
 
@@ -132,9 +132,9 @@ If they will be widely used outside of your project, consider putting them in th
 
 ​	如果这些类型会在项目外部被广泛使用，请考虑将它们放在没有依赖项的独立文件中。这样任何人都可以轻松使用这些类型，而不会引入其他 proto 文件的传递依赖。
 
-For more on this topic, see [1-1-1 Rule](https://protobuf.dev/programming-guides/1-1-1).
+For more on this topic, see [1-1-1 Rule]({{< ref "/docs/ProgrammingGuides/1-1-1BestPractice" >}}).
 
-​	有关更多信息，请参阅 [1-1-1 规则](https://protobuf.dev/programming-guides/1-1-1)。
+​	有关更多信息，请参阅 [1-1-1 规则]({{< ref "/docs/ProgrammingGuides/1-1-1BestPractice" >}})。
 
 
 
@@ -195,15 +195,15 @@ The stability of proto serialization is not guaranteed across binaries or across
 
 ## **不要**将 Java Protos 生成到与其他代码相同的 Java 包中 **Don’t** Generate Java Protos in the Same Java Package as Other Code
 
-Generate Java proto sources into a separate package from your hand-written Java sources. The `package`, `java_package` and `java_alt_api_package` options control [where the generated Java sources are emitted](https://protobuf.dev/reference/java/java-generated#package). Make sure hand-written Java source code does not also live in that same package. A common practice is to generate your protos into a `proto` subpackage in your project that **only** contains those protos (that is, no hand-written source code).
+Generate Java proto sources into a separate package from your hand-written Java sources. The `package`, `java_package` and `java_alt_api_package` options control [where the generated Java sources are emitted]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide#package" >}}). Make sure hand-written Java source code does not also live in that same package. A common practice is to generate your protos into a `proto` subpackage in your project that **only** contains those protos (that is, no hand-written source code).
 
-​	将 Java proto 源文件生成到与手写 Java 源代码不同的包中。`package`、`java_package` 和 `java_alt_api_package` 选项控制 [生成的 Java 源文件的路径](https://protobuf.dev/reference/java/java-generated#package)。确保手写 Java 源代码不位于相同的包中。一种常见的做法是将 proto 生成到项目中的 `proto` 子包中，该子包 **仅** 包含这些 proto 文件（即没有手写源代码）。
+​	将 Java proto 源文件生成到与手写 Java 源代码不同的包中。`package`、`java_package` 和 `java_alt_api_package` 选项控制 [生成的 Java 源文件的路径]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide#package" >}})。确保手写 Java 源代码不位于相同的包中。一种常见的做法是将 proto 生成到项目中的 `proto` 子包中，该子包 **仅** 包含这些 proto 文件（即没有手写源代码）。
 
 ## 避免将语言关键字用作字段名称 Avoid Using Language Keywords for Field Names
 
-If the name of a message, field, enum, or enum value is a keyword in the language that reads from/writes to that field, then protobuf may change the field name, and may have different ways to access them than normal fields. For example, see [this warning about Python](https://protobuf.dev/reference/python/python-generated#keyword-conflicts).
+If the name of a message, field, enum, or enum value is a keyword in the language that reads from/writes to that field, then protobuf may change the field name, and may have different ways to access them than normal fields. For example, see [this warning about Python]({{< ref "/docs/ReferenceGuides/Python/GeneratedCodeGuide#keyword-conflicts" >}}).
 
-​	如果消息、字段、枚举或枚举值的名称是读取/写入该字段的语言中的关键字，则 protobuf 可能会更改字段名称，并且访问这些字段的方式可能不同于普通字段。例如，请参阅 [Python 的相关警告](https://protobuf.dev/reference/python/python-generated#keyword-conflicts)。
+​	如果消息、字段、枚举或枚举值的名称是读取/写入该字段的语言中的关键字，则 protobuf 可能会更改字段名称，并且访问这些字段的方式可能不同于普通字段。例如，请参阅 [Python 的相关警告]({{< ref "/docs/ReferenceGuides/Python/GeneratedCodeGuide#keyword-conflicts" >}})。
 
 You should also avoid using keywords in your file paths, as this can also cause problems.
 
@@ -213,6 +213,6 @@ You should also avoid using keywords in your file paths, as this can also cause 
 
 ### API 最佳实践 API Best Practices
 
-This document lists only changes that are extremely likely to cause breakage. For higher-level guidance on how to craft proto APIs that grow gracefully see [API Best Practices](https://protobuf.dev/programming-guides/api).
+This document lists only changes that are extremely likely to cause breakage. For higher-level guidance on how to craft proto APIs that grow gracefully see [API Best Practices]({{< ref "/docs/ProgrammingGuides/APIBestPractices" >}}).
 
-​	本文档仅列出非常可能导致破坏的更改。有关如何设计能够平稳扩展的 Proto API 的高级指导，请参阅 [API 最佳实践](https://protobuf.dev/programming-guides/api)。
+​	本文档仅列出非常可能导致破坏的更改。有关如何设计能够平稳扩展的 Proto API 的高级指导，请参阅 [API 最佳实践]({{< ref "/docs/ProgrammingGuides/APIBestPractices" >}})。

@@ -258,9 +258,9 @@ no_whitespace: "first""second"'third''fourth'
 
 ### 字段名称 Field Names
 
-Fields that are part of the containing message use simple `Identifiers` as names. [`Extension`](https://protobuf.dev/programming-guides/proto2#extensions) and [`Any`](https://protobuf.dev/programming-guides/proto3#any) field names are wrapped in square brackets and fully-qualified. `Any` field names are prefixed with a qualifying domain name, such as `type.googleapis.com/`.
+Fields that are part of the containing message use simple `Identifiers` as names. [`Extension`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#extensions" >}}) and [`Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) field names are wrapped in square brackets and fully-qualified. `Any` field names are prefixed with a qualifying domain name, such as `type.googleapis.com/`.
 
-​	包含消息的字段使用简单的 `Identifier` 作为名称。[`扩展字段`](https://protobuf.dev/programming-guides/proto2#extensions)和[`Any`](https://protobuf.dev/programming-guides/proto3#any) 字段名称用方括号括起并使用全限定名。`Any` 字段名称以限定的域名前缀开头，例如 `type.googleapis.com/`。
+​	包含消息的字段使用简单的 `Identifier` 作为名称。[`扩展字段`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#extensions" >}})和[`Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) 字段名称用方括号括起并使用全限定名。`Any` 字段名称以限定的域名前缀开头，例如 `type.googleapis.com/`。
 
 ```fallback
 FieldName     = ExtensionName | AnyName | IDENT ;
@@ -407,9 +407,9 @@ Extension fields are generally defined in other *.proto* files. The text format 
 
 ## `Any` Fields
 
-Text format supports an expanded form of the [`google.protobuf.Any`](https://protobuf.dev/programming-guides/proto3#any) well-known type using a special syntax resembling extension fields. Example:
+Text format supports an expanded form of the [`google.protobuf.Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) well-known type using a special syntax resembling extension fields. Example:
 
-​	文本格式支持扩展形式的 [`google.protobuf.Any`](https://protobuf.dev/programming-guides/proto3#any) 类型，使用类似扩展字段的特殊语法。例如：
+​	文本格式支持扩展形式的 [`google.protobuf.Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) 类型，使用类似扩展字段的特殊语法。例如：
 
 ```fallback
 local_field: 10
@@ -464,9 +464,9 @@ Similar to Message fields, the `:` delimiter between the group name and value is
 
 ## `map` Fields
 
-Text format does not provide a custom syntax for specifying map field entries. When a [`map`](https://protobuf.dev/programming-guides/proto2#maps) field is defined in a *.proto* file, an implicit `Entry` message is defined containing `key` and `value` fields. Map fields are always repeated, accepting multiple key/value entries. Example:
+Text format does not provide a custom syntax for specifying map field entries. When a [`map`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#maps" >}}) field is defined in a *.proto* file, an implicit `Entry` message is defined containing `key` and `value` fields. Map fields are always repeated, accepting multiple key/value entries. Example:
 
-​	文本格式没有提供用于指定映射字段条目的自定义语法。当在 *.proto* 文件中定义了[`map`](https://protobuf.dev/programming-guides/proto2#maps)字段时，会隐式定义一个包含 `key` 和 `value` 字段的 `Entry` 消息。映射字段始终是 `repeated` 的，可以接受多个键/值条目。例如：
+​	文本格式没有提供用于指定映射字段条目的自定义语法。当在 *.proto* 文件中定义了[`map`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#maps" >}})字段时，会隐式定义一个包含 `key` 和 `value` 字段的 `Entry` 消息。映射字段始终是 `repeated` 的，可以接受多个键/值条目。例如：
 
 ```proto
 message MessageWithMap {

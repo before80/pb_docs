@@ -19,21 +19,21 @@ Covers how to use the edition 2023 revision of the Protocol Buffers language in 
 
 ​	介绍如何在项目中使用 Protocol Buffers 语言的 **2023 版本**。
 
-This guide describes how to use the protocol buffer language to structure your protocol buffer data, including `.proto` file syntax and how to generate data access classes from your `.proto` files. It covers **edition 2023** of the protocol buffers language. For information about how editions differ from proto2 and proto3 conceptually, see [Protobuf Editions Overview](https://protobuf.dev/editions/overview).
+This guide describes how to use the protocol buffer language to structure your protocol buffer data, including `.proto` file syntax and how to generate data access classes from your `.proto` files. It covers **edition 2023** of the protocol buffers language. For information about how editions differ from proto2 and proto3 conceptually, see [Protobuf Editions Overview]({{< ref "/docs/ProtobufEditions/Overview" >}}).
 
-​	本指南描述了如何使用 Protocol Buffers 语言来构建你的协议数据结构，包括 `.proto` 文件的语法以及如何从 `.proto` 文件生成数据访问类。内容基于 **2023 版本** 的 Protocol Buffers 语言规范。如果想了解版本与 proto2 和 proto3 在概念上的区别，请参阅 [Protobuf 版本概述](https://protobuf.dev/editions/overview)。
+​	本指南描述了如何使用 Protocol Buffers 语言来构建你的协议数据结构，包括 `.proto` 文件的语法以及如何从 `.proto` 文件生成数据访问类。内容基于 **2023 版本** 的 Protocol Buffers 语言规范。如果想了解版本与 proto2 和 proto3 在概念上的区别，请参阅 [Protobuf Editions概述]({{< ref "/docs/ProtobufEditions/Overview" >}})。
 
-For information on the **proto2** syntax, see the [Proto2 Language Guide](https://protobuf.dev/programming-guides/proto2).
+For information on the **proto2** syntax, see the [Proto2 Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}).
 
-​	**Proto2** 语法详见 [Proto2 语言指南](https://protobuf.dev/programming-guides/proto2)。
+​	**Proto2** 语法详见 [Proto2 语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}})。
 
-For information on **proto3** syntax, see the [Proto3 Language Guide](https://protobuf.dev/programming-guides/proto3).
+For information on **proto3** syntax, see the [Proto3 Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}).
 
-​	**Proto3** 语法详见 [Proto3 语言指南](https://protobuf.dev/programming-guides/proto3)。
+​	**Proto3** 语法详见 [Proto3 语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}})。
 
-This is a reference guide – for a step by step example that uses many of the features described in this document, see the [tutorial](https://protobuf.dev/getting-started) for your chosen language.
+This is a reference guide – for a step by step example that uses many of the features described in this document, see the [tutorial]({{< ref "/docs/Tutorials" >}}) for your chosen language.
 
-​	这是一个参考指南。如果你需要一个详细的分步示例，请参阅针对所选语言的 [教程](https://protobuf.dev/getting-started)。
+​	这是一个参考指南。如果你需要一个详细的分步示例，请参阅针对所选语言的 [教程]({{< ref "/docs/Tutorials" >}})。
 
 ## 定义消息类型 Defining A Message Type
 
@@ -54,8 +54,8 @@ message SearchRequest {
 - The first line of the file specifies that you’re using edition 2023 of the protobuf language spec. 文件的第一行指定你使用的是 Protocol Buffers 语言规范的 **2023 版本**。
   - The `edition` (or `syntax` for proto2/proto3) must be the first non-empty, non-comment line of the file.
     - `edition`（或 proto2/proto3 中的 `syntax`）必须是文件中首个非空且非注释的行。
-  - If no `edition` or `syntax` is specified, the protocol buffer compiler will assume you are using [proto2](https://protobuf.dev/programming-guides/proto2).
-    - 如果没有指定 `edition` 或 `syntax`，Protocol Buffers 编译器将假定你使用的是 [proto2](https://protobuf.dev/programming-guides/proto2)。
+  - If no `edition` or `syntax` is specified, the protocol buffer compiler will assume you are using [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}).
+    - 如果没有指定 `edition` 或 `syntax`，Protocol Buffers 编译器将假定你使用的是 [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}})。
 - The `SearchRequest` message definition specifies three fields (name/value pairs), one for each piece of data that you want to include in this type of message. Each field has a name and a type.
   - `SearchRequest` 消息定义了三个字段，每个字段对应一个数据部分。每个字段都有一个名称和类型。
 
@@ -82,17 +82,17 @@ You must give each field in your message definition a number between `1` and `53
   - 不能使用任何以前已被[保留](https://protobuf.dev/programming-guides/editions/#fieldreserved)的字段编号或已分配给[扩展](https://protobuf.dev/programming-guides/editions/#extensions)的字段编号。
 
 
-This number **cannot be changed once your message type is in use** because it identifies the field in the [message wire format](https://protobuf.dev/programming-guides/encoding). “Changing” a field number is equivalent to deleting that field and creating a new field with the same type but a new number. See [Deleting Fields](https://protobuf.dev/programming-guides/editions/#deleting) for how to do this properly.
+This number **cannot be changed once your message type is in use** because it identifies the field in the [message wire format]({{< ref "/docs/ProgrammingGuides/Encoding" >}}). “Changing” a field number is equivalent to deleting that field and creating a new field with the same type but a new number. See [Deleting Fields](https://protobuf.dev/programming-guides/editions/#deleting) for how to do this properly.
 
-​	一旦消息类型开始使用，此编号**不能更改**，因为它标识了[消息的线格式](https://protobuf.dev/programming-guides/encoding)。更改字段编号等同于删除该字段并创建一个具有相同类型但新编号的字段。有关正确执行此操作的方法，请参阅[删除字段](https://protobuf.dev/programming-guides/editions/#deleting)。
+​	一旦消息类型开始使用，此编号**不能更改**，因为它标识了[消息的线格式]({{< ref "/docs/ProgrammingGuides/Encoding" >}})。更改字段编号等同于删除该字段并创建一个具有相同类型但新编号的字段。有关正确执行此操作的方法，请参阅[删除字段](https://protobuf.dev/programming-guides/editions/#deleting)。
 
 Field numbers **should never be reused**. Never take a field number out of the [reserved](https://protobuf.dev/programming-guides/editions/#fieldreserved) list for reuse with a new field definition. See [Consequences of Reusing Field Numbers](https://protobuf.dev/programming-guides/editions/#consequences).
 
 ​	字段编号**不应重复使用**。不要从[保留](https://protobuf.dev/programming-guides/editions/#fieldreserved)列表中取出字段编号来为新字段定义重新使用。详情见[字段编号重复使用的后果](https://protobuf.dev/programming-guides/editions/#consequences)。
 
-You should use the field numbers 1 through 15 for the most-frequently-set fields. Lower field number values take less space in the wire format. For example, field numbers in the range 1 through 15 take one byte to encode. Field numbers in the range 16 through 2047 take two bytes. You can find out more about this in [Protocol Buffer Encoding](https://protobuf.dev/programming-guides/encoding#structure).
+You should use the field numbers 1 through 15 for the most-frequently-set fields. Lower field number values take less space in the wire format. For example, field numbers in the range 1 through 15 take one byte to encode. Field numbers in the range 16 through 2047 take two bytes. You can find out more about this in [Protocol Buffer Encoding]({{< ref "/docs/ProgrammingGuides/Encoding#structure" >}}).
 
-​	建议将编号 `1` 到 `15` 分配给最常设置的字段。较低的字段编号在线格式中占用更少的空间。例如，编号在 `1` 到 `15` 范围内的字段只需一个字节进行编码，而编号在 `16` 到 `2047` 范围内的字段则需两个字节编码。有关更多信息，请参阅[Protocol Buffer 编码](https://protobuf.dev/programming-guides/encoding#structure)。
+​	建议将编号 `1` 到 `15` 分配给最常设置的字段。较低的字段编号在线格式中占用更少的空间。例如，编号在 `1` 到 `15` 范围内的字段只需一个字节进行编码，而编号在 `16` 到 `2047` 范围内的字段则需两个字节编码。有关更多信息，请参阅[Protocol Buffer 编码]({{< ref "/docs/ProgrammingGuides/Encoding#structure" >}})。
 
 #### 字段编号重复使用的后果 Consequences of Reusing Field Numbers
 
@@ -129,12 +129,12 @@ Common causes of field number reuse:
   - **重新编号字段**（有时为了使字段编号更整齐美观）。重新编号实际上会删除并重新添加涉及的所有字段，从而导致线格式不兼容。
 
 - deleting a field and not [reserving](https://protobuf.dev/programming-guides/editions/#fieldreserved) the number to prevent future reuse. **删除字段但未[保留](https://protobuf.dev/programming-guides/editions/#fieldreserved)编号以防止将来重复使用**。
-  - This has been a very easy mistake to make with [extension fields](https://protobuf.dev/programming-guides/editions/#extensions) for several reasons. [Extension Declarations](https://protobuf.dev/programming-guides/extension_declarations) provide a mechanism for reserving extension fields.
-    - 由于各种原因，这在[扩展字段](https://protobuf.dev/programming-guides/editions/#extensions)中是一个常见错误。[扩展声明](https://protobuf.dev/programming-guides/extension_declarations)提供了一种机制来保留扩展字段。
+  - This has been a very easy mistake to make with [extension fields](https://protobuf.dev/programming-guides/editions/#extensions) for several reasons. [Extension Declarations]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}}) provide a mechanism for reserving extension fields.
+    - 由于各种原因，这在[扩展字段](https://protobuf.dev/programming-guides/editions/#extensions)中是一个常见错误。[扩展声明]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}})提供了一种机制来保留扩展字段。
 
-The field number is limited to 29 bits rather than 32 bits because three bits are used to specify the field’s wire format. For more on this, see the [Encoding topic](https://protobuf.dev/programming-guides/encoding#structure).
+The field number is limited to 29 bits rather than 32 bits because three bits are used to specify the field’s wire format. For more on this, see the [Encoding topic]({{< ref "/docs/ProgrammingGuides/Encoding#structure" >}}).
 
-​	字段编号限制为 29 位而非 32 位，因为其中三位用于指定字段的线格式。有关更多信息，请参阅[编码主题](https://protobuf.dev/programming-guides/encoding#structure)。
+​	字段编号限制为 29 位而非 32 位，因为其中三位用于指定字段的线格式。有关更多信息，请参阅[编码主题]({{< ref "/docs/ProgrammingGuides/Encoding#structure" >}})。
 
 ### 指定字段基数 Specifying Field Cardinality
 
@@ -171,20 +171,20 @@ Message fields can be one of the following:
 
   - **`repeated`**: 这种字段类型可以在格式良好的消息中重复出现零次或多次。重复值的顺序会被保留。
 
-- `map`: this is a paired key/value field type. See [Maps](https://protobuf.dev/programming-guides/encoding#maps) for more on this field type.
+- `map`: this is a paired key/value field type. See [Maps]({{< ref "/docs/ProgrammingGuides/Encoding#maps" >}}) for more on this field type.
 
-  - **`map`**: 这是一个键值对类型字段。更多信息请参阅 [Maps](https://protobuf.dev/programming-guides/encoding#maps)。
+  - **`map`**: 这是一个键值对类型字段。更多信息请参阅 [Maps]({{< ref "/docs/ProgrammingGuides/Encoding#maps" >}})。
 
 
 #### 重复字段默认使用压缩编码 Repeated Fields are Packed by Default
 
 In proto editions, `repeated` fields of scalar numeric types use `packed` encoding by default.
 
-​	在 Protobuf 版本中，数值类型的 `repeated` 字段默认使用 `packed` 编码。
+​	在 Protobuf Editions中，数值类型的 `repeated` 字段默认使用 `packed` 编码。
 
-You can find out more about `packed` encoding in [Protocol Buffer Encoding](https://protobuf.dev/programming-guides/encoding#packed).
+You can find out more about `packed` encoding in [Protocol Buffer Encoding]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}}).
 
-​	有关 `packed` 编码的更多信息，请参阅 [Protocol Buffer Encoding](https://protobuf.dev/programming-guides/encoding#packed)。
+​	有关 `packed` 编码的更多信息，请参阅 [Protocol Buffer Encoding]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}})。
 
 #### 格式良好的消息 Well-formed Messages
 
@@ -192,9 +192,9 @@ The term “well-formed,” when applied to protobuf messages, refers to the byt
 
 ​	“格式良好”是指序列化或反序列化的 Protobuf 消息字节。Protoc 解析器验证给定的 proto 定义文件是否可解析。
 
-Singular fields can appear more than once in wire-format bytes. The parser will accept the input, but only the last instance of that field will be accessible through the generated bindings. See [Last One Wins](https://protobuf.dev/programming-guides/encoding#last-one-wins) for more on this topic.
+Singular fields can appear more than once in wire-format bytes. The parser will accept the input, but only the last instance of that field will be accessible through the generated bindings. See [Last One Wins]({{< ref "/docs/ProgrammingGuides/Encoding#last-one-wins" >}}) for more on this topic.
 
-​	单一字段可以在线格式字节中出现多次。解析器会接受输入，但只有该字段的最后一个实例可以通过生成的绑定访问。更多信息请参阅 [最后一个有效](https://protobuf.dev/programming-guides/encoding#last-one-wins)。
+​	单一字段可以在线格式字节中出现多次。解析器会接受输入，但只有该字段的最后一个实例可以通过生成的绑定访问。更多信息请参阅 [最后一个有效]({{< ref "/docs/ProgrammingGuides/Encoding#last-one-wins" >}})。
 
 ### 添加更多消息类型 Adding More Message Types
 
@@ -347,9 +347,9 @@ When you run the [protocol buffer compiler](https://protobuf.dev/programming-gui
   - 对于 **Dart**，编译器为每种消息类型生成一个 `.pb.dart` 文件，其中包含消息类型的类。
 
 
-You can find out more about using the APIs for each language by following the tutorial for your chosen language. For even more API details, see the relevant [API reference](https://protobuf.dev/reference/).
+You can find out more about using the APIs for each language by following the tutorial for your chosen language. For even more API details, see the relevant [API reference]({{< ref "/docs/ReferenceGuides" >}}).
 
-​	有关每种语言的 API 使用详情，请参阅对应语言的教程。更多 API 细节，请查看相关的 [API 参考](https://protobuf.dev/reference/)。
+​	有关每种语言的 API 使用详情，请参阅对应语言的教程。更多 API 细节，请查看相关的 [API 参考]({{< ref "/docs/ReferenceGuides" >}})。
 
 ## 标量值类型 Scalar Value Types
 
@@ -399,9 +399,9 @@ A scalar message field can have one of the following types – the table shows t
 
 ​	[6] 在 64 位机器上使用整数类型，在 32 位机器上使用字符串类型。
 
-You can find out more about how these types are encoded when you serialize your message in [Protocol Buffer Encoding](https://protobuf.dev/programming-guides/encoding).
+You can find out more about how these types are encoded when you serialize your message in [Protocol Buffer Encoding]({{< ref "/docs/ProgrammingGuides/Encoding" >}}).
 
-​	可以在 [Protocol Buffer Encoding](https://protobuf.dev/programming-guides/encoding) 中了解更多关于这些类型在序列化消息时的编码方式。
+​	可以在 [Protocol Buffer Encoding]({{< ref "/docs/ProgrammingGuides/Encoding" >}}) 中了解更多关于这些类型在序列化消息时的编码方式。
 
 ## 默认字段值 Default Field Values
 
@@ -421,8 +421,8 @@ When a message is parsed, if the encoded message bytes do not contain a particul
 - For numeric types, the default value is zero.
   - 对于数值类型，默认值是 `0`。
 
-- For message fields, the field is not set. Its exact value is language-dependent. See the [generated code guide](https://protobuf.dev/reference/) for details.
-  - 对于消息字段，字段未设置。其具体值依赖于语言。详情请参阅 [generated code guide](https://protobuf.dev/reference/)。
+- For message fields, the field is not set. Its exact value is language-dependent. See the [generated code guide]({{< ref "/docs/ReferenceGuides" >}}) for details.
+  - 对于消息字段，字段未设置。其具体值依赖于语言。详情请参阅 [generated code guide]({{< ref "/docs/ReferenceGuides" >}})。
 
 - For enums, the default value is the **first defined enum value**, which must be 0. See [Enum Default Value](https://protobuf.dev/programming-guides/editions/#enum-default).
   - 对于枚举，默认值是第一个定义的枚举值，其值必须为 `0`。参见 [Enum Default Value](https://protobuf.dev/programming-guides/editions/#enum-default)。
@@ -440,7 +440,7 @@ The default value for map fields is empty (generally an empty map in the appropr
 
 In protobuf editions, you can specify explicit default values for singular non-message fields. For example, let’s say you want to provide a default value of 10 for the `SearchRequest.result_per_page` field:
 
-​	在 protobuf 版本中，可以为单一的非消息字段指定显式默认值。例如，假设要为 `SearchRequest.result_per_page` 字段提供默认值 `10`：
+​	在 Protobuf Editions中，可以为单一的非消息字段指定显式默认值。例如，假设要为 `SearchRequest.result_per_page` 字段提供默认值 `10`：
 
 ```proto
 int32 result_per_page = 3 [default = 10];
@@ -461,9 +461,9 @@ If the sender does send a value for `result_per_page` the default value of 10 is
 
 ​	如果发送方确实发送了 `result_per_page` 的值，则默认值 `10` 将被忽略，并返回发送方的值。
 
-See the [generated code guide](https://protobuf.dev/reference/) for your chosen language for more details about how defaults work in generated code.
+See the [generated code guide]({{< ref "/docs/ReferenceGuides" >}}) for your chosen language for more details about how defaults work in generated code.
 
-​	有关默认值在生成代码中的工作方式的更多详细信息，请参阅您选择的语言的 [generated code guide](https://protobuf.dev/reference/)。
+​	有关默认值在生成代码中的工作方式的更多详细信息，请参阅您选择的语言的 [generated code guide]({{< ref "/docs/ReferenceGuides" >}})。
 
 Explicit default values cannot be specified for fields that have the `field_presence` feature set to `IMPLICIT`.
 
@@ -509,11 +509,11 @@ In edition 2023, the first value defined in an enum definition **must** have the
 
 ​	在 2023 版中，枚举定义中的第一个值**必须**为 `0`，并且应命名为 `ENUM_TYPE_NAME_UNSPECIFIED` 或 `ENUM_TYPE_NAME_UNKNOWN`。这是因为：
 
-- The zero value needs to be the first element for compatibility with [proto2](https://protobuf.dev/programming-guides/proto2#enum-default) semantics, where the first enum value is the default unless a different value is explicitly specified.
-  - 零值需要是第一个元素，以兼容 [proto2](https://protobuf.dev/programming-guides/proto2#enum-default) 语义，其中第一个枚举值是默认值，除非明确指定了其他值。
+- The zero value needs to be the first element for compatibility with [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum-default" >}}) semantics, where the first enum value is the default unless a different value is explicitly specified.
+  - 零值需要是第一个元素，以兼容 [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum-default" >}}) 语义，其中第一个枚举值是默认值，除非明确指定了其他值。
 
-- There must be a zero value for compatibility with [proto3](https://protobuf.dev/programming-guides/proto3#enum-default) semantics, where the zero value is used as the default value for all implicit-presence fields using this enum type.
-  - 必须有一个零值，以兼容 [proto3](https://protobuf.dev/programming-guides/proto3#enum-default) 语义，其中零值用作所有隐式存在字段的默认值。
+- There must be a zero value for compatibility with [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#enum-default" >}}) semantics, where the zero value is used as the default value for all implicit-presence fields using this enum type.
+  - 必须有一个零值，以兼容 [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#enum-default" >}}) 语义，其中零值用作所有隐式存在字段的默认值。
 
 
 It is also recommended that this first, default value have no semantic meaning other than “this value was unspecified”.
@@ -555,9 +555,9 @@ enum EnumNotAllowingAlias {
 }
 ```
 
-Enumerator constants must be in the range of a 32-bit integer. Since `enum` values use [varint encoding](https://protobuf.dev/programming-guides/encoding) on the wire, negative values are inefficient and thus not recommended. You can define `enum`s within a message definition, as in the earlier example, or outside – these `enum`s can be reused in any message definition in your `.proto` file. You can also use an `enum` type declared in one message as the type of a field in a different message, using the syntax `_MessageType_._EnumType_`.
+Enumerator constants must be in the range of a 32-bit integer. Since `enum` values use [varint encoding]({{< ref "/docs/ProgrammingGuides/Encoding" >}}) on the wire, negative values are inefficient and thus not recommended. You can define `enum`s within a message definition, as in the earlier example, or outside – these `enum`s can be reused in any message definition in your `.proto` file. You can also use an `enum` type declared in one message as the type of a field in a different message, using the syntax `_MessageType_._EnumType_`.
 
-​	枚举常量必须在 32 位整数范围内。由于枚举值在传输中使用 [varint 编码](https://protobuf.dev/programming-guides/encoding)，负值效率较低，因此不推荐使用负值。可以在消息定义内定义枚举（如前例），也可以在外部定义——这些枚举可以在 `.proto` 文件中的任何消息定义中重复使用。还可以将一个消息中声明的枚举类型用作另一个消息中字段的类型，使用语法 `_MessageType_._EnumType_`。
+​	枚举常量必须在 32 位整数范围内。由于枚举值在传输中使用 [varint 编码]({{< ref "/docs/ProgrammingGuides/Encoding" >}})，负值效率较低，因此不推荐使用负值。可以在消息定义内定义枚举（如前例），也可以在外部定义——这些枚举可以在 `.proto` 文件中的任何消息定义中重复使用。还可以将一个消息中声明的枚举类型用作另一个消息中字段的类型，使用语法 `_MessageType_._EnumType_`。
 
 When you run the protocol buffer compiler on a `.proto` that uses an `enum`, the generated code will have a corresponding `enum` for Java, Kotlin, or C++, or a special `EnumDescriptor` class for Python that’s used to create a set of symbolic constants with integer values in the runtime-generated class.
 
@@ -575,13 +575,13 @@ During deserialization, unrecognized enum values will be preserved in the messag
 
 > Important
 >
-> For information on how enums should work contrasted with how they currently work in different languages, see [Enum Behavior](https://protobuf.dev/programming-guides/enum).
+> For information on how enums should work contrasted with how they currently work in different languages, see [Enum Behavior]({{< ref "/docs/ProgrammingGuides/EnumBehavior" >}}).
 >
-> ​	有关枚举在不同语言中的预期行为与当前行为的对比信息，请参阅 [Enum Behavior](https://protobuf.dev/programming-guides/enum)。
+> ​	有关枚举在不同语言中的预期行为与当前行为的对比信息，请参阅 [Enum Behavior]({{< ref "/docs/ProgrammingGuides/EnumBehavior" >}})。
 
-For more information about how to work with message `enum`s in your applications, see the [generated code guide](https://protobuf.dev/reference/) for your chosen language.
+For more information about how to work with message `enum`s in your applications, see the [generated code guide]({{< ref "/docs/ReferenceGuides" >}}) for your chosen language.
 
-​	有关如何在应用程序中处理消息 `enum` 的更多信息，请参阅您选择的语言的 [generated code guide](https://protobuf.dev/reference/)。
+​	有关如何在应用程序中处理消息 `enum` 的更多信息，请参阅您选择的语言的 [generated code guide]({{< ref "/docs/ReferenceGuides" >}})。
 
 ### 保留值 Reserved Values
 
@@ -665,9 +665,9 @@ The protocol compiler searches for imported files in a set of directories specif
 
 ### 使用 proto2 和 proto3 消息类型 Using proto2 and proto3 Message Types
 
-It’s possible to import [proto2](https://protobuf.dev/programming-guides/proto2) and [proto3](https://protobuf.dev/programming-guides/proto3) message types and use them in your editions 2023 messages, and vice versa.
+It’s possible to import [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) message types and use them in your editions 2023 messages, and vice versa.
 
-​	可以导入 [proto2](https://protobuf.dev/programming-guides/proto2) 和 [proto3](https://protobuf.dev/programming-guides/proto3) 消息类型，并在 2023 年版本的消息中使用它们，反之亦然。
+​	可以导入 [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) 和 [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) 消息类型，并在 2023 年版本的消息中使用它们，反之亦然。
 
 ## 嵌套类型 Nested Types
 
@@ -725,13 +725,13 @@ If an existing message type no longer meets all your needs – for example, you�
 
 > Note
 >
-> If you use JSON or [proto text format](https://protobuf.dev/reference/protobuf/textformat-spec) to store your protocol buffer messages, the changes that you can make in your proto definition are different.
+> If you use JSON or [proto text format]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification" >}}) to store your protocol buffer messages, the changes that you can make in your proto definition are different.
 >
-> ​	如果您使用 JSON 或 [proto 文本格式](https://protobuf.dev/reference/protobuf/textformat-spec) 存储协议缓冲区消息，则可以在 proto 定义中进行的更改会有所不同。
+> ​	如果您使用 JSON 或 [proto 文本格式]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification" >}}) 存储协议缓冲区消息，则可以在 proto 定义中进行的更改会有所不同。
 
-Check [Proto Best Practices](https://protobuf.dev/programming-guides/dos-donts) and the following rules:
+Check [Proto Best Practices]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices" >}}) and the following rules:
 
-​	请查阅 [Proto 最佳实践](https://protobuf.dev/programming-guides/dos-donts) 和以下规则：
+​	请查阅 [Proto 最佳实践]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices" >}}) 和以下规则：
 
 - Don’t change the field numbers for any existing fields. “Changing” the field number is equivalent to deleting the field and adding a new field with the same type. If you want to renumber a field, see the instructions for [deleting a field](https://protobuf.dev/programming-guides/editions/#deleting).
   - 不要更改任何现有字段的字段编号。“更改”字段编号相当于删除该字段并添加具有相同类型的新字段。如果需要重新编号字段，请参阅有关[删除字段](https://protobuf.dev/programming-guides/editions/#deleting)的说明。
@@ -757,8 +757,8 @@ Check [Proto Best Practices](https://protobuf.dev/programming-guides/dos-donts) 
 - `fixed32` is compatible with `sfixed32`, and `fixed64` with `sfixed64`.
   - `fixed32` 与 `sfixed32` 兼容，`fixed64` 与 `sfixed64` 兼容。
 
-- For `string`, `bytes`, and message fields, singular is compatible with `repeated`. Given serialized data of a repeated field as input, clients that expect this field to be singular will take the last input value if it’s a primitive type field or merge all input elements if it’s a message type field. Note that this is **not** generally safe for numeric types, including bools and enums. Repeated fields of numeric types are serialized in the [packed](https://protobuf.dev/programming-guides/encoding#packed) format by default, which will not be parsed correctly when a singular field is expected.
-  - 对于 `string`、`bytes` 和消息字段，单个字段与 `repeated` 兼容。如果将重复字段的序列化数据作为输入，期望该字段是单个字段的客户端将取最后一个输入值（如果是原始类型字段），或者合并所有输入元素（如果是消息类型字段）。需要注意的是，这对包括布尔值和枚举在内的数字类型通常**不安全**。默认情况下，数字类型的重复字段以[打包格式](https://protobuf.dev/programming-guides/encoding#packed)序列化，如果期望的是单个字段，则无法正确解析。
+- For `string`, `bytes`, and message fields, singular is compatible with `repeated`. Given serialized data of a repeated field as input, clients that expect this field to be singular will take the last input value if it’s a primitive type field or merge all input elements if it’s a message type field. Note that this is **not** generally safe for numeric types, including bools and enums. Repeated fields of numeric types are serialized in the [packed]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}}) format by default, which will not be parsed correctly when a singular field is expected.
+  - 对于 `string`、`bytes` 和消息字段，单个字段与 `repeated` 兼容。如果将重复字段的序列化数据作为输入，期望该字段是单个字段的客户端将取最后一个输入值（如果是原始类型字段），或者合并所有输入元素（如果是消息类型字段）。需要注意的是，这对包括布尔值和枚举在内的数字类型通常**不安全**。默认情况下，数字类型的重复字段以[打包格式]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}})序列化，如果期望的是单个字段，则无法正确解析。
 
 - `enum` is compatible with `int32`, `uint32`, `int64`, and `uint64` in terms of wire format (note that values will be truncated if they don’t fit). However, be aware that client code may treat them differently when the message is deserialized: for example, unrecognized `enum` values will be preserved in the message, but how this is represented when the message is deserialized is language-dependent. Int fields always just preserve their value.
   - `enum` 与 `int32`、`uint32`、`int64` 和 `uint64` 在线缆格式上是兼容的（注意，如果值不适合，它们会被截断）。但是要注意，客户端代码在反序列化消息时可能会以不同方式处理它们：例如，未识别的 `enum` 值将在消息中保留，但消息反序列化时的表示方式取决于语言。整数字段始终仅保留其值。
@@ -822,8 +822,8 @@ There are two main reasons to use extensions:
 - The container message’s `.proto` file will have fewer imports/dependencies. This can improve build times, break circular dependencies, and otherwise promote loose coupling. Extensions are very good for this.
   - 容器消息的 `.proto` 文件将具有更少的导入/依赖项。这可以提高构建速度，打破循环依赖，并促进松耦合。扩展在这方面表现很好。
 
-- Allow systems to attach data to a container message with minimal dependency and coordination. Extensions are not a great solution for this because of the limited field number space and the [Consequences of Reusing Field Numbers](https://protobuf.dev/programming-guides/editions/#consequences). If your use case requires very low coordination for a large number of extensions, consider using the [`Any` message type](https://protobuf.dev/reference/protobuf/google.protobuf#any) instead.
-  - 允许系统以最少的依赖性和协调性将数据附加到容器消息。扩展在这方面并不是一个理想的解决方案，因为字段号空间有限，并且会出现[字段号重用的后果](https://protobuf.dev/programming-guides/editions/#consequences)。如果您的用例需要非常低的协调性且有大量扩展，可以考虑使用 [`Any` 消息类型](https://protobuf.dev/reference/protobuf/google.protobuf#any)。
+- Allow systems to attach data to a container message with minimal dependency and coordination. Extensions are not a great solution for this because of the limited field number space and the [Consequences of Reusing Field Numbers](https://protobuf.dev/programming-guides/editions/#consequences). If your use case requires very low coordination for a large number of extensions, consider using the [`Any` message type]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes#any" >}}) instead.
+  - 允许系统以最少的依赖性和协调性将数据附加到容器消息。扩展在这方面并不是一个理想的解决方案，因为字段号空间有限，并且会出现[字段号重用的后果](https://protobuf.dev/programming-guides/editions/#consequences)。如果您的用例需要非常低的协调性且有大量扩展，可以考虑使用 [`Any` 消息类型]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes#any" >}})。
 
 
 ### 扩展示例 Example Extension
@@ -898,9 +898,9 @@ message UserContent {
 }
 ```
 
-`UserContent` declares that field number `126` will be used by a `repeated` extension field with the fully-qualified name `.kittens.kitten_videos` and the fully-qualified type `.kittens.Video`. To learn more about extension declarations see [Extension Declarations](https://protobuf.dev/programming-guides/extension_declarations).
+`UserContent` declares that field number `126` will be used by a `repeated` extension field with the fully-qualified name `.kittens.kitten_videos` and the fully-qualified type `.kittens.Video`. To learn more about extension declarations see [Extension Declarations]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}}).
 
-​	`UserContent` 声明，字段号 `126` 将被一个 `repeated` 类型的扩展字段使用，其全限定名称为 `.kittens.kitten_videos`，全限定类型为 `.kittens.Video`。有关扩展声明的更多信息，请参阅[扩展声明](https://protobuf.dev/programming-guides/extension_declarations)。
+​	`UserContent` 声明，字段号 `126` 将被一个 `repeated` 类型的扩展字段使用，其全限定名称为 `.kittens.kitten_videos`，全限定类型为 `.kittens.Video`。有关扩展声明的更多信息，请参阅[扩展声明]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}})。
 
 Note that the container message’s file (`media/user_content.proto`) **does not** import the kitten_video extension definition (`kittens/video_ext.proto`)
 
@@ -951,9 +951,9 @@ When adding a range for extension declarations before the actual extensions, you
 
 ​	在实际扩展之前为扩展声明添加范围时，您应添加 `verification = DECLARATION` 来强制使用声明。一旦添加了实际的声明，可以移除此占位符。
 
-It is safe to split an existing extension range into separate ranges that cover the same total range. This might be necessary for migrating a legacy message type to [Extension Declarations](https://protobuf.dev/programming-guides/extension_declarations). For example, before migration, the range might be defined as:
+It is safe to split an existing extension range into separate ranges that cover the same total range. This might be necessary for migrating a legacy message type to [Extension Declarations]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}}). For example, before migration, the range might be defined as:
 
-​	可以安全地将现有扩展范围拆分为覆盖相同总范围的多个范围。这可能在迁移遗留消息类型到[扩展声明](https://protobuf.dev/programming-guides/extension_declarations)时必需。例如，迁移前的范围可能定义为：
+​	可以安全地将现有扩展范围拆分为覆盖相同总范围的多个范围。这可能在迁移遗留消息类型到[扩展声明]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}})时必需。例如，迁移前的范围可能定义为：
 
 ```proto
 message LegacyMessage {
@@ -1004,9 +1004,9 @@ Extensions are just fields that can be specified outside of their container mess
 
 ​	扩展字段只是可以在其容器消息之外指定的字段。所有[字段号分配规则](https://protobuf.dev/programming-guides/editions/#assigning)同样适用于扩展字段号。[重用字段号的后果](https://protobuf.dev/programming-guides/editions/#consequences)同样适用于扩展字段号的重用。
 
-Choosing unique extension field numbers is simple if the container message uses [extension declarations](https://protobuf.dev/programming-guides/extension_declarations). When defining a new extension, choose the lowest field number above all other declarations from the highest extension range defined in the container message. For example, if a container message is defined like this:
+Choosing unique extension field numbers is simple if the container message uses [extension declarations]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}}). When defining a new extension, choose the lowest field number above all other declarations from the highest extension range defined in the container message. For example, if a container message is defined like this:
 
-​	如果容器消息使用[扩展声明](https://protobuf.dev/programming-guides/extension_declarations)，选择唯一扩展字段号非常简单。在定义新扩展时，从容器消息定义的最高扩展范围中的所有其他声明之后，选择最低字段号。例如，如果一个容器消息定义如下：
+​	如果容器消息使用[扩展声明]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}})，选择唯一扩展字段号非常简单。在定义新扩展时，从容器消息定义的最高扩展范围中的所有其他声明之后，选择最低字段号。例如，如果一个容器消息定义如下：
 
 ```proto
 message Container {
@@ -1049,9 +1049,9 @@ The downside of an unverified system is that the protobuf compiler cannot protec
 
 ​	未经验证系统的缺点是 protobuf 编译器无法保护参与者免受字段号重用的影响。
 
-**Unverified extension field number allocation strategies are not recommended** because the [Consequences of Reusing Field Numbers](https://protobuf.dev/programming-guides/editions/#consequences) fall on all extenders of a message (not just the developer that didn’t follow the recommendations). If your use case requires very low coordination, consider using the [`Any` message](https://protobuf.dev/reference/protobuf/google.protobuf#any) instead.
+**Unverified extension field number allocation strategies are not recommended** because the [Consequences of Reusing Field Numbers](https://protobuf.dev/programming-guides/editions/#consequences) fall on all extenders of a message (not just the developer that didn’t follow the recommendations). If your use case requires very low coordination, consider using the [`Any` message]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes#any" >}}) instead.
 
-​	**不推荐使用未经验证的扩展字段号分配策略**，因为[重用字段号的后果](https://protobuf.dev/programming-guides/editions/#consequences)会影响消息的所有扩展者（不仅是未遵循建议的开发者）。如果您的用例需要极低的协调性，请考虑使用[`Any` 消息](https://protobuf.dev/reference/protobuf/google.protobuf#any)代替。
+​	**不推荐使用未经验证的扩展字段号分配策略**，因为[重用字段号的后果](https://protobuf.dev/programming-guides/editions/#consequences)会影响消息的所有扩展者（不仅是未遵循建议的开发者）。如果您的用例需要极低的协调性，请考虑使用[`Any` 消息]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes#any" >}})代替。
 
 Unverified extension field number allocation strategies are limited to the range 1 to 524,999,999. Field numbers 525,000,000 and above can only be used with extension declarations.
 
@@ -1182,9 +1182,9 @@ for (const google::protobuf::Any& detail : status.details()) {
 }
 ```
 
-If you want to limit contained messages to a small number of types and to require permission before adding new types to the list, consider using [extensions](https://protobuf.dev/programming-guides/editions/#extensions) with [extension declarations](https://protobuf.dev/programming-guides/extension_declarations) instead of `Any` message types.
+If you want to limit contained messages to a small number of types and to require permission before adding new types to the list, consider using [extensions](https://protobuf.dev/programming-guides/editions/#extensions) with [extension declarations]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}}) instead of `Any` message types.
 
-​	如果您希望限制包含的消息类型数量，并要求在将新类型添加到列表前获得许可，可以考虑使用[扩展](https://protobuf.dev/programming-guides/editions/#extensions)和[扩展声明](https://protobuf.dev/programming-guides/extension_declarations)替代 `Any` 消息类型。
+​	如果您希望限制包含的消息类型数量，并要求在将新类型添加到列表前获得许可，可以考虑使用[扩展](https://protobuf.dev/programming-guides/editions/#extensions)和[扩展声明]({{< ref "/docs/ProgrammingGuides/ExtensionDeclarations" >}})替代 `Any` 消息类型。
 
 ## Oneof
 
@@ -1223,9 +1223,9 @@ You then add your oneof fields to the oneof definition. You can add fields of an
 
 ​	然后，您将 `oneof` 字段添加到定义中。您可以添加任何类型的字段，但不能是 `map` 字段和 `repeated` 字段。如果需要向 `oneof` 添加一个重复字段（repeated field），可以使用包含该重复字段的消息。
 
-In your generated code, oneof fields have the same getters and setters as regular fields. You also get a special method for checking which value (if any) in the oneof is set. You can find out more about the oneof API for your chosen language in the relevant [API reference](https://protobuf.dev/reference/).
+In your generated code, oneof fields have the same getters and setters as regular fields. You also get a special method for checking which value (if any) in the oneof is set. You can find out more about the oneof API for your chosen language in the relevant [API reference]({{< ref "/docs/ReferenceGuides" >}}).
 
-​	在生成的代码中，`oneof` 字段与常规字段具有相同的 getter 和 setter。此外，您还会获得一个特殊方法，用于检查 `oneof` 中设置了哪个值（如果有的话）。有关所选语言的 `oneof` API 的更多信息，请参阅相关的[API 参考](https://protobuf.dev/reference/)。
+​	在生成的代码中，`oneof` 字段与常规字段具有相同的 getter 和 setter。此外，您还会获得一个特殊方法，用于检查 `oneof` 中设置了哪个值（如果有的话）。有关所选语言的 `oneof` API 的更多信息，请参阅相关的[API 参考]({{< ref "/docs/ReferenceGuides" >}})。
 
 ### Oneof Features
 
@@ -1354,9 +1354,9 @@ map<string, Project> projects = 3;
   - 在映射 `foo` 的范围内，不能存在符号 `FooEntry`，因为 `FooEntry` 已被映射的实现使用。
 
 
-The generated map API is currently available for all supported languages. You can find out more about the map API for your chosen language in the relevant [API reference](https://protobuf.dev/reference/).
+The generated map API is currently available for all supported languages. You can find out more about the map API for your chosen language in the relevant [API reference]({{< ref "/docs/ReferenceGuides" >}}).
 
-​	当前，所有支持的语言均可使用生成的映射 API。有关所选语言的映射 API 的更多信息，请参阅相关[API 参考](https://protobuf.dev/reference/)。
+​	当前，所有支持的语言均可使用生成的映射 API。有关所选语言的映射 API 的更多信息，请参阅相关[API 参考]({{< ref "/docs/ReferenceGuides" >}})。
 
 ### 向后兼容性 Backwards Compatibility
 
@@ -1456,9 +1456,9 @@ The most straightforward RPC system to use with protocol buffers is [gRPC](https
 
 ​	最简单的使用协议缓冲区的 RPC 系统是 [gRPC](https://grpc.io/)：这是 Google 开发的一种语言和平台中立的开源 RPC 系统。gRPC 尤其适合与协议缓冲区配合使用，您可以使用一个特殊的协议缓冲区编译器插件直接从 `.proto` 文件生成相关的 RPC 代码。
 
-If you don’t want to use gRPC, it’s also possible to use protocol buffers with your own RPC implementation. You can find out more about this in the [Proto2 Language Guide](https://protobuf.dev/programming-guides/proto2#services).
+If you don’t want to use gRPC, it’s also possible to use protocol buffers with your own RPC implementation. You can find out more about this in the [Proto2 Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#services" >}}).
 
-​	如果您不想使用 gRPC，也可以将协议缓冲区与您自己的 RPC 实现配合使用。有关详细信息，请参阅 [Proto2 语言指南](https://protobuf.dev/programming-guides/proto2#services)。
+​	如果您不想使用 gRPC，也可以将协议缓冲区与您自己的 RPC 实现配合使用。有关详细信息，请参阅 [Proto2 语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#services" >}})。
 
 There are also a number of ongoing third-party projects to develop RPC implementations for Protocol Buffers. For a list of links to projects we know about, see the [third-party add-ons wiki page](https://github.com/protocolbuffers/protobuf/blob/master/docs/third_party.md).
 
@@ -1466,9 +1466,9 @@ There are also a number of ongoing third-party projects to develop RPC implement
 
 ## JSON Mapping
 
-The standard protobuf binary wire format is the preferred serialization format for communication between two systems that use protobufs. For communicating with systems that use JSON rather than protobuf wire format, Protobuf supports a canonical encoding in [ProtoJSON](https://protobuf.dev/programming-guides/json).
+The standard protobuf binary wire format is the preferred serialization format for communication between two systems that use protobufs. For communicating with systems that use JSON rather than protobuf wire format, Protobuf supports a canonical encoding in [ProtoJSON]({{< ref "/docs/ProgrammingGuides/ProtoJSONFormat" >}}).
 
-​	标准的 Protobuf 二进制数据流格式是推荐的用于基于 Protobuf 通信的序列化格式。对于需要与使用 JSON 而非 Protobuf 数据流格式的系统通信的场景，Protobuf 支持 [ProtoJSON](https://protobuf.dev/programming-guides/json) 的规范编码。
+​	标准的 Protobuf 二进制数据流格式是推荐的用于基于 Protobuf 通信的序列化格式。对于需要与使用 JSON 而非 Protobuf 数据流格式的系统通信的场景，Protobuf 支持 [ProtoJSON]({{< ref "/docs/ProgrammingGuides/ProtoJSONFormat" >}}) 的规范编码。
 
 ## Options
 
@@ -1527,9 +1527,9 @@ Here are a few of the most commonly used options:
   option py_generic_services = false;
   ```
 
-- `cc_enable_arenas` (file option): Enables [arena allocation](https://protobuf.dev/reference/cpp/arenas) for C++ generated code.
+- `cc_enable_arenas` (file option): Enables [arena allocation]({{< ref "/docs/ReferenceGuides/CPlusPlus/ArenaAllocationGuide" >}}) for C++ generated code.
 
-  - **`cc_enable_arenas`**（文件选项）：启用 [arena 分配](https://protobuf.dev/reference/cpp/arenas) 以用于生成的 C++ 代码。
+  - **`cc_enable_arenas`**（文件选项）：启用 [arena 分配]({{< ref "/docs/ReferenceGuides/CPlusPlus/ArenaAllocationGuide" >}}) 以用于生成的 C++ 代码。
 
 - `objc_class_prefix` (file option): Sets the Objective-C class prefix which is prepended to all Objective-C generated classes and enums from this .proto. There is no default. You should use prefixes that are between 3-5 uppercase characters as [recommended by Apple](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Conventions/Conventions.html#//apple_ref/doc/uid/TP40011210-CH10-SW4). Note that all 2 letter prefixes are reserved by Apple.
 
@@ -1588,9 +1588,9 @@ See [Custom Options](https://protobuf.dev/programming-guides/editions/#customopt
 
 ### 自定义选项 Custom Options
 
-Protocol Buffers also allows you to define and use your own options. Note that this is an **advanced feature** which most people don’t need. If you do think you need to create your own options, see the [Proto2 Language Guide](https://protobuf.dev/programming-guides/proto2#customoptions) for details. Note that creating custom options uses [extensions](https://protobuf.dev/programming-guides/proto2#extensions).
+Protocol Buffers also allows you to define and use your own options. Note that this is an **advanced feature** which most people don’t need. If you do think you need to create your own options, see the [Proto2 Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#customoptions" >}}) for details. Note that creating custom options uses [extensions]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#extensions" >}}).
 
-​	Protocol Buffers 允许您定义和使用自己的选项。请注意，这是一个 **高级功能**，大多数人不需要。如果您确实需要创建自己的选项，请参阅 [Proto2 语言指南](https://protobuf.dev/programming-guides/proto2#customoptions) 了解详情。请注意，创建自定义选项需要使用 [扩展](https://protobuf.dev/programming-guides/proto2#extensions)。
+​	Protocol Buffers 允许您定义和使用自己的选项。请注意，这是一个 **高级功能**，大多数人不需要。如果您确实需要创建自己的选项，请参阅 [Proto2 语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#customoptions" >}}) 了解详情。请注意，创建自定义选项需要使用 [扩展]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#extensions" >}})。
 
 ### 选项保留 Option Retention
 
@@ -1682,9 +1682,9 @@ enum MyEnum {
 
 ## 生成类 Generating Your Classes
 
-To generate the Java, Kotlin, Python, C++, Go, Ruby, Objective-C, or C# code that you need to work with the message types defined in a `.proto` file, you need to run the protocol buffer compiler `protoc` on the `.proto` file. If you haven’t installed the compiler, [download the package](https://protobuf.dev/downloads) and follow the instructions in the README. For Go, you also need to install a special code generator plugin for the compiler; you can find this and installation instructions in the [golang/protobuf](https://github.com/golang/protobuf/) repository on GitHub.
+To generate the Java, Kotlin, Python, C++, Go, Ruby, Objective-C, or C# code that you need to work with the message types defined in a `.proto` file, you need to run the protocol buffer compiler `protoc` on the `.proto` file. If you haven’t installed the compiler, [download the package]({{< ref "/docs/Downloads" >}}) and follow the instructions in the README. For Go, you also need to install a special code generator plugin for the compiler; you can find this and installation instructions in the [golang/protobuf](https://github.com/golang/protobuf/) repository on GitHub.
 
-​	要生成用于处理 `.proto` 文件中定义的消息类型的 Java、Kotlin、Python、C++、Go、Ruby、Objective-C 或 C# 代码，需要运行协议缓冲区编译器 `protoc`。如果尚未安装编译器，请[下载相关包](https://protobuf.dev/downloads)，并按照 README 中的说明进行操作。对于 Go，还需要为编译器安装一个特殊的代码生成器插件。可在 GitHub 的 [golang/protobuf](https://github.com/golang/protobuf/) 仓库中找到此插件及其安装说明。
+​	要生成用于处理 `.proto` 文件中定义的消息类型的 Java、Kotlin、Python、C++、Go、Ruby、Objective-C 或 C# 代码，需要运行协议缓冲区编译器 `protoc`。如果尚未安装编译器，请[下载相关包]({{< ref "/docs/Downloads" >}})，并按照 README 中的说明进行操作。对于 Go，还需要为编译器安装一个特殊的代码生成器插件。可在 GitHub 的 [golang/protobuf](https://github.com/golang/protobuf/) 仓库中找到此插件及其安装说明。
 
 The Protocol Compiler is invoked as follows:
 
@@ -1700,32 +1700,32 @@ protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_ou
 
 - You can provide one or more *output directives*: 您可以提供一个或多个*输出指令*：
 
-  - `--cpp_out` generates C++ code in `DST_DIR`. See the [C++ generated code reference](https://protobuf.dev/reference/cpp/cpp-generated) for more.
-    - `--cpp_out`：在 `DST_DIR` 中生成 C++ 代码。请参阅 [C++ 生成代码参考](https://protobuf.dev/reference/cpp/cpp-generated)。
+  - `--cpp_out` generates C++ code in `DST_DIR`. See the [C++ generated code reference]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide" >}}) for more.
+    - `--cpp_out`：在 `DST_DIR` 中生成 C++ 代码。请参阅 [C++ 生成代码参考]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide" >}})。
 
-  - `--java_out` generates Java code in `DST_DIR`. See the [Java generated code reference](https://protobuf.dev/reference/java/java-generated) for more.
-    - `--java_out`：在 `DST_DIR` 中生成 Java 代码。请参阅 [Java 生成代码参考](https://protobuf.dev/reference/java/java-generated)。
+  - `--java_out` generates Java code in `DST_DIR`. See the [Java generated code reference]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide" >}}) for more.
+    - `--java_out`：在 `DST_DIR` 中生成 Java 代码。请参阅 [Java 生成代码参考]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide" >}})。
 
-  - `--kotlin_out` generates additional Kotlin code in `DST_DIR`. See the [Kotlin generated code reference](https://protobuf.dev/reference/kotlin/kotlin-generated) for more.
-    - `--kotlin_out`：在 `DST_DIR` 中生成额外的 Kotlin 代码。请参阅 [Kotlin 生成代码参考](https://protobuf.dev/reference/kotlin/kotlin-generated)。
+  - `--kotlin_out` generates additional Kotlin code in `DST_DIR`. See the [Kotlin generated code reference]({{< ref "/docs/ReferenceGuides/Kotlin/GeneratedCodeGuide" >}}) for more.
+    - `--kotlin_out`：在 `DST_DIR` 中生成额外的 Kotlin 代码。请参阅 [Kotlin 生成代码参考]({{< ref "/docs/ReferenceGuides/Kotlin/GeneratedCodeGuide" >}})。
 
-  - `--python_out` generates Python code in `DST_DIR`. See the [Python generated code reference](https://protobuf.dev/reference/python/python-generated) for more.
-    - `--python_out`：在 `DST_DIR` 中生成 Python 代码。请参阅 [Python 生成代码参考](https://protobuf.dev/reference/python/python-generated)。
+  - `--python_out` generates Python code in `DST_DIR`. See the [Python generated code reference]({{< ref "/docs/ReferenceGuides/Python/GeneratedCodeGuide" >}}) for more.
+    - `--python_out`：在 `DST_DIR` 中生成 Python 代码。请参阅 [Python 生成代码参考]({{< ref "/docs/ReferenceGuides/Python/GeneratedCodeGuide" >}})。
 
-  - `--go_out` generates Go code in `DST_DIR`. See the [Go generated code reference](https://protobuf.dev/reference/go/go-generated) for more.
-    - `--go_out`：在 `DST_DIR` 中生成 Go 代码。请参阅 [Go 生成代码参考](https://protobuf.dev/reference/go/go-generated)。
+  - `--go_out` generates Go code in `DST_DIR`. See the [Go generated code reference]({{< ref "/docs/ReferenceGuides/Go/GeneratedCodeGuide" >}}) for more.
+    - `--go_out`：在 `DST_DIR` 中生成 Go 代码。请参阅 [Go 生成代码参考]({{< ref "/docs/ReferenceGuides/Go/GeneratedCodeGuide" >}})。
 
-  - `--ruby_out` generates Ruby code in `DST_DIR`. See the [Ruby generated code reference](https://protobuf.dev/reference/ruby/ruby-generated) for more.
-    - `--ruby_out`：在 `DST_DIR` 中生成 Ruby 代码。请参阅 [Ruby 生成代码参考](https://protobuf.dev/reference/ruby/ruby-generated)。
+  - `--ruby_out` generates Ruby code in `DST_DIR`. See the [Ruby generated code reference]({{< ref "/docs/ReferenceGuides/Ruby/GeneratedCodeGuide" >}}) for more.
+    - `--ruby_out`：在 `DST_DIR` 中生成 Ruby 代码。请参阅 [Ruby 生成代码参考]({{< ref "/docs/ReferenceGuides/Ruby/GeneratedCodeGuide" >}})。
 
-  - `--objc_out` generates Objective-C code in `DST_DIR`. See the [Objective-C generated code reference](https://protobuf.dev/reference/objective-c/objective-c-generated) for more.
-    - `--objc_out`：在 `DST_DIR` 中生成 Objective-C 代码。请参阅 [Objective-C 生成代码参考](https://protobuf.dev/reference/objective-c/objective-c-generated)。
+  - `--objc_out` generates Objective-C code in `DST_DIR`. See the [Objective-C generated code reference]({{< ref "/docs/ReferenceGuides/Objective-C/GeneratedCodeGuide" >}}) for more.
+    - `--objc_out`：在 `DST_DIR` 中生成 Objective-C 代码。请参阅 [Objective-C 生成代码参考]({{< ref "/docs/ReferenceGuides/Objective-C/GeneratedCodeGuide" >}})。
 
-  - `--csharp_out` generates C# code in `DST_DIR`. See the [C# generated code reference](https://protobuf.dev/reference/csharp/csharp-generated) for more.
-    - `--csharp_out`：在 `DST_DIR` 中生成 C# 代码。请参阅 [C# 生成代码参考](https://protobuf.dev/reference/csharp/csharp-generated)。
+  - `--csharp_out` generates C# code in `DST_DIR`. See the [C# generated code reference]({{< ref "/docs/ReferenceGuides/CSharp/GeneratedCodeGuide" >}}) for more.
+    - `--csharp_out`：在 `DST_DIR` 中生成 C# 代码。请参阅 [C# 生成代码参考]({{< ref "/docs/ReferenceGuides/CSharp/GeneratedCodeGuide" >}})。
 
-  - `--php_out` generates PHP code in `DST_DIR`. See the [PHP generated code reference](https://protobuf.dev/reference/php/php-generated) for more.
-    - `--php_out`：在 `DST_DIR` 中生成 PHP 代码。请参阅 [PHP 生成代码参考](https://protobuf.dev/reference/php/php-generated)。
+  - `--php_out` generates PHP code in `DST_DIR`. See the [PHP generated code reference]({{< ref "/docs/ReferenceGuides/PHP/GeneratedCodeGuide" >}}) for more.
+    - `--php_out`：在 `DST_DIR` 中生成 PHP 代码。请参阅 [PHP 生成代码参考]({{< ref "/docs/ReferenceGuides/PHP/GeneratedCodeGuide" >}})。
 
 
   As an extra convenience, if the `DST_DIR` ends in `.zip` or `.jar`, the compiler will write the output to a single ZIP-format archive file with the given name. `.jar` outputs will also be given a manifest file as required by the Java JAR specification. Note that if the output archive already exists, it will be overwritten.

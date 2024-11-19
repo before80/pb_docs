@@ -18,7 +18,7 @@ Describes the PHP code that the protocol buffer compiler generates for any given
 
 
 
-You should read the [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document. Note that the protocol buffer compiler currently only supports proto3 code generation for PHP.
+You should read the [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document. Note that the protocol buffer compiler currently only supports proto3 code generation for PHP.
 
 ## Compiler Invocation
 
@@ -142,7 +142,7 @@ $m->setX($a);
 
 Whenever you set a field, the value is type-checked against the declared type of that field. If the value is of the wrong type (or out of range), an exception will be raised. By default type conversions (for example, when assigning a value to a field or adding an element to a repeated field) are permitted to and from integer, float, and numeric strings. Conversions that are not permitted include all conversions to/from arrays or objects. Float to integer overflow conversions are undefined.
 
-You can see the corresponding PHP type for each scalar protocol buffers type in the [scalar value types table](https://protobuf.dev/programming-guides/proto3#scalar).
+You can see the corresponding PHP type for each scalar protocol buffers type in the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}).
 
 ### Singular Message Fields
 
@@ -226,7 +226,7 @@ We have also provided the file level option `php_class_prefix`. If this is speci
 
 ## Oneof
 
-For a [oneof](https://protobuf.dev/programming-guides/proto3#oneof)s, the protocol buffer compiler generates the same code as it would for regular singular fields, but also adds a special accessor method that lets you find out which oneof field (if any) is set. So, given this message:
+For a [oneof]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#oneof" >}})s, the protocol buffer compiler generates the same code as it would for regular singular fields, but also adds a special accessor method that lets you find out which oneof field (if any) is set. So, given this message:
 
 ```proto
 message TestMessage {

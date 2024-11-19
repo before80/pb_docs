@@ -18,7 +18,7 @@ Describes the API of message objects that the protocol buffer compiler generates
 
 
 
-You should read the language guides for [proto2](https://protobuf.dev/programming-guides/proto2) or [proto3](https://protobuf.dev/programming-guides/proto3) before reading this document.
+You should read the language guides for [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) or [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
 The protocol compiler for Ruby emits Ruby source files that use a DSL to define the message schema. However the DSL is still subject to change. In this guide we only describe the API of the generated messages, and not the DSL.
 

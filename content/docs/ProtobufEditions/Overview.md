@@ -13,19 +13,19 @@ draft = false
 >
 > 收录该文档的时间：`2024-11-17T09:35:36+08:00`
 
-# Protobuf Editions Overview - Protobuf 版本概述
+# Protobuf Editions Overview - Protobuf Editions概述
 
 An overview of the Protobuf Editions functionality.
 
-​	Protobuf 版本功能概览。
+​	Protobuf Editions功能概览。
 
 Protobuf Editions replace the proto2 and proto3 designations that we have used for Protocol Buffers. Instead of adding `syntax = "proto2"` or `syntax = "proto3"` at the top of proto definition files, you use an edition number, such as `edition = "2023"`, to specify the default behaviors your file will have. Editions enable the language to evolve incrementally over time.
 
-​	Protobuf 版本取代了我们之前在 Protocol Buffers 中使用的 proto2 和 proto3 标记。在 proto 定义文件顶部不再添加 `syntax = "proto2"` 或 `syntax = "proto3"`，而是使用类似 `edition = "2023"` 的版本号来指定文件的默认行为。版本允许语言随着时间的推移逐步演化。
+​	Protobuf Editions取代了我们之前在 Protocol Buffers 中使用的 proto2 和 proto3 标记。在 proto 定义文件顶部不再添加 `syntax = "proto2"` 或 `syntax = "proto3"`，而是使用类似 `edition = "2023"` 的版本号来指定文件的默认行为。版本允许语言随着时间的推移逐步演化。
 
-Instead of the hardcoded behaviors that older versions have had, editions represent a collection of [features](https://protobuf.dev/editions/features) with a default value (behavior) per feature. Features are options on a file, message, field, enum, and so on, that specify the behavior of protoc, the code generators, and protobuf runtimes. You can explicitly override a behavior at those different levels (file, message, field, …) when your needs don’t match the default behavior for the edition you’ve selected. You can also override your overrides. The [section later in this topic on lexical scoping](https://protobuf.dev/editions/overview/#scoping) goes into more detail on that.
+Instead of the hardcoded behaviors that older versions have had, editions represent a collection of [features]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions" >}}) with a default value (behavior) per feature. Features are options on a file, message, field, enum, and so on, that specify the behavior of protoc, the code generators, and protobuf runtimes. You can explicitly override a behavior at those different levels (file, message, field, …) when your needs don’t match the default behavior for the edition you’ve selected. You can also override your overrides. The [section later in this topic on lexical scoping](https://protobuf.dev/editions/overview/#scoping) goes into more detail on that.
 
-​	相比于旧版本中硬编码的行为，版本表示一组带有默认值（行为）的[特性](https://protobuf.dev/editions/features)。特性是文件、消息、字段、枚举等上的选项，用于指定 protoc、代码生成器和 Protobuf 运行时的行为。当所选版本的默认行为不满足您的需求时，您可以在不同级别（文件、消息、字段等）显式覆盖行为，甚至可以覆盖先前的覆盖行为。有关详细信息，请参阅本文稍后关于[词法作用域](https://protobuf.dev/editions/overview/#scoping)的部分。
+​	相比于旧版本中硬编码的行为，版本表示一组带有默认值（行为）的[特性]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions" >}})。特性是文件、消息、字段、枚举等上的选项，用于指定 protoc、代码生成器和 Protobuf 运行时的行为。当所选版本的默认行为不满足您的需求时，您可以在不同级别（文件、消息、字段等）显式覆盖行为，甚至可以覆盖先前的覆盖行为。有关详细信息，请参阅本文稍后关于[词法作用域](https://protobuf.dev/editions/overview/#scoping)的部分。
 
 *The latest released edition is 2023.*
 
@@ -55,27 +55,27 @@ Editions provide the fundamental increments for the lifecycle of a feature. Feat
 
 Because of this lifecycle, any `.proto` file that does not use deprecated features has a no-op upgrade from one edition to the next. You will have the full window of the Google migration plus the deprecation window to upgrade your code.
 
-​	由于这一生命周期，任何未使用弃用特性的 `.proto` 文件在从一个版本升级到下一个版本时不会有任何影响。您将在 Google 提供的迁移窗口以及弃用窗口内完成代码升级。
+​	由于这一生命周期，任何未使用弃用特性的 `.proto` 文件在从一个edition升级到下一个edition时不会有任何影响。您将在 Google 提供的迁移窗口以及弃用窗口内完成代码升级。
 
 The preceding lifecycle example used boolean values for the features, but features may also use enums. For example, `features.field_presence` has values `LEGACY_REQUIRED`, `EXPLICIT`, and `IMPLICIT.`
 
 ​	上述生命周期示例使用了布尔值特性，但特性也可以使用枚举值。例如，`features.field_presence` 具有 `LEGACY_REQUIRED`、`EXPLICIT` 和 `IMPLICIT` 三种值。
 
-## 向 Protobuf 版本迁移 Migrating to Protobuf Editions
+## 向 Protobuf Editions迁移 Migrating to Protobuf Editions
 
 Editions won’t break existing binaries and don’t change a message’s binary, text, or JSON serialization format. The first edition is as minimally disruptive as possible. The first edition establishes the baseline and combines proto2 and proto3 definitions into a new single definition format.
 
-​	版本不会破坏现有的二进制文件，也不会改变消息的二进制、文本或 JSON 序列化格式。第一个版本尽可能减少破坏性影响，建立基线并将 proto2 和 proto3 定义合并为一个新的定义格式。
+​	editions不会破坏现有的二进制文件，也不会改变消息的二进制、文本或 JSON 序列化格式。第一个edition尽可能减少破坏性影响，建立基线并将 proto2 和 proto3 定义合并为一个新的定义格式。
 
 When the subsequent editions are released, default behaviors for features may change. You can have Prototiller do a no-op transformation of your .proto file or you can choose to accept some or all of the new behaviors. Editions are planned to be released roughly once a year.
 
-​	当后续版本发布时，特性的默认行为可能会发生变化。您可以让 **Prototiller** 工具对您的 `.proto` 文件进行无操作转换，或者选择接受部分或全部新行为。计划每年发布一个版本。
+​	当后续editions发布时，特性的默认行为可能会发生变化。您可以让 **Prototiller** 工具对您的 `.proto` 文件进行无操作转换，或者选择接受部分或全部新行为。计划每年发布一个Editions。
 
-### 从 Proto2 迁移到版本 Proto2 to Editions
+### 从 Proto2 迁移到editions - Proto2 to Editions
 
 This section shows a proto2 file, and what it might look like after running the Prototiller tool to change the definition files to use Protobuf Editions syntax.
 
-​	以下展示了一个 proto2 文件及其在运行 **Prototiller** 工具后使用 Protobuf 版本语法的样子。
+​	以下展示了一个 proto2 文件及其在运行 **Prototiller** 工具后使用 Protobuf Editions语法的样子。
 
 #### Proto2 syntax
 
@@ -111,11 +111,11 @@ message Player {
 }
 ```
 
-#### 版本语法 Editions syntax
+#### editions语法 Editions syntax
 
 ```proto
 // Edition version of proto2 file
-// proto2 文件的版本语法
+// proto2 文件的edition版本语法
 edition = "2023";
 
 package com.example;
@@ -133,7 +133,7 @@ message Player {
 
   enum Handed {
     // this overrides the default edition 2023 behavior, which is OPEN
-    // 覆盖版本 2023 的默认行为（OPEN）
+    // 覆盖edition 2023 的默认行为（OPEN）
     option features.enum_type = CLOSED;
     HANDED_UNSPECIFIED = 0;
     HANDED_LEFT = 1;
@@ -147,11 +147,11 @@ message Player {
 }
 ```
 
-### 从 Proto3 迁移到版本 Proto3 to Editions
+### 从 Proto3 迁移到editions - Proto3 to Editions
 
 This section shows a proto3 file, and what it might look like after running the Prototiller tool to change the definition files to use Protobuf Editions syntax.
 
-​	以下展示了一个 proto3 文件及其在运行 **Prototiller** 工具后使用 Protobuf 版本语法的样子。
+​	以下展示了一个 proto3 文件及其在运行 **Prototiller** 工具后使用 Protobuf Editions语法的样子。
 
 #### Proto3 syntax
 
@@ -187,11 +187,11 @@ message Player {
 }
 ```
 
-#### 版本语法 Editions syntax
+#### editions语法 Editions syntax
 
 ```proto
 // Editions version of proto3 file
-// proto3 文件的版本语法
+// proto3 文件的editions版本语法
 edition = "2023";
 
 package com.example;
@@ -226,7 +226,7 @@ message Player {
 
 Editions syntax supports lexical scoping, with a per-feature list of allowed targets. For example, in the first edition, features can be specified at only the file level or the lowest level of granularity. The implementation of lexical scoping enables you to set the default behavior for a feature across an entire file, and then override that behavior at the message, field, enum, enum value, oneof, service, or method level. Settings made at a higher level (file, message) apply when no setting is made within the same scope (field, enum value). Any features not explicitly set conform to the behavior defined in the edition version used for the .proto file.
 
-​	版本语法支持词法作用域，并提供每个特性允许的目标列表。例如，在第一个版本中，特性可以仅在文件级别或最低粒度级别指定。词法作用域的实现使您可以为整个文件中的某个特性设置默认行为，然后在消息、字段、枚举、枚举值、oneof、服务或方法级别覆盖该行为。在较高级别（文件、消息）设置的内容适用于同一作用域内未设置的内容（字段、枚举值）。未显式设置的特性将遵循 `.proto` 文件使用的版本定义的行为。
+​	editions语法支持词法作用域，并提供每个特性允许的目标列表。例如，在第一个edition中，特性可以仅在文件级别或最低粒度级别指定。词法作用域的实现使您可以为整个文件中的某个特性设置默认行为，然后在消息、字段、枚举、枚举值、oneof、服务或方法级别覆盖该行为。在较高级别（文件、消息）设置的内容适用于同一作用域内未设置的内容（字段、枚举值）。未显式设置的特性将遵循 `.proto` 文件使用的edition定义的行为。
 
 The following code sample shows some features being set at the file, field, and enum level. The settings are in the highlighted lines:
 
@@ -265,17 +265,17 @@ In the preceding example, the presence feature is set to `IMPLICIT`; it would de
 
 Currently, all conversions to editions format are handled by the Protobuf team.
 
-​	目前，所有向版本格式的转换均由 Protobuf 团队处理。
+​	目前，所有向editions格式的转换均由 Protobuf 团队处理。
 
 When this shifts to a self-serve model, we will provide both a migration guide and migration tooling to ease the migration to and between editions. The tool, called Prototiller, will enable you to:
 
-​	当转换转变为自助模型时，我们将提供迁移指南和工具以简化版本间的迁移。工具名为 **Prototiller**，它将支持：
+​	当转换转变为自助模型时，我们将提供迁移指南和工具以简化editions间的迁移。工具名为 **Prototiller**，它将支持：
 
 - convert proto2 and proto3 definition files to the new editions syntax, at scale
-  - 大规模将 proto2 和 proto3 定义文件转换为新版本语法
+  - 大规模将 proto2 和 proto3 定义文件转换为新editions语法
 
 - migrate files from one edition to another
-  - 在版本之间迁移文件
+  - 在edition之间迁移文件
 
 - manipulate proto files in other ways
   - 以其他方式操作 proto 文件
@@ -285,7 +285,7 @@ When this shifts to a self-serve model, we will provide both a migration guide a
 
 We are building Protobuf Editions to be as minimally disruptive as possible. For example, you can import proto2 and proto3 definitions into editions-based definition files, and vice versa:
 
-​	我们构建 Protobuf 版本以尽可能减少破坏性影响。例如，您可以将 proto2 和 proto3 定义导入基于版本的定义文件，反之亦然：
+​	我们构建 Protobuf Editions以尽可能减少破坏性影响。例如，您可以将 proto2 和 proto3 定义导入基于editions的定义文件，反之亦然：
 
 ```proto
 // file myproject/foo.proto
@@ -304,13 +304,13 @@ import "myproject/foo.proto";
 
 While the generated code changes when you move from proto2 or proto3 to editions, the wire format does not. You’ll still be able to access proto2 and proto3 data files or file streams using your editions-syntax proto definitions.
 
-​	从 proto2 或 proto3 迁移到版本后，生成的代码会发生变化，但线格式不会。因此，您仍然可以使用版本语法的 proto 定义访问 proto2 和 proto3 数据文件或文件流。
+​	从 proto2 或 proto3 迁移到editions后，生成的代码会发生变化，但线格式不会。因此，您仍然可以使用editions语法的 proto 定义访问 proto2 和 proto3 数据文件或文件流。
 
 ### 语法变化 Grammar Changes
 
 There are some grammar changes in editions compared to proto2 and proto3.
 
-​	与 proto2 和 proto3 相比，版本中有一些语法变化。
+​	与 proto2 和 proto3 相比，editions中有一些语法变化。
 
 **Syntax description.** Instead of the `syntax` element, you use an `edition` element:
 
@@ -334,8 +334,8 @@ reserved foo, bar;
 
 **Group syntax.** Group syntax, available in proto2, is removed in editions. The special wire-format that groups used is still available by using `DELIMITED` message encoding.
 
-​	**组语法。** proto2 中可用的组语法在版本中被移除。组使用的特殊线格式仍然可通过 `DELIMITED` 消息编码实现。
+​	**组语法。** proto2 中可用的组语法在editions中被移除。组使用的特殊线格式仍然可通过 `DELIMITED` 消息编码实现。
 
 **Required label.** The `required` label, available only in proto2, is unavailable in editions. The underlying functionality is still available (but [discouraged](https://protobuf.dev/programming-guides/required-considered-harmful)) by using `features.field_presence=LEGACY_REQUIRED`.
 
-​	**必填标签。** proto2 中可用的 `required` 标签在版本中不可用。底层功能仍然可用（但已[不推荐](https://protobuf.dev/programming-guides/required-considered-harmful)），通过使用 `features.field_presence=LEGACY_REQUIRED` 实现。
+​	**必填标签。** proto2 中可用的 `required` 标签在editions中不可用。底层功能仍然可用（但已[不推荐](https://protobuf.dev/programming-guides/required-considered-harmful)），通过使用 `features.field_presence=LEGACY_REQUIRED` 实现。

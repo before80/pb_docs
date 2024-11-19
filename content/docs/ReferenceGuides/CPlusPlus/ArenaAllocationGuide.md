@@ -18,7 +18,7 @@ Arena allocation is a C++-only feature that helps you optimize your memory usage
 
 
 
-This page describes exactly what C++ code the protocol buffer compiler generates in addition to the code described in the [C++ Generated Code Guide](https://protobuf.dev/reference/cpp/cpp-generated) when arena allocation is enabled. It assumes that you are familiar with the material in the [language guide](https://protobuf.dev/programming-guides/proto2) and the [C++ Generated Code Guide](https://protobuf.dev/reference/cpp/cpp-generated).
+This page describes exactly what C++ code the protocol buffer compiler generates in addition to the code described in the [C++ Generated Code Guide]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide" >}}) when arena allocation is enabled. It assumes that you are familiar with the material in the [language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and the [C++ Generated Code Guide]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide" >}}).
 
 ## Why Use Arena Allocation?
 
@@ -121,7 +121,7 @@ The following message class members are changed or added when you enable arena a
 
 - `Message(Message&& other)`: If the source message is not on arena, the move constructor efficiently *moves* all fields from one message to another without making copies or heap allocations (the time complexity of this operation is `O(number-of-declared-fields)`). However, if the source message is on arena, it performs a *deep copy* of the underlying data. In both cases the source message is left in a valid but unspecified state.
 - `Message& operator=(Message&& other)`: If both messages are not on arena or are on the *same* arena, the move-assignment operator efficiently *moves* all fields from one message to another without making copies or heap allocations (the time complexity of this operation is `O(number-of-declared-fields)`). However, if only one message is on arena, or the messages are on different arenas, it performs a *deep copy* of the underlying data. In both cases the source message is left in a valid but unspecified state.
-- `void Swap(Message* other)`: If both messages to be swapped are not on arenas or are on the *same* arena, [`Swap()`](https://protobuf.dev/reference/cpp/cpp-generated#message) behaves as it does without having arena allocation enabled: it efficiently swaps the message objects’ contents, almost exclusively through cheap pointer swaps, avoiding copies. However, if only one message is on an arena, or the messages are on different arenas, `Swap()` performs *deep copies* of the underlying data. This new behavior is necessary because otherwise the swapped sub-objects could have differing lifetimes, leading potentially to use-after-free bugs.
+- `void Swap(Message* other)`: If both messages to be swapped are not on arenas or are on the *same* arena, [`Swap()`]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide#message" >}}) behaves as it does without having arena allocation enabled: it efficiently swaps the message objects’ contents, almost exclusively through cheap pointer swaps, avoiding copies. However, if only one message is on an arena, or the messages are on different arenas, `Swap()` performs *deep copies* of the underlying data. This new behavior is necessary because otherwise the swapped sub-objects could have differing lifetimes, leading potentially to use-after-free bugs.
 - `Message* New(Arena* arena)`: An alternate override for the standard `New()` method. It allows a new message object of this type to be created on the given arena. Its semantics are identical to `Arena::CreateMessage<T>(arena)` if the concrete message type on which it is called is generated with arena allocation enabled. If the message type is not generated with arena allocation enabled, then it is equivalent to an ordinary allocation followed by `arena->Own(message)` if `arena` is not NULL.
 - `Arena* GetArena()`: Returns the arena on which this message object was allocated, if any.
 - `void UnsafeArenaSwap(Message* other)`: Identical to `Swap()`, except it assumes both objects are on the same arena (or not on arenas at all) and always uses the efficient pointer-swapping implementation of this operation. Using this method can improve performance as, unlike `Swap()`, it doesn’t need to check which messages live on which arena before performing the swap. As the `Unsafe` prefix suggests, you should only use this method if you are sure the messages you want to swap aren’t on different arenas; otherwise this method could have unpredictable results.
@@ -140,7 +140,7 @@ optional Bar foo = 1;
 required Bar foo = 1;
 ```
 
-The following methods are added or have some special behavior when arena allocation is enabled. Otherwise, accessor methods just use the [default behavior](https://protobuf.dev/reference/cpp/cpp-generated#embeddedmessage).
+The following methods are added or have some special behavior when arena allocation is enabled. Otherwise, accessor methods just use the [default behavior]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide#embeddedmessage" >}}).
 
 - `Bar* mutable_foo()`: Returns a mutable pointer to the submessage instance. If the parent object is on an arena then the returned object will be as well.
 
@@ -175,7 +175,7 @@ The following methods are added or have some special behavior when arena allocat
 
 ### String Fields
 
-String fields store their data on the heap even when their parent message is on the arena. Because of this, string accessor methods use the [default behavior](https://protobuf.dev/reference/cpp/cpp-generated#string) even when arena allocation is enabled.
+String fields store their data on the heap even when their parent message is on the arena. Because of this, string accessor methods use the [default behavior]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide#string" >}}) even when arena allocation is enabled.
 
 ### Repeated Fields
 

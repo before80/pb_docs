@@ -338,9 +338,9 @@ However, records for `e` do not need to appear consecutively, and can be interle
 
 ### Oneofs
 
-[`Oneof` fields](https://protobuf.dev/programming-guides/proto2#oneof) are encoded the same as if the fields were not in a `oneof`. The rules that apply to `oneofs` are independent of how they are represented on the wire.
+[`Oneof` fields]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#oneof" >}}) are encoded the same as if the fields were not in a `oneof`. The rules that apply to `oneofs` are independent of how they are represented on the wire.
 
-​	[`Oneof` 字段](https://protobuf.dev/programming-guides/proto2#oneof) 的编码方式与它们不在 `oneof` 中时完全相同。`oneof` 的规则与它们在线格式上的表示方式是独立的。
+​	[`Oneof` 字段]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#oneof" >}}) 的编码方式与它们不在 `oneof` 中时完全相同。`oneof` 的规则与它们在线格式上的表示方式是独立的。
 
 ### 后写覆盖规则 Last One Wins
 
@@ -370,9 +370,9 @@ This property is occasionally useful, as it allows you to merge two messages (by
 
 ### 打包的重复字段（ Packed Repeated Fields
 
-Starting in v2.1.0, `repeated` fields of a primitive type (any [scalar type](https://protobuf.dev/programming-guides/proto2#scalar) that is not `string` or `bytes`) can be declared as “packed”. In proto2 this is done using the field option `[packed=true]`. In proto3 it is the default.
+Starting in v2.1.0, `repeated` fields of a primitive type (any [scalar type]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}) that is not `string` or `bytes`) can be declared as “packed”. In proto2 this is done using the field option `[packed=true]`. In proto3 it is the default.
 
-​	从 v2.1.0 开始，`repeated` 字段的基本类型（任何非 `string` 或 `bytes` 的[标量类型](https://protobuf.dev/programming-guides/proto2#scalar)）可以声明为“打包”类型。在 proto2 中，这通过字段选项 `[packed=true]` 来实现。在 proto3 中，打包是默认行为。
+​	从 v2.1.0 开始，`repeated` 字段的基本类型（任何非 `string` 或 `bytes` 的[标量类型]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}})）可以声明为“打包”类型。在 proto2 中，这通过字段选项 `[packed=true]` 来实现。在 proto3 中，打包是默认行为。
 
 Instead of being encoded as one record per entry, they are encoded as a single `LEN` record that contains each element concatenated. To decode, elements are decoded from the `LEN` record one by one until the payload is exhausted. The start of the next element is determined by the length of the previous, which itself depends on the type of the field.
 
@@ -489,9 +489,9 @@ Field numbers may be declared in any order in a `.proto` file. The order chosen 
 
 ​	字段编号在 `.proto` 文件中可以按任意顺序声明。其顺序不会影响消息的序列化方式。
 
-When a message is serialized, there is no guaranteed order for how its known or [unknown fields](https://protobuf.dev/programming-guides/proto2#updating) will be written. Serialization order is an implementation detail, and the details of any particular implementation may change in the future. Therefore, protocol buffer parsers must be able to parse fields in any order.
+When a message is serialized, there is no guaranteed order for how its known or [unknown fields]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#updating" >}}) will be written. Serialization order is an implementation detail, and the details of any particular implementation may change in the future. Therefore, protocol buffer parsers must be able to parse fields in any order.
 
-​	消息序列化时，其已知或[未知字段](https://protobuf.dev/programming-guides/proto2#updating)的书写顺序没有保证。序列化顺序是实现细节，任何特定实现的细节可能在未来发生变化。因此，协议缓冲区解析器必须能够按任意顺序解析字段。
+​	消息序列化时，其已知或[未知字段]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#updating" >}})的书写顺序没有保证。序列化顺序是实现细节，任何特定实现的细节可能在未来发生变化。因此，协议缓冲区解析器必须能够按任意顺序解析字段。
 
 ### 影响 Implications
 

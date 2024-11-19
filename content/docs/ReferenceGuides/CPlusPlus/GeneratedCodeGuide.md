@@ -18,7 +18,7 @@ Describes exactly what C++ code the protocol buffer compiler generates for any g
 
 
 
-Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base message classes/interfaces, which are the same in both versions. You should read the [proto2 language guide](https://protobuf.dev/programming-guides/proto2) and/or [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document.
+Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base message classes/interfaces, which are the same in both versions. You should read the [proto2 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and/or [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
 ## Compiler Invocation
 
@@ -167,7 +167,7 @@ The compiler will generate the following accessor methods:
 - `void set_foo(int32 value)`: Sets the value of the field. After calling this, `has_foo()` will return `true` and `foo()` will return `value`.
 - `void clear_foo()`: Clears the value of the field. After calling this, `has_foo()` will return `false` and `foo()` will return the default value.
 
-For other numeric field types (including `bool`), `int32` is replaced with the corresponding C++ type according to the [scalar value types table](https://protobuf.dev/programming-guides/proto3#scalar).
+For other numeric field types (including `bool`), `int32` is replaced with the corresponding C++ type according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}).
 
 ### Implicit Presence Numeric Fields (proto3)
 
@@ -183,7 +183,7 @@ The compiler will generate the following accessor methods:
 - `void set_foo(int32 value)`: Sets the value of the field. After calling this, `foo()` will return `value`.
 - `void clear_foo()`: Clears the value of the field. After calling this, `foo()` will return 0.
 
-For other numeric field types (including `bool`), `int32` is replaced with the corresponding C++ type according to the [scalar value types table](https://protobuf.dev/programming-guides/proto3#scalar).
+For other numeric field types (including `bool`), `int32` is replaced with the corresponding C++ type according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}).
 
 ### Optional String/Bytes Fields (proto2 and proto3)
 
@@ -349,7 +349,7 @@ The compiler will generate the following accessor methods:
 - `const RepeatedField<int32>& foo() const`: Returns the underlying [`RepeatedField`](https://protobuf.dev/reference/cpp/api-docs/google.protobuf.repeated_field#RepeatedField) that stores the field’s elements. This container class provides STL-like iterators and other methods.
 - `RepeatedField<int32>* mutable_foo()`: Returns a pointer to the underlying mutable `RepeatedField` that stores the field’s elements. This container class provides STL-like iterators and other methods.
 
-For other numeric field types (including `bool`), `int32` is replaced with the corresponding C++ type according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar).
+For other numeric field types (including `bool`), `int32` is replaced with the corresponding C++ type according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}).
 
 ### Repeated String Fields
 
@@ -464,7 +464,7 @@ The compiler will generate the following accessor methods:
   - Nothing will be changed if oneof case is not `kFoo`.
   - If oneof case is `kFoo`, clears the value of the field and oneof case. `has_foo()` will return `false`, `foo()` will return the default value and `example_name_case()` will return `EXAMPLE_NAME_NOT_SET`.
 
-For other numeric field types (including `bool`),`int32` is replaced with the corresponding C++ type according to the [scalar value types table](https://protobuf.dev/programming-guides/proto3#scalar).
+For other numeric field types (including `bool`),`int32` is replaced with the corresponding C++ type according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}).
 
 ### Oneof String Fields
 
@@ -757,7 +757,7 @@ If there is an unknown enum value in the wire format of a map entry message, it�
 
 ## Any
 
-Given an [`Any`](https://protobuf.dev/programming-guides/proto3#any) field like this:
+Given an [`Any`]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#any" >}}) field like this:
 
 ```proto
 import "google/protobuf/any.proto";
@@ -917,7 +917,7 @@ FillInMyBaz(baz);
 
 ## Arena Allocation
 
-Arena allocation is a C++-only feature that helps you optimize your memory usage and improve performance when working with protocol buffers. Enabling arena allocation in your `.proto` adds additional code for working with arenas to your C++ generated code. You can find out more about the arena allocation API in the [Arena Allocation Guide](https://protobuf.dev/reference/cpp/arenas).
+Arena allocation is a C++-only feature that helps you optimize your memory usage and improve performance when working with protocol buffers. Enabling arena allocation in your `.proto` adds additional code for working with arenas to your C++ generated code. You can find out more about the arena allocation API in the [Arena Allocation Guide]({{< ref "/docs/ReferenceGuides/CPlusPlus/ArenaAllocationGuide" >}}).
 
 ## Services
 

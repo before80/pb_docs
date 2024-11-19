@@ -18,9 +18,9 @@ A basic Go programmers introduction to working with protocol buffers.
 
 ​	面向 Go 程序员的协议缓冲基础教程。
 
-This tutorial provides a basic Go programmer’s introduction to working with protocol buffers, using the [proto3](https://protobuf.dev/programming-guides/proto3) version of the protocol buffers language. By walking through creating a simple example application, it shows you how to
+This tutorial provides a basic Go programmer’s introduction to working with protocol buffers, using the [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) version of the protocol buffers language. By walking through creating a simple example application, it shows you how to
 
-​	本教程为 Go 程序员提供了一个使用协议缓冲的基础入门，基于 [proto3](https://protobuf.dev/programming-guides/proto3) 版本的协议缓冲语言。通过构建一个简单的示例应用程序，本教程将展示如何：
+​	本教程为 Go 程序员提供了一个使用协议缓冲的基础入门，基于 [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) 版本的协议缓冲语言。通过构建一个简单的示例应用程序，本教程将展示如何：
 
 - Define message formats in a `.proto` file.
   - 在 `.proto` 文件中定义消息格式。
@@ -32,9 +32,9 @@ This tutorial provides a basic Go programmer’s introduction to working with pr
   - 使用 Go 协议缓冲 API 读取和写入消息。
 
 
-This isn’t a comprehensive guide to using protocol buffers in Go. For more detailed reference information, see the [Protocol Buffer Language Guide](https://protobuf.dev/programming-guides/proto3), the [Go API Reference](https://pkg.go.dev/google.golang.org/protobuf/proto), the [Go Generated Code Guide](https://protobuf.dev/reference/go/go-generated), and the [Encoding Reference](https://protobuf.dev/programming-guides/encoding).
+This isn’t a comprehensive guide to using protocol buffers in Go. For more detailed reference information, see the [Protocol Buffer Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}), the [Go API Reference]({{< ref "/docs/ReferenceGuides/Go/GoAPI" >}}), the [Go Generated Code Guide]({{< ref "/docs/ReferenceGuides/Go/GeneratedCodeGuide" >}}), and the [Encoding Reference]({{< ref "/docs/ProgrammingGuides/Encoding" >}}).
 
-​	本教程并非 Go 中协议缓冲使用的全面指南。有关更详细的参考信息，请参阅以下文档：[协议缓冲语言指南](https://protobuf.dev/programming-guides/proto3)、[Go API 参考](https://pkg.go.dev/google.golang.org/protobuf/proto)、[Go 生成代码指南](https://protobuf.dev/reference/go/go-generated) 和 [编码参考](https://protobuf.dev/programming-guides/encoding)。
+​	本教程并非 Go 中协议缓冲使用的全面指南。有关更详细的参考信息，请参阅以下文档：[协议缓冲语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}})、[Go API 参考]({{< ref "/docs/ReferenceGuides/Go/GoAPI" >}})、[Go 生成代码指南]({{< ref "/docs/ReferenceGuides/Go/GeneratedCodeGuide" >}}) 和 [编码参考]({{< ref "/docs/ProgrammingGuides/Encoding" >}})。
 
 ## 问题领域 The Problem Domain
 
@@ -137,17 +137,17 @@ The " = 1", " = 2" markers on each element identify the unique “tag” that fi
 
 ​	每个元素上的 `= 1`、`= 2` 标记标识字段在二进制编码中使用的唯一“标签”。标签编号 1-15 编码所需的字节少于更高编号，因此作为优化，可以选择将这些标签用于常用或重复的元素，将标签编号 16 及以上用于不常用的可选元素。重复字段中的每个元素都需要重新编码标签编号，因此重复字段特别适合这种优化。
 
-If a field value isn’t set, a [default value](https://protobuf.dev/programming-guides/proto3#default) is used: zero for numeric types, the empty string for strings, false for bools. For embedded messages, the default value is always the “default instance” or “prototype” of the message, which has none of its fields set. Calling the accessor to get the value of a field which has not been explicitly set always returns that field’s default value.
+If a field value isn’t set, a [default value]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#default" >}}) is used: zero for numeric types, the empty string for strings, false for bools. For embedded messages, the default value is always the “default instance” or “prototype” of the message, which has none of its fields set. Calling the accessor to get the value of a field which has not been explicitly set always returns that field’s default value.
 
-​	如果字段值未设置，则使用[默认值](https://protobuf.dev/programming-guides/proto3#default)：数字类型为零，字符串为空字符串，布尔值为 `false`。对于嵌入消息，默认值始终是消息的“默认实例”或“原型”，其字段未设置。调用访问器获取未显式设置的字段的值时，总是返回该字段的默认值。
+​	如果字段值未设置，则使用[默认值]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#default" >}})：数字类型为零，字符串为空字符串，布尔值为 `false`。对于嵌入消息，默认值始终是消息的“默认实例”或“原型”，其字段未设置。调用访问器获取未显式设置的字段的值时，总是返回该字段的默认值。
 
 If a field is `repeated`, the field may be repeated any number of times (including zero). The order of the repeated values will be preserved in the protocol buffer. Think of repeated fields as dynamically sized arrays.
 
 ​	如果字段是 `repeated`，该字段可以重复任意次（包括零次）。协议缓冲中会保留重复值的顺序。可以将重复字段视为动态大小的数组。
 
-You’ll find a complete guide to writing `.proto` files – including all the possible field types – in the [Protocol Buffer Language Guide](https://protobuf.dev/programming-guides/proto3). Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.
+You’ll find a complete guide to writing `.proto` files – including all the possible field types – in the [Protocol Buffer Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}). Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.
 
-​	有关编写 `.proto` 文件的完整指南（包括所有可能的字段类型），请参阅 [协议缓冲语言指南](https://protobuf.dev/programming-guides/proto3)。不过，协议缓冲不支持类似类继承的功能。
+​	有关编写 `.proto` 文件的完整指南（包括所有可能的字段类型），请参阅 [协议缓冲语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}})。不过，协议缓冲不支持类似类继承的功能。
 
 ## 编译协议缓冲 Compiling Your Protocol Buffers
 
@@ -155,7 +155,7 @@ Now that you have a `.proto`, the next thing you need to do is generate the clas
 
 ​	完成 `.proto` 文件后，下一步是生成类，用于读取和写入 `AddressBook`（因此也包括 `Person` 和 `PhoneNumber`）消息。为此，您需要在 `.proto` 文件上运行协议缓冲编译器 `protoc`：
 
-1. If you haven’t installed the compiler, [download the package](https://protobuf.dev/downloads) and follow the instructions in the README. 如果尚未安装编译器，请[下载软件包](https://protobuf.dev/downloads)并按照 README 中的说明操作。
+1. If you haven’t installed the compiler, [download the package]({{< ref "/docs/Downloads" >}}) and follow the instructions in the README. 如果尚未安装编译器，请[下载软件包]({{< ref "/docs/Downloads" >}})并按照 README 中的说明操作。
 
 2. Run the following command to install the Go protocol buffers plugin: 运行以下命令安装 Go 协议缓冲插件：
 
@@ -200,9 +200,9 @@ Generating `addressbook.pb.go` gives you the following useful types:
   - `Person_PhoneType` 类型，以及 `Person.PhoneType` 枚举中的每个值的定义。
 
 
-You can read more about the details of exactly what’s generated in the [Go Generated Code guide](https://protobuf.dev/reference/go/go-generated), but for the most part you can treat these as perfectly ordinary Go types.
+You can read more about the details of exactly what’s generated in the [Go Generated Code guide]({{< ref "/docs/ReferenceGuides/Go/GeneratedCodeGuide" >}}), but for the most part you can treat these as perfectly ordinary Go types.
 
-​	有关生成内容的详细信息，请参阅 [Go 生成代码指南](https://protobuf.dev/reference/go/go-generated)，但大多数情况下，您可以将这些类型视为普通的 Go 类型。
+​	有关生成内容的详细信息，请参阅 [Go 生成代码指南]({{< ref "/docs/ReferenceGuides/Go/GeneratedCodeGuide" >}})，但大多数情况下，您可以将这些类型视为普通的 Go 类型。
 
 Here’s an example from the [`list_people` command’s unit tests](https://github.com/protocolbuffers/protobuf/blob/master/examples/go/cmd/list_people/list_people_test.go) of how you might create an instance of Person:
 
@@ -275,14 +275,14 @@ Sooner or later after you release the code that uses your protocol buffer, you w
   - *可以* 添加新字段，但必须使用未使用的标签编号（即，从未在此协议缓冲中使用过的标签编号，包括已删除字段的标签编号）。
 
 
-(There are [some exceptions](https://protobuf.dev/programming-guides/proto3#updating) to these rules, but they are rarely used.)
+(There are [some exceptions]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#updating" >}}) to these rules, but they are rarely used.)
 
-​	（这些规则有[一些例外](https://protobuf.dev/programming-guides/proto3#updating)，但很少使用。）
+​	（这些规则有[一些例外]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#updating" >}})，但很少使用。）
 
 If you follow these rules, old code will happily read new messages and simply ignore any new fields. To the old code, singular fields that were deleted will simply have their default value, and deleted repeated fields will be empty. New code will also transparently read old messages.
 
 ​	如果遵循这些规则，旧代码可以正常读取新消息并忽略任何新字段。对于旧代码，被删除的单字段将简单地具有其默认值，而被删除的重复字段将为空。新代码也可以透明地读取旧消息。
 
-However, keep in mind that new fields will not be present in old messages, so you will need to do something reasonable with the default value. A type-specific [default value](https://protobuf.dev/programming-guides/proto3#default) is used: for strings, the default value is the empty string. For booleans, the default value is false. For numeric types, the default value is zero.
+However, keep in mind that new fields will not be present in old messages, so you will need to do something reasonable with the default value. A type-specific [default value]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#default" >}}) is used: for strings, the default value is the empty string. For booleans, the default value is false. For numeric types, the default value is zero.
 
-​	需要注意的是，新字段在旧消息中不存在，因此需要合理处理默认值。使用类型特定的[默认值](https://protobuf.dev/programming-guides/proto3#default)：字符串的默认值为空字符串；布尔值的默认值为 `false`；数字类型的默认值为 `0`。
+​	需要注意的是，新字段在旧消息中不存在，因此需要合理处理默认值。使用类型特定的[默认值]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#default" >}})：字符串的默认值为空字符串；布尔值的默认值为 `false`；数字类型的默认值为 `0`。

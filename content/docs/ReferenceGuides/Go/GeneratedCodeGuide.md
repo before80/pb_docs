@@ -19,9 +19,9 @@ Describes exactly what Go code the protocol buffer compiler generates for any gi
 
 ​	描述协议缓冲区编译器为任意协议定义生成的 Go 代码。
 
-Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base API, which are the same in both versions. You should read the [proto2 language guide](https://protobuf.dev/programming-guides/proto2) and/or the [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document.
+Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base API, which are the same in both versions. You should read the [proto2 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and/or the [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
-​	在本文档中，proto2 和 proto3 生成代码的任何差异都会被突出显示——请注意，这些差异仅存在于生成代码中，而基础 API 在两个版本中是相同的。在阅读本文档之前，您应该先阅读 [proto2 语言指南](https://protobuf.dev/programming-guides/proto2) 和/或 [proto3 语言指南](https://protobuf.dev/programming-guides/proto3)。
+​	在本文档中，proto2 和 proto3 生成代码的任何差异都会被突出显示——请注意，这些差异仅存在于生成代码中，而基础 API 在两个版本中是相同的。在阅读本文档之前，您应该先阅读 [proto2 语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) 和/或 [proto3 语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}})。
 
 ## 编译器调用 Compiler Invocation
 
@@ -119,9 +119,9 @@ The import path is used to determine which import statements must be generated w
 
 ​	导入路径用于确定在一个 `.proto` 文件导入另一个 `.proto` 文件时需要生成哪些导入语句。例如，如果 `a.proto` 导入了 `b.proto`，则生成的 `a.pb.go` 文件需要导入包含生成的 `b.pb.go` 文件的 Go 包（除非两个文件在同一个包中）。导入路径还用于构造输出文件名。详情参见上文“编译器调用”部分。
 
-There is no correlation between the Go import path and the [`package` specifier](https://protobuf.dev/programming-guides/proto3#packages) in the `.proto` file. The latter is only relevant to the protobuf namespace, while the former is only relevant to the Go namespace. Also, there is no correlation between the Go import path and the `.proto` import path.
+There is no correlation between the Go import path and the [`package` specifier]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#packages" >}}) in the `.proto` file. The latter is only relevant to the protobuf namespace, while the former is only relevant to the Go namespace. Also, there is no correlation between the Go import path and the `.proto` import path.
 
-​	`.proto` 文件中的 Go 导入路径与其 [`package` 指定符](https://protobuf.dev/programming-guides/proto3#packages)之间没有关联。后者仅与 protobuf 命名空间相关，而前者仅与 Go 命名空间相关。此外，Go 导入路径与 `.proto` 导入路径之间也没有关联。
+​	`.proto` 文件中的 Go 导入路径与其 [`package` 指定符]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#packages" >}})之间没有关联。后者仅与 protobuf 命名空间相关，而前者仅与 Go 命名空间相关。此外，Go 导入路径与 `.proto` 导入路径之间也没有关联。
 
 ## 消息 Messages
 
@@ -172,9 +172,9 @@ The protocol buffer compiler generates a struct field for each field defined wit
 
 ​	协议缓冲区编译器会为消息中定义的每个字段生成一个结构字段。字段的具体特性取决于其类型是单一、重复、映射或 oneof。
 
-Note that the generated Go field names always use camel-case naming, even if the field name in the `.proto` file uses lower-case with underscores ([as it should](https://protobuf.dev/programming-guides/style#message-field-names)). The case-conversion works as follows:
+Note that the generated Go field names always use camel-case naming, even if the field name in the `.proto` file uses lower-case with underscores ([as it should]({{< ref "/docs/ProgrammingGuides/StyleGuide#message-field-names" >}})). The case-conversion works as follows:
 
-​	请注意，生成的 Go 字段名称始终使用驼峰式命名，即使 `.proto` 文件中的字段名称使用的是下划线格式（[推荐使用](https://protobuf.dev/programming-guides/style#message-field-names)）。大小写转换规则如下：
+​	请注意，生成的 Go 字段名称始终使用驼峰式命名，即使 `.proto` 文件中的字段名称使用的是下划线格式（[推荐使用]({{< ref "/docs/ProgrammingGuides/StyleGuide#message-field-names" >}})）。大小写转换规则如下：
 
 1. The first letter is capitalized for export. If the first character is an underscore, it is removed and a capital X is prepended. 第一个字母大写以便导出。如果第一个字符是下划线，则将其移除，并在前面添加一个大写的 `X`。
 2. If an interior underscore is followed by a lower-case letter, the underscore is removed, and the following letter is capitalized. 如果内部的下划线后跟一个小写字母，则移除下划线，并将后面的字母大写。
@@ -198,9 +198,9 @@ the compiler generates a struct with an `*int32` field named `BirthYear` and an 
 
 ​	编译器会生成一个带有 `*int32` 字段 `BirthYear` 的结构体，以及一个访问器方法 `GetBirthYear()`，该方法返回 `Artist` 中的 `int32` 值，或字段未设置时的默认值。如果未显式设置默认值，则使用该类型的[零值](https://golang.org/ref/spec#The_zero_value)（数字为 `0`，字符串为空字符串）。
 
-For other scalar field types (including `bool`, `bytes`, and `string`), `*int32` is replaced with the corresponding Go type according to the [scalar value types table](https://protobuf.dev/programming-guides/proto2#scalar).
+For other scalar field types (including `bool`, `bytes`, and `string`), `*int32` is replaced with the corresponding Go type according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}).
 
-​	对于其他标量字段类型（包括 `bool`、`bytes` 和 `string`），`*int32` 会被替换为对应的 Go 类型，具体参考[标量值类型表](https://protobuf.dev/programming-guides/proto2#scalar)。
+​	对于其他标量字段类型（包括 `bool`、`bytes` 和 `string`），`*int32` 会被替换为对应的 Go 类型，具体参考[标量值类型表]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}})。
 
 ### 单一标量字段（proto3） Singular Scalar Fields (proto3)
 
@@ -217,9 +217,9 @@ The compiler will generate a struct with an `int32` field named `BirthYear` and 
 
 ​	编译器会生成一个带有 `int32` 字段 `BirthYear` 的结构体，以及一个访问器方法 `GetBirthYear()`，该方法返回 `birth_year` 的 `int32` 值，或字段未设置时的[零值](https://golang.org/ref/spec#The_zero_value)（数字为 `0`，字符串为空字符串）。
 
-For other scalar field types (including `bool`, `bytes`, and `string`), `int32` is replaced with the corresponding Go type according to the [scalar value types table](https://protobuf.dev/programming-guides/proto3#scalar). Unset values in the proto will be represented as the [zero value](https://golang.org/ref/spec#The_zero_value) of that type (`0` for numbers, the empty string for strings).
+For other scalar field types (including `bool`, `bytes`, and `string`), `int32` is replaced with the corresponding Go type according to the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}). Unset values in the proto will be represented as the [zero value](https://golang.org/ref/spec#The_zero_value) of that type (`0` for numbers, the empty string for strings).
 
-​	对于其他标量字段类型（包括 `bool`、`bytes` 和 `string`），`int32` 会被替换为对应的 Go 类型，具体参考[标量值类型表](https://protobuf.dev/programming-guides/proto3#scalar)。proto 中未设置的值会表示为该类型的[零值](https://golang.org/ref/spec#The_zero_value)（数字为 `0`，字符串为空字符串）。
+​	对于其他标量字段类型（包括 `bool`、`bytes` 和 `string`），`int32` 会被替换为对应的 Go 类型，具体参考[标量值类型表]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}})。proto 中未设置的值会表示为该类型的[零值](https://golang.org/ref/spec#The_zero_value)（数字为 `0`，字符串为空字符串）。
 
 ### 单一消息字段 Singular Message Fields
 
@@ -584,9 +584,9 @@ The protocol buffer compiler will generate a [`protoreflect.ExtensionType`](http
 
 ​	协议缓冲区编译器将生成一个 [`protoreflect.ExtensionType`](https://pkg.go.dev/google.golang.org/protobuf/reflect/protoreflect?tab=doc#ExtensionType) 值，名为 `E_Promo_id`。此值可以与以下函数一起使用来访问消息中的扩展字段：[`proto.GetExtension`](https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#GetExtension)、[`proto.SetExtension`](https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#SetExtension)、[`proto.HasExtension`](https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#HasExtension) 和 [`proto.ClearExtension`](https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#ClearExtension)。`GetExtension` 函数和 `SetExtension` 函数分别返回和接受一个 `interface{}` 值，其中包含扩展值类型。
 
-For singular scalar extension fields, the extension value type is the corresponding Go type from the [scalar value types table](https://protobuf.dev/programming-guides/proto3#scalar).
+For singular scalar extension fields, the extension value type is the corresponding Go type from the [scalar value types table]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}).
 
-​	对于单一标量扩展字段，扩展值类型是 [标量值类型表](https://protobuf.dev/programming-guides/proto3#scalar) 中对应的 Go 类型。
+​	对于单一标量扩展字段，扩展值类型是 [标量值类型表]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}) 中对应的 Go 类型。
 
 For singular embedded message extension fields, the extension value type is `*M`, where `M` is the field message type.
 

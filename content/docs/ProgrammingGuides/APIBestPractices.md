@@ -23,9 +23,9 @@ Updated for proto3. Patches welcome!
 
 ​	更新至 proto3。如有改进建议，欢迎提交补丁！
 
-This doc is a complement to [Proto Best Practices](https://protobuf.dev/programming-guides/dos-donts). It’s not a prescription for Java/C++/Go and other APIs.
+This doc is a complement to [Proto Best Practices]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices" >}}). It’s not a prescription for Java/C++/Go and other APIs.
 
-​	本文是 [Proto 最佳实践](https://protobuf.dev/programming-guides/dos-donts) 的补充内容，而非 Java/C++/Go 等 API 的使用规范。
+​	本文是 [Proto 最佳实践]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices" >}}) 的补充内容，而非 Java/C++/Go 等 API 的使用规范。
 
 If you see a proto straying from these guidelines in a code review, point the author to this topic and help spread the word.
 
@@ -90,9 +90,9 @@ Document the constraints, expectations and interpretation of each field in as fe
 
 ​	请用尽可能少的文字记录每个字段的约束、期望和解释。
 
-You can use custom proto annotations. See [Custom Options](https://protobuf.dev/programming-guides/proto2#options) to define cross-language constants like `max_length` in the example above. Supported in proto2 and proto3.
+You can use custom proto annotations. See [Custom Options]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#options" >}}) to define cross-language constants like `max_length` in the example above. Supported in proto2 and proto3.
 
-​	您可以使用自定义 proto 注释。请参阅 [自定义选项](https://protobuf.dev/programming-guides/proto2#options)，以定义跨语言的常量，例如上例中的 `max_length`。支持 proto2 和 proto3。
+​	您可以使用自定义 proto 注释。请参阅 [自定义选项]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#options" >}})，以定义跨语言的常量，例如上例中的 `max_length`。支持 proto2 和 proto3。
 
 Over time, documentation of an interface can get longer and longer. The length takes away from the clarity. When the documentation is genuinely unclear, fix it, but look at it holistically and aim for brevity.
 
@@ -148,9 +148,9 @@ The following are exceptions to the rule:
     - 你的系统只是存储、加载，并可能按客户端请求提供查询。
 
 
-  Note that if you are implementing something like a logging system or a proto-based wrapper around a generic storages system, then you probably want to aim to have your clients’ messages transit into your storage backend as opaquely as possible so that you don’t create a dependency nexus. Consider using extensions or [Encode Opaque Data in Strings by Web-safe Encoding Binary Proto Serialization](https://protobuf.dev/programming-guides/api#encode-opaque-data-in-strings).
+  Note that if you are implementing something like a logging system or a proto-based wrapper around a generic storages system, then you probably want to aim to have your clients’ messages transit into your storage backend as opaquely as possible so that you don’t create a dependency nexus. Consider using extensions or [Encode Opaque Data in Strings by Web-safe Encoding Binary Proto Serialization]({{< ref "/docs/ProgrammingGuides/APIBestPractices#encode-opaque-data-in-strings" >}}).
 
-  ​	请注意，如果你正在实现类似日志记录系统或基于 proto 的通用存储系统包装器，那么你可能希望让客户端的消息尽可能透明地传递到你的存储后端，以避免创建依赖关系网络。考虑使用扩展或[通过网络安全编码二进制 Proto 序列化将不透明数据编码到字符串中](https://protobuf.dev/programming-guides/api#encode-opaque-data-in-strings)。
+  ​	请注意，如果你正在实现类似日志记录系统或基于 proto 的通用存储系统包装器，那么你可能希望让客户端的消息尽可能透明地传递到你的存储后端，以避免创建依赖关系网络。考虑使用扩展或[通过网络安全编码二进制 Proto 序列化将不透明数据编码到字符串中]({{< ref "/docs/ProgrammingGuides/APIBestPractices#encode-opaque-data-in-strings" >}})。
 
 ## 对于修改，支持部分更新或仅附加更新，而不是完全替换 For Mutations, Support Partial Updates or Append-Only Updates, Not Full Replaces
 
@@ -324,9 +324,9 @@ This gets especially bad when your service acquires clients in several languages
 
 ​	尤其是在你的服务有多个语言客户端时，问题会变得更加糟糕。现在每个客户端都需要选择正确的解析器或构建器——甚至更糟——自己编写一个。
 
-More generally, choose the right primitive type. See the Scalar Value Types table in the [Protocol Buffer Language Guide](https://protobuf.dev/programming-guides/proto2#scalar).
+More generally, choose the right primitive type. See the Scalar Value Types table in the [Protocol Buffer Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}}).
 
-​	更一般地说，选择正确的原始类型。请参阅[协议缓冲区语言指南](https://protobuf.dev/programming-guides/proto2#scalar)中的标量值类型表。
+​	更一般地说，选择正确的原始类型。请参阅[协议缓冲区语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#scalar" >}})中的标量值类型表。
 
 ### 在前端 Proto 中返回 HTML - Returning HTML in a Front-End Proto
 
@@ -742,15 +742,15 @@ One exception:
 
 ​	一个例外：
 
-Latency-critical applications will find parallel arrays of primitive types are faster to construct and delete than a single array of messages; they can also be smaller over the wire if you use [[packed=true\]](https://protobuf.dev/programming-guides/encoding#packed) (eliding field tags). Allocating a fixed number of arrays is less work than allocating N messages. Bonus: in [Proto3](https://protobuf.dev/programming-guides/proto3), packing is automatic; you don’t need to explicitly specify it.
+Latency-critical applications will find parallel arrays of primitive types are faster to construct and delete than a single array of messages; they can also be smaller over the wire if you use [[packed=true\]]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}}) (eliding field tags). Allocating a fixed number of arrays is less work than allocating N messages. Bonus: in [Proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}), packing is automatic; you don’t need to explicitly specify it.
 
-​	对于延迟敏感的应用程序，并行的基本类型数组比单个消息数组构造和删除更快；如果使用 [[packed=true\]](https://protobuf.dev/programming-guides/encoding#packed)（省略字段标签），它们在线传输时也可以更小。分配固定数量的数组比分配 N 个消息更省事。额外的好处是，在 [Proto3](https://protobuf.dev/programming-guides/proto3) 中，打包是自动的；你不需要显式指定它。
+​	对于延迟敏感的应用程序，并行的基本类型数组比单个消息数组构造和删除更快；如果使用 [[packed=true\]]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}})（省略字段标签），它们在线传输时也可以更小。分配固定数量的数组比分配 N 个消息更省事。额外的好处是，在 [Proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) 中，打包是自动的；你不需要显式指定它。
 
 ## Use Proto Maps
 
-Prior to the introduction in [Proto3](https://protobuf.dev/programming-guides/proto3) of [Proto3 maps](https://protobuf.dev/programming-guides/proto3#maps), services would sometimes expose data as pairs using an ad-hoc KVPair message with scalar fields. Eventually clients would need a deeper structure and would end up devising keys or values that need to be parsed in some way. See [Don’t encode data in a string](https://protobuf.dev/programming-guides/api/#dont-encode-data-in-a-string).
+Prior to the introduction in [Proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) of [Proto3 maps]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#maps" >}}), services would sometimes expose data as pairs using an ad-hoc KVPair message with scalar fields. Eventually clients would need a deeper structure and would end up devising keys or values that need to be parsed in some way. See [Don’t encode data in a string](https://protobuf.dev/programming-guides/api/#dont-encode-data-in-a-string).
 
-​	在 [Proto3](https://protobuf.dev/programming-guides/proto3) 引入 [Proto3 maps](https://protobuf.dev/programming-guides/proto3#maps) 之前，服务有时会以键值对（KVPair）消息的形式暴露数据，消息的字段是标量。最终，客户端需要更深的结构，并最终设计出需要某种方式解析的键或值。参见 [不要在字符串中编码数据](https://protobuf.dev/programming-guides/api/#dont-encode-data-in-a-string)。
+​	在 [Proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) 引入 [Proto3 maps]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#maps" >}}) 之前，服务有时会以键值对（KVPair）消息的形式暴露数据，消息的字段是标量。最终，客户端需要更深的结构，并最终设计出需要某种方式解析的键或值。参见 [不要在字符串中编码数据](https://protobuf.dev/programming-guides/api/#dont-encode-data-in-a-string)。
 
 So, using a (extensible) message type for the value is an immediate improvement over the naive design.
 
@@ -760,9 +760,9 @@ Maps were back-ported to proto2 in all languages, so using `map<scalar, **messag
 
 ​	Maps 被回移植到了 proto2 中的所有语言，因此使用 `map<scalar, **message**>` 比发明自己的 KVPair 用于相同目的要好 [1](https://protobuf.dev/programming-guides/api/#fn:1)。
 
-If you want to represent *arbitrary* data whose structure you don’t know ahead of time, use [`google.protobuf.Any`](https://protobuf.dev/reference/protobuf/textformat-spec#any).
+If you want to represent *arbitrary* data whose structure you don’t know ahead of time, use [`google.protobuf.Any`]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification#any" >}}).
 
-​	如果需要表示结构未知的*任意*数据，请使用 [`google.protobuf.Any`](https://protobuf.dev/reference/protobuf/textformat-spec#any)。
+​	如果需要表示结构未知的*任意*数据，请使用 [`google.protobuf.Any`]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification#any" >}})。
 
 ## 优先保证幂等性 Prefer Idempotency
 

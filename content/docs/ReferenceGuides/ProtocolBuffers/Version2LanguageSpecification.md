@@ -30,9 +30,9 @@ The syntax is specified using [Extended Backus-Naur Form (EBNF)](https://en.wiki
 {}  repetition (any number of times) 重复（任意次数）
 ```
 
-For more information about using proto2, see the [language guide](https://protobuf.dev/programming-guides/proto2).
+For more information about using proto2, see the [language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}).
 
-​	有关使用 proto2 的更多信息，请参阅 [语言指南](https://protobuf.dev/programming-guides/proto2)。
+​	有关使用 proto2 的更多信息，请参阅 [语言指南]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}})。
 
 ## 词法元素 Lexical Elements
 
@@ -114,9 +114,9 @@ constant = fullIdent | ( [ "-" | "+" ] intLit ) | ( [ "-" | "+" ] floatLit ) |
                 strLit | boolLit | MessageValue
 ```
 
-`MessageValue` is defined in the [Text Format Language Specification](https://protobuf.dev/reference/protobuf/textformat-spec#fields).
+`MessageValue` is defined in the [Text Format Language Specification]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification#fields" >}}).
 
-​	`MessageValue` 定义在 [文本格式语言规范](https://protobuf.dev/reference/protobuf/textformat-spec#fields) 中。
+​	`MessageValue` 定义在 [文本格式语言规范]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/TextFormatLanguageSpecification#fields" >}}) 中。
 
 ## 语法 Syntax
 
@@ -166,9 +166,9 @@ package foo.bar;
 
 ## 选项 Option
 
-Options can be used in proto files, messages, enums and services. An option can be a protobuf defined option or a custom option. For more information, see [Options](https://protobuf.dev/programming-guides/proto2#options) in the language guide.
+Options can be used in proto files, messages, enums and services. An option can be a protobuf defined option or a custom option. For more information, see [Options]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#options" >}}) in the language guide.
 
-​	选项可用于 .proto 文件、消息、枚举和服务中。选项可以是 protobuf 定义的选项，也可以是自定义选项。有关更多信息，请参阅语言指南中的 [选项](https://protobuf.dev/programming-guides/proto2#options)。
+​	选项可用于 .proto 文件、消息、枚举和服务中。选项可以是 protobuf 定义的选项，也可以是自定义选项。有关更多信息，请参阅语言指南中的 [选项]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#options" >}})。
 
 ```gdscript3
 option = "option" optionName  "=" constant ";"

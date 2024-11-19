@@ -18,13 +18,13 @@ A basic Dart programmers introduction to working with protocol buffers.
 
 
 
-This tutorial provides a basic Dart programmer’s introduction to working with protocol buffers, using the [proto3](https://protobuf.dev/programming-guides/proto3) version of the protocol buffers language. By walking through creating a simple example application, it shows you how to
+This tutorial provides a basic Dart programmer’s introduction to working with protocol buffers, using the [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) version of the protocol buffers language. By walking through creating a simple example application, it shows you how to
 
 - Define message formats in a `.proto` file.
 - Use the protocol buffer compiler.
 - Use the Dart protocol buffer API to write and read messages.
 
-This isn’t a comprehensive guide to using protocol buffers in Dart . For more detailed reference information, see the [Protocol Buffer Language Guide](https://protobuf.dev/programming-guides/proto3), the [Dart Language Tour,](https://www.dartlang.org/guides/language/language-tour) the [Dart API Reference](https://pub.dartlang.org/documentation/protobuf), the [Dart Generated Code Guide](https://protobuf.dev/reference/dart/dart-generated), and the [Encoding Reference](https://protobuf.dev/programming-guides/encoding).
+This isn’t a comprehensive guide to using protocol buffers in Dart . For more detailed reference information, see the [Protocol Buffer Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}), the [Dart Language Tour,](https://www.dartlang.org/guides/language/language-tour) the [Dart API Reference](https://pub.dartlang.org/documentation/protobuf), the [Dart Generated Code Guide]({{< ref "/docs/ReferenceGuides/Dart/GeneratedCode" >}}), and the [Encoding Reference]({{< ref "/docs/ProgrammingGuides/Encoding" >}}).
 
 ## The Problem Domain
 
@@ -91,17 +91,17 @@ In the above example, the `Person` message contains `PhoneNumber` messages, whil
 
 The " = 1", " = 2" markers on each element identify the unique “tag” that field uses in the binary encoding. Tag numbers 1-15 require one less byte to encode than higher numbers, so as an optimization you can decide to use those tags for the commonly used or repeated elements, leaving tags 16 and higher for less-commonly used optional elements. Each element in a repeated field requires re-encoding the tag number, so repeated fields are particularly good candidates for this optimization.
 
-If a field value isn’t set, a [default value](https://protobuf.dev/programming-guides/proto3#default) is used: zero for numeric types, the empty string for strings, false for bools. For embedded messages, the default value is always the “default instance” or “prototype” of the message, which has none of its fields set. Calling the accessor to get the value of a field which has not been explicitly set always returns that field’s default value.
+If a field value isn’t set, a [default value]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#default" >}}) is used: zero for numeric types, the empty string for strings, false for bools. For embedded messages, the default value is always the “default instance” or “prototype” of the message, which has none of its fields set. Calling the accessor to get the value of a field which has not been explicitly set always returns that field’s default value.
 
 If a field is `repeated`, the field may be repeated any number of times (including zero). The order of the repeated values will be preserved in the protocol buffer. Think of repeated fields as dynamically sized arrays.
 
-You’ll find a complete guide to writing `.proto` files – including all the possible field types – in the [Protocol Buffer Language Guide](https://protobuf.dev/programming-guides/proto3). Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.
+You’ll find a complete guide to writing `.proto` files – including all the possible field types – in the [Protocol Buffer Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}). Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.
 
 ## Compiling Your Protocol Buffers
 
 Now that you have a `.proto`, the next thing you need to do is generate the classes you’ll need to read and write `AddressBook` (and hence `Person` and `PhoneNumber`) messages. To do this, you need to run the protocol buffer compiler `protoc` on your `.proto`:
 
-1. If you haven’t installed the compiler, [download the package](https://protobuf.dev/downloads) and follow the instructions in the README.
+1. If you haven’t installed the compiler, [download the package]({{< ref "/docs/Downloads" >}}) and follow the instructions in the README.
 
 2. Install the Dart Protocol Buffer plugin as described in [its README](https://github.com/google/protobuf.dart/tree/master/protoc_plugin#how-to-build). The executable `bin/protoc-gen-dart` must be in your `PATH` for the protocol buffer `protoc` to find it.
 
@@ -124,7 +124,7 @@ Generating `addressbook.pb.dart` gives you the following useful types:
 - A `Person_PhoneNumber` class, with accessor methods for `number` and `type`.
 - A `Person_PhoneType` class with static fields for each value in the `Person.PhoneType` enum.
 
-You can read more about the details of exactly what’s generated in the [Dart Generated Code guide](https://protobuf.dev/reference/dart/dart-generated).
+You can read more about the details of exactly what’s generated in the [Dart Generated Code guide]({{< ref "/docs/ReferenceGuides/Dart/GeneratedCode" >}}).
 
 ## Writing a Message
 
@@ -267,8 +267,8 @@ Sooner or later after you release the code that uses your protocol buffer, you w
 - you *may* delete fields.
 - you *may* add new fields but you must use fresh tag numbers (i.e. tag numbers that were never used in this protocol buffer, not even by deleted fields).
 
-(There are [some exceptions](https://protobuf.dev/programming-guides/proto3#updating) to these rules, but they are rarely used.)
+(There are [some exceptions]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#updating" >}}) to these rules, but they are rarely used.)
 
 If you follow these rules, old code will happily read new messages and simply ignore any new fields. To the old code, singular fields that were deleted will simply have their default value, and deleted repeated fields will be empty. New code will also transparently read old messages.
 
-However, keep in mind that new fields will not be present in old messages, so you will need to do something reasonable with the default value. A type-specific [default value](https://protobuf.dev/programming-guides/proto3#default) is used: for strings, the default value is the empty string. For booleans, the default value is false. For numeric types, the default value is zero.
+However, keep in mind that new fields will not be present in old messages, so you will need to do something reasonable with the default value. A type-specific [default value]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#default" >}}) is used: for strings, the default value is the empty string. For booleans, the default value is false. For numeric types, the default value is zero.

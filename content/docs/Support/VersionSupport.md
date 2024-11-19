@@ -38,7 +38,7 @@ Protobuf does *not* consider enforcement of its documented language, tooling, pl
 
 **The binary wire format does not change** even in major version updates. You will continue to be able to read old binary wire format proto data from newer versions of Protocol Buffers. Newly generated protobuf bindings serialized to binary wire format will be parseable by older binaries. This is a fundamental design principle of Protocol Buffers. Note that JSON and textproto formats *do not* offer the same stability guarantees.
 
-**The descriptor.proto schema can change.** In minor or patch releases, we may add new message, fields, enums, enum values, editions, editions [features](https://protobuf.dev/editions/features) etc. We may also mark existing elements as deprecated. In a major release, we may remove deprecated options, enums, enum values, messages, fields, etc.
+**The descriptor.proto schema can change.** In minor or patch releases, we may add new message, fields, enums, enum values, editions, editions [features]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions" >}}) etc. We may also mark existing elements as deprecated. In a major release, we may remove deprecated options, enums, enum values, messages, fields, etc.
 
 **The .proto language grammar can change.** In minor or patch releases, we may add new language constructs and alternative syntax for existing features. We may also mark certain features as deprecated. This could result in new warnings that were not previously emitted by `protoc`. In a major release, we may remove support for obsolete features, syntax, editions in a way that will require updates to client code.
 

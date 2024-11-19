@@ -19,9 +19,9 @@ Explains how enums currently work in Protocol Buffers vs. how they should work.
 
 ​	解释 Protocol Buffers 中枚举当前的工作方式与理想工作方式之间的差异。
 
-Enums behave differently in different language libraries. This topic covers the different behaviors as well as the plans to move protobufs to a state where they are consistent across all languages. If you’re looking for information on how to use enums in general, see the corresponding sections in the [proto2](https://protobuf.dev/programming-guides/proto2#enum) and [proto3](https://protobuf.dev/programming-guides/proto3#enum) language guide topics.
+Enums behave differently in different language libraries. This topic covers the different behaviors as well as the plans to move protobufs to a state where they are consistent across all languages. If you’re looking for information on how to use enums in general, see the corresponding sections in the [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum" >}}) and [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#enum" >}}) language guide topics.
 
-​	枚举在不同语言的库中表现不同。本主题涵盖这些不同的行为以及将 protobuf 移动到所有语言中一致状态的计划。如果您想了解如何使用枚举的一般信息，请参阅 [proto2](https://protobuf.dev/programming-guides/proto2#enum) 和 [proto3](https://protobuf.dev/programming-guides/proto3#enum) 语言指南的相应部分。
+​	枚举在不同语言的库中表现不同。本主题涵盖这些不同的行为以及将 protobuf 移动到所有语言中一致状态的计划。如果您想了解如何使用枚举的一般信息，请参阅 [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#enum" >}}) 和 [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#enum" >}}) 语言指南的相应部分。
 
 ## 定义 Definitions
 
@@ -113,9 +113,9 @@ The following specifies the behavior of conformant implementations for protobuf.
 
 ### C++
 
-All known C++ releases are out of conformance. When a `proto2` file imports an enum defined in a `proto3` file, C++ treats that field as a **closed** enum. Under editions, this behavior is represented by the deprecated field feature [`features.(pb.cpp).legacy_closed_enum`](https://protobuf.dev/editions/features#legacy_closed_enum). There are two options for moving to conformant behavior:
+All known C++ releases are out of conformance. When a `proto2` file imports an enum defined in a `proto3` file, C++ treats that field as a **closed** enum. Under editions, this behavior is represented by the deprecated field feature [`features.(pb.cpp).legacy_closed_enum`]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions#legacy_closed_enum" >}}). There are two options for moving to conformant behavior:
 
-​	所有已知的 C++ 版本均不符合规范。当 `proto2` 文件导入定义在 `proto3` 文件中的枚举时，C++ 将该字段视为 **关闭** 枚举。这种行为由已弃用的字段特性 [`features.(pb.cpp).legacy_closed_enum`](https://protobuf.dev/editions/features#legacy_closed_enum) 表示。迁移到符合规范行为的两种方法：
+​	所有已知的 C++ 版本均不符合规范。当 `proto2` 文件导入定义在 `proto3` 文件中的枚举时，C++ 将该字段视为 **关闭** 枚举。这种行为由已弃用的字段特性 [`features.(pb.cpp).legacy_closed_enum`]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions#legacy_closed_enum" >}}) 表示。迁移到符合规范行为的两种方法：
 
 - Remove the field feature. This is the recommended approach, but may cause runtime behavior changes. Without the feature, unrecognized integers will end up stored in the field cast to the enum type instead of being put into the unknown field set.
   - 删除字段特性。这是推荐的方法，但可能导致运行时行为变化。删除特性后，未识别的整数将存储在字段中，并被强制转换为枚举类型，而不是被放入未知字段集中。
@@ -136,9 +136,9 @@ All known Java releases are out of conformance. When a `proto2` file imports an 
 
 ​	所有已知的 Java 版本均不符合规范。当 `proto2` 文件导入一个定义在 `proto3` 文件中的枚举时，Java 会将该字段视为 **关闭** 枚举。
 
-Under editions, this behavior is represented by the deprecated field feature [`features.(pb.java).legacy_closed_enum`](https://protobuf.dev/editions/features#legacy_closed_enum)). There are two options for moving to conformant behavior:
+Under editions, this behavior is represented by the deprecated field feature [`features.(pb.java).legacy_closed_enum`]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions#legacy_closed_enum" >}})). There are two options for moving to conformant behavior:
 
-​	在版本管理（editions）中，这种行为由已弃用的字段特性 [`features.(pb.java).legacy_closed_enum`](https://protobuf.dev/editions/features#legacy_closed_enum) 表示。迁移到符合规范的行为有两种选择：
+​	在版本管理（editions）中，这种行为由已弃用的字段特性 [`features.(pb.java).legacy_closed_enum`]({{< ref "/docs/ProtobufEditions/FeatureSettingsforEditions#legacy_closed_enum" >}}) 表示。迁移到符合规范的行为有两种选择：
 
 - Remove the field feature. This may cause runtime behavior changes. Without the feature, unrecognized integers will end up stored in the field and the `UNRECOGNIZED` value will be returned by the enum getter. Before, these values would be put into the unknown field set.
   - **删除字段特性。**这可能会导致运行时行为变化。没有该特性时，未识别的整数将存储在字段中，并通过枚举 getter 返回 `UNRECOGNIZED` 值。此前，这些值会被放入未知字段集。

@@ -24,7 +24,7 @@ This tutorial provides a basic Java programmer’s introduction to working with 
 - Use the protocol buffer compiler.
 - Use the Java protocol buffer API to write and read messages.
 
-This isn’t a comprehensive guide to using protocol buffers in Java. For more detailed reference information, see the [Protocol Buffer Language Guide (proto2)](https://protobuf.dev/programming-guides/proto2), the [Protocol Buffer Language Guide (proto3)](https://protobuf.dev/programming-guides/proto3), the [Java API Reference](https://protobuf.dev/reference/java/api-docs/overview-summary.html), the [Java Generated Code Guide](https://protobuf.dev/reference/java/java-generated), and the [Encoding Reference](https://protobuf.dev/programming-guides/encoding).
+This isn’t a comprehensive guide to using protocol buffers in Java. For more detailed reference information, see the [Protocol Buffer Language Guide (proto2)]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}), the [Protocol Buffer Language Guide (proto3)]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}), the [Java API Reference]({{< ref "/docs/ReferenceGuides/Java/JavaAPI" >}}), the [Java Generated Code Guide]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide" >}}), and the [Encoding Reference]({{< ref "/docs/ProgrammingGuides/Encoding" >}}).
 
 ## The Problem Domain
 
@@ -40,7 +40,7 @@ Instead of these options, you can use protocol buffers. Protocol buffers are the
 
 ## Where to Find the Example Code
 
-The example code is included in the source code package, under the “examples” directory. [Download it here.](https://protobuf.dev/downloads)
+The example code is included in the source code package, under the “examples” directory. [Download it here.]({{< ref "/docs/Downloads" >}})
 
 ## Defining Your Protocol Format
 
@@ -100,13 +100,13 @@ Each field must be annotated with one of the following modifiers:
 
 **Required Is Forever** You should be very careful about marking fields as `required`. If at some point you wish to stop writing or sending a required field, it will be problematic to change the field to an optional field – old readers will consider messages without this field to be incomplete and may reject or drop them unintentionally. You should consider writing application-specific custom validation routines for your buffers instead. Within Google, `required` fields are strongly disfavored; most messages defined in proto2 syntax use `optional` and `repeated` only. (Proto3 does not support `required` fields at all.)
 
-You’ll find a complete guide to writing `.proto` files – including all the possible field types – in the [Protocol Buffer Language Guide](https://protobuf.dev/programming-guides/proto2). Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.
+You’ll find a complete guide to writing `.proto` files – including all the possible field types – in the [Protocol Buffer Language Guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}). Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.
 
 ## Compiling Your Protocol Buffers
 
 Now that you have a `.proto`, the next thing you need to do is generate the classes you’ll need to read and write `AddressBook` (and hence `Person` and `PhoneNumber`) messages. To do this, you need to run the protocol buffer compiler `protoc` on your `.proto`:
 
-1. If you haven’t installed the compiler, [download the package](https://protobuf.dev/downloads) and follow the instructions in the README.
+1. If you haven’t installed the compiler, [download the package]({{< ref "/docs/Downloads" >}}) and follow the instructions in the README.
 
 2. Now run the compiler, specifying the source directory (where your application’s source code lives – the current directory is used if you don’t provide a value), the destination directory (where you want the generated code to go; often the same as `$SRC_DIR`), and the path to your `.proto`. In this case, you…:
 
@@ -178,9 +178,9 @@ As you can see, there are simple JavaBeans-style getters and setters for each fi
 
 Repeated fields have some extra methods – a `Count` method (which is just shorthand for the list’s size), getters and setters which get or set a specific element of the list by index, an `add` method which appends a new element to the list, and an `addAll` method which adds an entire container full of elements to the list.
 
-Notice how these accessor methods use camel-case naming, even though the `.proto` file uses lowercase-with-underscores. This transformation is done automatically by the protocol buffer compiler so that the generated classes match standard Java style conventions. You should always use lowercase-with-underscores for field names in your `.proto` files; this ensures good naming practice in all the generated languages. See the [style guide](https://protobuf.dev/programming-guides/style) for more on good `.proto` style.
+Notice how these accessor methods use camel-case naming, even though the `.proto` file uses lowercase-with-underscores. This transformation is done automatically by the protocol buffer compiler so that the generated classes match standard Java style conventions. You should always use lowercase-with-underscores for field names in your `.proto` files; this ensures good naming practice in all the generated languages. See the [style guide]({{< ref "/docs/ProgrammingGuides/StyleGuide" >}}) for more on good `.proto` style.
 
-For more information on exactly what members the protocol compiler generates for any particular field definition, see the [Java generated code reference](https://protobuf.dev/reference/java/java-generated).
+For more information on exactly what members the protocol compiler generates for any particular field definition, see the [Java generated code reference]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide" >}}).
 
 ### Enums and Nested Classes
 
@@ -234,7 +234,7 @@ These methods implement the `Message` and `Message.Builder` interfaces shared by
 
 ### Parsing and Serialization
 
-Finally, each protocol buffer class has methods for writing and reading messages of your chosen type using the protocol buffer [binary format](https://protobuf.dev/programming-guides/encoding). These include:
+Finally, each protocol buffer class has methods for writing and reading messages of your chosen type using the protocol buffer [binary format]({{< ref "/docs/ProgrammingGuides/Encoding" >}}). These include:
 
 - `byte[] toByteArray();`: serializes the message and returns a byte array containing its raw bytes.
 - `static Person parseFrom(byte[] data);`: parses a message from the given byte array.
@@ -405,7 +405,7 @@ Sooner or later after you release the code that uses your protocol buffer, you w
 - you *may* delete optional or repeated fields.
 - you *may* add new optional or repeated fields but you must use fresh tag numbers (that is, tag numbers that were never used in this protocol buffer, not even by deleted fields).
 
-(There are [some exceptions](https://protobuf.dev/programming-guides/proto2#updating) to these rules, but they are rarely used.)
+(There are [some exceptions]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#updating" >}}) to these rules, but they are rarely used.)
 
 If you follow these rules, old code will happily read new messages and simply ignore any new fields. To the old code, optional fields that were deleted will simply have their default value, and deleted repeated fields will be empty. New code will also transparently read old messages. However, keep in mind that new optional fields will not be present in old messages, so you will need to either check explicitly whether they’re set with `has_`, or provide a reasonable default value in your `.proto` file with `[default = value]` after the tag number. If the default value is not specified for an optional element, a type-specific default value is used instead: for strings, the default value is the empty string. For booleans, the default value is false. For numeric types, the default value is zero. Note also that if you added a new repeated field, your new code will not be able to tell whether it was left empty (by new code) or never set at all (by old code) since there is no `has_` flag for it.
 

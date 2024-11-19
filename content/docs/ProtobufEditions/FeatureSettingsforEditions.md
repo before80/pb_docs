@@ -1,5 +1,5 @@
 +++
-title = "版本特性设置"
+title = "editions特性设置"
 date = 2024-11-17T09:35:36+08:00
 weight = 10
 type = "docs"
@@ -13,15 +13,15 @@ draft = false
 >
 > 收录该文档的时间：`2024-11-17T09:35:36+08:00`
 
-# Feature Settings for Editions - 版本特性设置
+# Feature Settings for Editions - editions特性设置
 
 Protobuf Editions features and how they affect protobuf behavior.
 
-​	Protobuf 版本的特性及其如何影响 Protobuf 的行为。
+​	Protobuf Editions的特性及其如何影响 Protobuf 的行为。
 
-This topic provides an overview of the features that are included in Edition 2023. Each subsequent edition’s features will be added to this topic. We announce new editions in [the News section](https://protobuf.dev/news).
+This topic provides an overview of the features that are included in Edition 2023. Each subsequent edition’s features will be added to this topic. We announce new editions in [the News section]({{< ref "/docs/News" >}}).
 
-​	本文概述了 **Edition 2023** 中包含的特性。每个后续版本的特性都会添加到本文中。我们会在 [新闻栏目](https://protobuf.dev/news) 中宣布新版本。
+​	本文概述了 **Edition 2023** 中包含的特性。每个后续editions的特性都会添加到本文中。我们会在 [新闻栏目]({{< ref "/docs/News" >}}) 中宣布新editions。
 
 ## Prototiller
 
@@ -31,9 +31,9 @@ Prototiller is a command-line tool that converts proto2 and proto3 definition fi
 
 ## 特性 Features
 
-The following sections include all of the behaviors that are configurable using features in Edition 2023. [Preserving proto2 or proto3 Behavior](https://protobuf.dev/editions/features/#preserving) shows how to override the default behaviors so that your proto definition files act like proto2 or proto3 files. For more information on how Editions and Features work together to set behavior, see [Protobuf Editions Overview](https://protobuf.dev/editions/overview).
+The following sections include all of the behaviors that are configurable using features in Edition 2023. [Preserving proto2 or proto3 Behavior](https://protobuf.dev/editions/features/#preserving) shows how to override the default behaviors so that your proto definition files act like proto2 or proto3 files. For more information on how Editions and Features work together to set behavior, see [Protobuf Editions Overview]({{< ref "/docs/ProtobufEditions/Overview" >}}).
 
-​	以下章节包括所有在 **Edition 2023** 中通过特性配置的行为。[保留 proto2 或 proto3 行为](https://protobuf.dev/editions/features/#preserving) 显示了如何覆盖默认行为，使您的 proto 定义文件表现得像 proto2 或 proto3 文件。有关 Editions 和 Features 如何协作设置行为的更多信息，请参见 [Protobuf Editions 概述](https://protobuf.dev/editions/overview)。
+​	以下章节包括所有在 **Edition 2023** 中通过特性配置的行为。[保留 proto2 或 proto3 行为](https://protobuf.dev/editions/features/#preserving) 显示了如何覆盖默认行为，使您的 proto 定义文件表现得像 proto2 或 proto3 文件。有关 Editions 和 Features 如何协作设置行为的更多信息，请参见 [Protobuf Editions 概述]({{< ref "/docs/ProtobufEditions/Overview" >}})。
 
 Each of the following sections has an entry for what scope the feature applies to. This can include file, enum, message, or field. The following sample shows a mock feature applied to each scope:
 
@@ -72,9 +72,9 @@ In this example, the setting `GRAULT` in the field-scope feature definition over
 
 ### `features.enum_type`
 
-This feature sets the behavior for how enum values that aren’t contained within the defined set are handled. See [Enum Behavior](https://protobuf.dev/programming-guides/enum) for more information on open and closed enums.
+This feature sets the behavior for how enum values that aren’t contained within the defined set are handled. See [Enum Behavior]({{< ref "/docs/ProgrammingGuides/EnumBehavior" >}}) for more information on open and closed enums.
 
-​	此特性设置如何处理不在定义集中包含的枚举值的行为。有关开放和封闭枚举的更多信息，请参见 [枚举行为](https://protobuf.dev/programming-guides/enum)。
+​	此特性设置如何处理不在定义集中包含的枚举值的行为。有关开放和封闭枚举的更多信息，请参见 [枚举行为]({{< ref "/docs/ProgrammingGuides/EnumBehavior" >}})。
 
 This feature doesn’t impact proto3 files, so this section doesn’t have a before and after of a proto3 file.
 
@@ -164,9 +164,9 @@ This feature sets the behavior for tracking field presence, or the notion of whe
 
 ​	**proto2 的行为：** `EXPLICIT`
 
-**Behavior in proto3:** `IMPLICIT` unless the field has the `optional` label, in which case it behaves like `EXPLICIT`. See [Presence in Proto3 APIs](https://protobuf.dev/programming-guides/field_presence#presence-in-proto3-apis) for more information.
+**Behavior in proto3:** `IMPLICIT` unless the field has the `optional` label, in which case it behaves like `EXPLICIT`. See [Presence in Proto3 APIs]({{< ref "/docs/ProgrammingGuides/FieldPresence#presence-in-proto3-apis" >}}) for more information.
 
-​	**proto3 的行为：** 如果字段有 `optional` 标签，则行为类似于 `EXPLICIT`，否则为 `IMPLICIT`。更多信息请参见 [Proto3 API 中的存在性](https://protobuf.dev/programming-guides/field_presence#presence-in-proto3-apis)。
+​	**proto3 的行为：** 如果字段有 `optional` 标签，则行为类似于 `EXPLICIT`，否则为 `IMPLICIT`。更多信息请参见 [Proto3 API 中的存在性]({{< ref "/docs/ProgrammingGuides/FieldPresence#presence-in-proto3-apis" >}})。
 
 The following code sample shows a proto2 file:
 
@@ -319,11 +319,11 @@ Depending on the language, fields that are “group-like” may have some unexpe
 
 **Values available:** 可用值：
 
-- `LENGTH_PREFIXED`: Fields are encoded using the LEN wire type described in [Message Structure](https://protobuf.dev/programming-guides/encoding#structure).
-  - `LENGTH_PREFIXED:` 使用 [消息结构](https://protobuf.dev/programming-guides/encoding#structure) 中描述的 `LEN` 线类型对字段进行编码。
+- `LENGTH_PREFIXED`: Fields are encoded using the LEN wire type described in [Message Structure]({{< ref "/docs/ProgrammingGuides/Encoding#structure" >}}).
+  - `LENGTH_PREFIXED:` 使用 [消息结构]({{< ref "/docs/ProgrammingGuides/Encoding#structure" >}}) 中描述的 `LEN` 线类型对字段进行编码。
 
-- `DELIMITED`: Message-typed fields are encoded as [groups](https://protobuf.dev/programming-guides/proto2#groups).
-  - `DELIMITED:` 消息类型字段以 [组](https://protobuf.dev/programming-guides/proto2#groups) 的形式编码。
+- `DELIMITED`: Message-typed fields are encoded as [groups]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#groups" >}}).
+  - `DELIMITED:` 消息类型字段以 [组]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2#groups" >}}) 的形式编码。
 
 
 **Applicable to the following scopes:** File, Field
@@ -375,7 +375,7 @@ message Foo {
 
 ### `features.repeated_field_encoding`
 
-This feature is what the proto2/proto3 [`packed` option](https://protobuf.dev/programming-guides/encoding#packed) for `repeated` fields has been migrated to in Editions.
+This feature is what the proto2/proto3 [`packed` option]({{< ref "/docs/ProgrammingGuides/Encoding#packed" >}}) for `repeated` fields has been migrated to in Editions.
 
 ​	此特性是 proto2/proto3 的 `packed` 选项在 Editions 中的迁移。
 
@@ -526,9 +526,9 @@ Some features apply to specific languages, and not to the same protos in other l
 
 **Languages:** C++, Java
 
-This feature determines whether a field with an open enum type should be behave as if it was a closed enum. This allows editions to reproduce [non-conformant behavior](https://protobuf.dev/programming-guides/enum) in Java and C++ from proto2 and proto3.
+This feature determines whether a field with an open enum type should be behave as if it was a closed enum. This allows editions to reproduce [non-conformant behavior]({{< ref "/docs/ProgrammingGuides/EnumBehavior" >}}) in Java and C++ from proto2 and proto3.
 
-​	此特性决定一个具有开放枚举类型的字段是否应表现为封闭枚举。这允许 Editions 重现 Java 和 C++ 中 proto2 和 proto3 的 [非标准行为](https://protobuf.dev/programming-guides/enum)。
+​	此特性决定一个具有开放枚举类型的字段是否应表现为封闭枚举。这允许 Editions 重现 Java 和 C++ 中 proto2 和 proto3 的 [非标准行为]({{< ref "/docs/ProgrammingGuides/EnumBehavior" >}})。
 
 This feature doesn’t impact proto3 files, and so this section doesn’t have a before and after of a proto3 file.
 
@@ -604,7 +604,7 @@ This feature determines how generated code should treat string fields. This repl
 **Values available: **可用值：
 
 - `VIEW`: Generates `string_view` accessors for the field. This will be the default in a future edition.
-  - `VIEW:` 为字段生成 `string_view` 访问器。这将在未来版本中成为默认值。
+  - `VIEW:` 为字段生成 `string_view` 访问器。这将在未来edition中成为默认值。
 
 - `CORD`: Generates `Cord` accessors for the field.
   - `CORD:` 为字段生成 `Cord` 访问器。

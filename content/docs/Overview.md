@@ -101,15 +101,15 @@ The following languages are supported directly in the protocol buffers compiler,
 
 ​	以下语言直接受 `proto` 编译器支持：
 
-- [C++](https://protobuf.dev/reference/cpp/cpp-generated#invocation)
+- [C++]({{< ref "/docs/ReferenceGuides/CPlusPlus/GeneratedCodeGuide#invocation" >}})
 
-- [C#](https://protobuf.dev/reference/csharp/csharp-generated#invocation)
-- [Java](https://protobuf.dev/reference/java/java-generated#invocation)
-- [Kotlin](https://protobuf.dev/reference/kotlin/kotlin-generated#invocation)
-- [Objective-C](https://protobuf.dev/reference/objective-c/objective-c-generated#invocation)
-- [PHP](https://protobuf.dev/reference/php/php-generated#invocation)
-- [Python](https://protobuf.dev/reference/python/python-generated#invocation)
-- [Ruby](https://protobuf.dev/reference/ruby/ruby-generated#invocation)
+- [C#]({{< ref "/docs/ReferenceGuides/CSharp/GeneratedCodeGuide#invocation" >}})
+- [Java]({{< ref "/docs/ReferenceGuides/Java/GeneratedCodeGuide#invocation" >}})
+- [Kotlin]({{< ref "/docs/ReferenceGuides/Kotlin/GeneratedCodeGuide#invocation" >}})
+- [Objective-C]({{< ref "/docs/ReferenceGuides/Objective-C/GeneratedCodeGuide#invocation" >}})
+- [PHP]({{< ref "/docs/ReferenceGuides/PHP/GeneratedCodeGuide#invocation" >}})
+- [Python]({{< ref "/docs/ReferenceGuides/Python/GeneratedCodeGuide#invocation" >}})
+- [Ruby]({{< ref "/docs/ReferenceGuides/Ruby/GeneratedCodeGuide#invocation" >}})
 
 The following languages are supported by Google, but the projects’ source code resides in GitHub repositories. The protoc compiler uses plugins for these languages:
 
@@ -247,13 +247,13 @@ std::string email = john.email();
 
 ## Protocol Buffers 定义语法 Protocol Buffers Definition Syntax
 
-When defining `.proto` files, you can specify that a field is either `optional` or `repeated` (proto2 and proto3) or leave it set to the default, implicit presence, in proto3. (The option to set a field to `required` is absent in proto3 and strongly discouraged in proto2. For more on this, see “Required is Forever” in [Specifying Field Rules](https://protobuf.dev/programming-guides/proto3#specifying-field-rules).)
+When defining `.proto` files, you can specify that a field is either `optional` or `repeated` (proto2 and proto3) or leave it set to the default, implicit presence, in proto3. (The option to set a field to `required` is absent in proto3 and strongly discouraged in proto2. For more on this, see “Required is Forever” in [Specifying Field Rules]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#specifying-field-rules" >}}).)
 
-​	在定义 `.proto` 文件时，您可以将字段指定为 `optional` 或 `repeated`（proto2 和 proto3 均支持），或在 proto3 中保持默认的隐式存在状态。（proto3 中不支持 `required`，proto2 中也强烈不建议使用。更多信息请参阅 [Specifying Field Rules](https://protobuf.dev/programming-guides/proto3#specifying-field-rules)）。
+​	在定义 `.proto` 文件时，您可以将字段指定为 `optional` 或 `repeated`（proto2 和 proto3 均支持），或在 proto3 中保持默认的隐式存在状态。（proto3 中不支持 `required`，proto2 中也强烈不建议使用。更多信息请参阅 [Specifying Field Rules]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#specifying-field-rules" >}})）。
 
-After setting the optionality/repeatability of a field, you specify the data type. Protocol buffers support the usual primitive data types, such as integers, booleans, and floats. For the full list, see [Scalar Value Types](https://protobuf.dev/programming-guides/proto3#scalar).
+After setting the optionality/repeatability of a field, you specify the data type. Protocol buffers support the usual primitive data types, such as integers, booleans, and floats. For the full list, see [Scalar Value Types]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}}).
 
-​	在设置字段的可选性/重复性之后，您需要指定数据类型。Protocol Buffers 支持常见的原始数据类型，例如整数、布尔值和浮点数。完整列表请参阅 [标量值类型](https://protobuf.dev/programming-guides/proto3#scalar)。
+​	在设置字段的可选性/重复性之后，您需要指定数据类型。Protocol Buffers 支持常见的原始数据类型，例如整数、布尔值和浮点数。完整列表请参阅 [标量值类型]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3#scalar" >}})。
 
 A field can also be of:
 
@@ -276,9 +276,9 @@ In proto2, messages can allow **extensions** to define fields outside of the mes
 
 ​	在 proto2 中，消息可以通过 **扩展** 定义消息外部的字段。例如，protobuf 库的内部消息模式允许为自定义、特定用途的选项进行扩展。
 
-For more information about the options available, see the language guide for [proto2](https://protobuf.dev/programming-guides/proto2) or [proto3](https://protobuf.dev/programming-guides/proto3).
+For more information about the options available, see the language guide for [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) or [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}).
 
-​	有关可用选项的更多信息，请参阅 [proto2](https://protobuf.dev/programming-guides/proto2) 或 [proto3](https://protobuf.dev/programming-guides/proto3) 的语言指南。
+​	有关可用选项的更多信息，请参阅 [proto2]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) 或 [proto3]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) 的语言指南。
 
 After setting optionality and field type, you choose a name for the field. There are some things to keep in mind when setting field names:
 
@@ -287,8 +287,8 @@ After setting optionality and field type, you choose a name for the field. There
 - It can sometimes be difficult, or even impossible, to change field names after they’ve been used in production.
   - 一旦字段名称被用于生产环境，可能会很难甚至无法更改。
 
-- Field names cannot contain dashes. For more on field name syntax, see [Message and Field Names](https://protobuf.dev/programming-guides/style#message-field-names).
-  - 字段名称不能包含短划线。有关字段名称语法的更多信息，请参阅 [消息和字段名称](https://protobuf.dev/programming-guides/style#message-field-names)。
+- Field names cannot contain dashes. For more on field name syntax, see [Message and Field Names]({{< ref "/docs/ProgrammingGuides/StyleGuide#message-field-names" >}}).
+  - 字段名称不能包含短划线。有关字段名称语法的更多信息，请参阅 [消息和字段名称]({{< ref "/docs/ProgrammingGuides/StyleGuide#message-field-names" >}})。
 
 - Use pluralized names for repeated fields.
   - 对于重复字段，请使用复数形式的名称。
@@ -300,15 +300,15 @@ After assigning a name to the field, you assign a field number. Field numbers ca
 
 ## 额外的数据类型支持 Additional Data Type Support
 
-Protocol buffers support many scalar value types, including integers that use both variable-length encoding and fixed sizes. You can also create your own composite data types by defining messages that are, themselves, data types that you can assign to a field. In addition to the simple and composite value types, several [common types](https://protobuf.dev/programming-guides/dos-donts#common) are published.
+Protocol buffers support many scalar value types, including integers that use both variable-length encoding and fixed sizes. You can also create your own composite data types by defining messages that are, themselves, data types that you can assign to a field. In addition to the simple and composite value types, several [common types]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices#common" >}}) are published.
 
-​	Protocol Buffers 支持多种标量值类型，包括使用可变长度编码和固定大小的整数。您还可以通过定义 `message` 类型来创建复合数据类型。除了简单和复合值类型之外，还发布了一些 [常用类型](https://protobuf.dev/programming-guides/dos-donts#common)。
+​	Protocol Buffers 支持多种标量值类型，包括使用可变长度编码和固定大小的整数。您还可以通过定义 `message` 类型来创建复合数据类型。除了简单和复合值类型之外，还发布了一些 [常用类型]({{< ref "/docs/ProgrammingGuides/ProtoBestPractices#common" >}})。
 
 ## 历史 History
 
-To read about the history of the protocol buffers project, see [History of Protocol Buffers](https://protobuf.dev/history).
+To read about the history of the protocol buffers project, see [History of Protocol Buffers]({{< ref "/docs/History" >}}).
 
-​	要了解 Protocol Buffers 项目的历史，请参阅 [Protocol Buffers 历史](https://protobuf.dev/history)。
+​	要了解 Protocol Buffers 项目的历史，请参阅 [Protocol Buffers 历史]({{< ref "/docs/History" >}})。
 
 ## Protocol Buffers 开源哲学 Protocol Buffers Open Source Philosophy
 

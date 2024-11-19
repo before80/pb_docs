@@ -18,7 +18,7 @@ Describes exactly what Python definitions the protocol buffer compiler generates
 
 
 
-Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base message classes/interfaces, which are the same in both versions. You should read the [proto2 language guide](https://protobuf.dev/programming-guides/proto2) and/or [proto3 language guide](https://protobuf.dev/programming-guides/proto3) before reading this document.
+Any differences between proto2 and proto3 generated code are highlighted - note that these differences are in the generated code as described in this document, not the base message classes/interfaces, which are the same in both versions. You should read the [proto2 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto2" >}}) and/or [proto3 language guide]({{< ref "/docs/ProgrammingGuides/LanguageGuideproto3" >}}) before reading this document.
 
 The Python Protocol Buffers implementation is a little different from C++ and Java. In Python, the compiler only outputs code to build descriptors for the generated classes, and a [Python metaclass](https://docs.python.org/2.7/reference/datamodel#metaclasses) does the real work. This document describes what you get *after* the metaclass has been applied.
 
@@ -87,7 +87,7 @@ In this case, the `Bar` class is declared as a static member of `Foo`, so you ca
 
 ## Well Known Types
 
-Protocol buffers provides a number of [well-known types](https://protobuf.dev/reference/protobuf/google.protobuf) that you can use in your .proto files along with your own message types. Some WKT messages have special methods in addition to the usual protocol buffer message methods, as they subclass both [`google.protobuf.Message`](https://googleapis.dev/python/protobuf/latest/google/protobuf/message.html#google.protobuf.message.Message) and a WKT class.
+Protocol buffers provides a number of [well-known types]({{< ref "/docs/ReferenceGuides/ProtocolBuffers/Well-KnownTypes" >}}) that you can use in your .proto files along with your own message types. Some WKT messages have special methods in addition to the usual protocol buffer message methods, as they subclass both [`google.protobuf.Message`](https://googleapis.dev/python/protobuf/latest/google/protobuf/message.html#google.protobuf.message.Message) and a WKT class.
 
 ### Any
 
@@ -428,7 +428,7 @@ foo.bars.extend([Bar(i=15), Bar(i=17)])
 
 **Note that groups are deprecated and should not be used when creating new message types – use nested message types instead.**
 
-A group combines a nested message type and a field into a single declaration, and uses a different [wire format](https://protobuf.dev/programming-guides/encoding) for the message. The generated message has the same name as the group. The generated field’s name is the **lowercased** name of the group.
+A group combines a nested message type and a field into a single declaration, and uses a different [wire format]({{< ref "/docs/ProgrammingGuides/Encoding" >}}) for the message. The generated message has the same name as the group. The generated field’s name is the **lowercased** name of the group.
 
 For example, except for wire format, the following two message definitions are equivalent:
 
